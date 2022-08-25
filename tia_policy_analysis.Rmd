@@ -493,6 +493,7 @@ _For now this only allows choices for crop, with other defaults applied_
 1. Allow user inputs.
 
 ```{r user inputs}
+#create the Shiny UI
 ui<-fluidPage(
   titlePanel("Custom Histogram"),
   sidebarLayout(
@@ -520,7 +521,7 @@ biome<-"All"
 ```
 2. Display custom plot based on user inputs
 ```{r customize plot}
-
+# create a custom function
 crop_histogram<-function(crop,data,what2plot,continent,biome){
     if(crop!="All"){
       if(crop=="corn"){
@@ -547,20 +548,15 @@ crop_histogram<-function(crop,data,what2plot,continent,biome){
       scale_fill_brewer(type="div",palette="RdYlBu",direction=1,aesthetics=c("fill"))
 }
 
-
+# create the shiny Server
 server<-function(input, output){
   output$custom_plot1<-renderPlot({
     crop_histogram(crop=input$crop,data=policy_long,what2plot=what2plot,continent=continent,biome=biome)
     })
 }
-
+# create the Shiny App
 shinyApp(ui=ui,server=server)
 
-#if(what2plot!="Policy Recommendations"){}
-
-#if(continent!="All"){}
-
-#if(biome!="All"){}
 ```
 
 # Questions and Next Steps
