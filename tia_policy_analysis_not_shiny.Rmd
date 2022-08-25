@@ -1,0 +1,573 @@
+---
+title: "Trees in Agriculture Policy Analysis"
+author: "Lisa Meixner McCullough"
+date: '2022-08-15'
+output:
+  html_document:
+    code_folding: hide
+    theme: lumen
+    highlight: espresso
+    toc: true
+    number_section: true
+    toc_float: true
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
+require(knitr)
+require(RColorBrewer)
+```
+
+# This is R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+# Document Purpose
+In this workbook, I will  
+1. Describe the pre-code data cleaning of the Trees in Agriculture policy recommendation data acquired by expert elicitation  
+2. Reshape the data into wide form and long form and export these as csvs  
+3. Use the long form data to visualize experts' rankings of policy recommendations  
+4. Outline questions and next steps
+
+# Please note
+- The csvs created by this code have been written to Lisa's personal OneDrive. 
+  - Link to view: https://conservation-my.sharepoint.com/:f:/g/personal/lmccullough_conservation_org/EuZlw83SDMhIj6wDobOJGVABM_oBhDYmZhalvVh2UnG7rA?e=d1L6HS
+  - The key documents (only ones you might want to use) in this folder are:
+      -```tia1_policy_wide.csv```
+      -```tia`_policy_long.csv```
+      - you can open these in Excel by double clicking on them
+      
+
+# Initial Data Cleaning Protocol
+Pre-upload to R, the data was cleaned in Excel using the following protocol:  
+1. I renamed columns to be simple variable descriptions as opposed to full length question  
+2. I removed the following columns because they were not important to data analysis:  start time, completion time, choice to accept/waive honorarium, email, authorization of use  
+3. I replaced all commas, in the entire document, with semi-colons. This is so commas within cells would not cause parsing errors when sheet was in csv format.  
+4. For any ranking question, I recoded information from the ranked and manual entry into two columns: ranked Important and ranked Not important. I used the following protocol:   
+- If an expert manually input a number that was not an option, e.g. "10", I deleted these instances (rather than assuming they meant "1", etc).
+- Some people manually input other reasons; I simplified these to "Other" and put "Other" in the list of important reasons immediately following the most closely relevant numbered suggestion.
+- If people input both in ranking entry and in manual entry, I used the manual entry and disregarded the ranking entry, even if they conflicted.
+- For any items "not important" I listed them in the order ranked, though the ranking is not technically relevant.
+- If manual entry was chosen, but not all items were listed, I assumed the unlisted items were "not important" and recorded them thusly.
+- If manual entry was used, and both important and unimportant items were listed, but the list was not complete, I categorized other items based on the ranked list, if the ranked list otherwise matched the manual list.
+- If an expert made all reasons important, then they therefore thought "None" were unimportant. (Thus language used). If the expert did not answer the question, then NA is used. 
+
+
+# Convert data to wide format
+```{r workbook, message=F}
+#read csv
+policy_raw<-read_delim("TIA_Policy.csv",delim=",",col_names=T)
+```
+## A view of the imported, pre-processed data
+```{r tables-policy_raw}
+knitr::kable(policy_raw[1:5,],caption='Following edits made in Excel, this is the data that was imported to R')
+```
+
+## Code to create a wide format document
+1. Use the tidyverse function ```separate()``` to separate out each ranked reason or policy into its own column.
+```{r convert to wide, warning=F}
+#prepare to store output as policy_wide
+policy_wide<-
+  #start with raw data
+  policy_raw %>%
+  
+  #separate columns: Why Trees in Corn Boundaries?
+  separate(cornBImp,into=c("CBP1","CBP2","CBP3","CBP4","CBP5","CBP6","CBP7","CBP8","CBP9"),sep=";")%>%
+  separate(cornBNImp,into=c("CBN1","CBN2","CBN3","CBN4","CBN5","CBN6","CBN7","CBN8","CBN9"),sep=";")%>%
+  
+  #separate columns: Why Trees in Corn Fields?
+  separate(cornFImp,into=c("CFP1","CFP2","CFP3","CFP4","CFP5","CFP6","CFP7","CFP8","CFP9"),sep=";")%>%
+  separate(cornFNImp,into=c("CFN1","CFN2","CFN3","CFN4","CFN5","CFN6","CFN7","CFN8","CFN9"),sep=";")%>%
+  
+  #separate columns: Why Trees in Wheat Boundaries?
+  separate(wheatBImp,into=c("WBP1","WBP2","WBP3","WBP4","WBP5","WBP6","WBP7","WBP8","WBP9"),sep=";")%>%
+  separate(wheatBNImp,into=c("WBN1","WBN2","WBN3","WBN4","WBN5","WBN6","WBN7","WBN8","WBN9"),sep=";")%>%
+  
+  #separate columns: Why Trees in Wheat Fields?
+  separate(wheatFImp,into=c("WFP1","WFP2","WFP3","WFP4","WFP5","WFP6","WFP7","WFP8","WFP9"),sep=";")%>%
+  separate(wheatFNImp,into=c("WFN1","WFN2","WFN3","WFN4","WFN5","WFN6","WFN7","WFN8","WFN9"),sep=";")%>%
+  
+  #separate columns: Why Trees in Soy Boundaries?
+  separate(soyBImp,into=c("SBP1","SBP2","SBP3","SBP4","SBP5","SBP6","SBP7","SBP8","SBP9"),sep=";")%>%
+  separate(soyBNImp,into=c("SBN1","SBN2","SBN3","SBN4","SBN5","SBN6","SBN7","SBN8","SBN9"),sep=";")%>%
+  
+  #separate columns: Why Trees in Soy Fields?
+  separate(soyFImp,into=c("SFP1","SFP2","SFP3","SFP4","SFP5","SFP6","SFP7","SFP8","SFP9"),sep=";")%>%
+  separate(soyFNImp,into=c("SFN1","SFN2","SFN3","SFN4","SFN5","SFN6","SFN7","SFN8","SFN9"),sep=";")%>%
+  
+  #separate columns: What policy recommendations would help increase tree density?
+  separate(policiesImp,into=c("A1","A2","A3","A4","A5","A6"),sep=";")%>%
+  separate(policiesNImp,into=c("AN1","AN2","AN3","AN4","AN5","AN6"),sep=";")
+
+```
+
+2. Export reshaped, wide data to working directory as a csv named ```tia1_policy_wide.csv```
+```{r write wide data as csvs}
+#write.csv(policy_wide,file="tia1_policy_wide.csv")
+```
+
+## Code to create multiple long format documents
+Use the tidyverse function ```reshape``` to convert the wide format dataset to its long form.
+
+1. Name which columns are linked to each data question using base function ```grep``` and regular expressions.
+```{r name columns in wide}
+#CORN
+#corn boundary columns - important reasons
+cornB_cols<-grep("CBP.",x=colnames(policy_wide),value=T)
+#corn boundary columns - not important reasons
+cornNB_cols<-grep("CBN.",x=colnames(policy_wide),value=T)
+#corn field columns - important reasons
+cornF_cols<-grep("CFP.",x=colnames(policy_wide),value=T)
+#corn field columns - not important reasons
+cornNF_cols<-grep("CFN.",x=colnames(policy_wide),value=T)
+
+#WHEAT
+#wheat boundary columns - important reasons
+wheatB_cols<-grep("WBP.",x=colnames(policy_wide),value=T)
+#wheat boundary columns - not important reasons
+wheatNB_cols<-grep("WBN.",x=colnames(policy_wide),value=T)
+#wheat field columns - important reasons
+wheatF_cols<-grep("WFP.",x=colnames(policy_wide),value=T)
+#wheat field columns - not important reasons
+wheatNF_cols<-grep("WFN.",x=colnames(policy_wide),value=T)
+
+#SOY
+#soy boundary columns - important reasons
+soyB_cols<-grep("SBP.",x=colnames(policy_wide),value=T)
+#soy boundary columns - not important reasons
+soyNB_cols<-grep("SBN.",x=colnames(policy_wide),value=T)
+#soy field columns - important reasons
+soyF_cols<-grep("SFP.",x=colnames(policy_wide),value=T)
+#soy field columns - not important reasons
+soyNF_cols<-grep("SFN.",x=colnames(policy_wide),value=T)
+
+#POLICY
+#policy columns - important policies
+policy_cols<-grep("A[0-9]",x=colnames(policy_wide),value=T)
+#policy columns - not important policies
+policyN_cols<-grep("AN[0-9]",x=colnames(policy_wide),value=T)
+
+#Store all of these groups into two lists
+b_cols<-data.frame(cornB_cols,cornNB_cols,wheatB_cols,wheatNB_cols,soyB_cols,soyNB_cols)
+f_cols<-data.frame(cornF_cols,cornNF_cols,wheatF_cols,wheatNF_cols,soyF_cols,soyNF_cols)
+p_cols<-data.frame(policy_cols,policyN_cols)
+```
+
+2. Describe Variables for Tidy / Long form data
+
+_There are five meaningful variables to be included in the long form/tidy dataset that are hidden within the wide dataset._  
+
+- ```crop``` an unordered factor with three levels:  ```soy```,```wheat```,```corn```  
+- ```boundaryReason``` an unordered factor with nine levels: ```acts as barrier or living fence```, ```acts as windbreak```, ```produces something of extractive value```, ```improves microclimate```, ```improves soil```, ```provides habitat```, ```aesthetics```, ```farmers compensated```, ```trees already present```, which correspond to the following:  
+  - 1 The trees are a barrier or living fence or mark the property or field boundary   
+  - 2 The trees are windbreaks   
+  - 3 The trees are producing something of extractive value (ie. timber, fuelwood, fruit, animal forage, other)   
+  - 4 The trees improve the microclimate (provide shade, sunlight or temperature control, water retention, etc.)   
+  - 5 The trees improve the soil (retention, nutrients, etc.) 
+  - 6 The trees provide habitat (pollinators, beneficial predators, beneficial biodiversity) 
+  - 7 The trees are visually pleasing 
+  - 8 Farmers are compensated for the presence of trees as a result of a policy 
+  - 9 The trees were already present and were not removed 
+- ```fieldReason``` an unordered factor with nine levels: ```produces something of extractive value```, ```acts as windbreak```, ```improves microclimate```, ```improves soil```, ```provides habitat```, ```aesthetics```, ```farmers compensated```, ```trees already present```, ```other cultural/historical reason```, which correspond to the following:  
+  - 1 The trees are producing something of extractive value (ie. timber, fuelwood, fruit, animal forage, other) 
+  - 2 The trees are windbreaks 
+  - 3 The trees improve the microclimate (provide shade, sunlight or temperature control, water retention, etc.) 
+  - 4 The trees improve the soil (retention, nutrients, etc.) 
+  - 5 The trees provide habitat (pollinators, beneficial predators, beneficial biodiversity) 
+  - 6 The trees are visually pleasing 
+  - 7 Farmers are compensated for the presence of trees as a result of a policy 
+  - 8 The trees were already present and were not removed 
+  - 9 Other historical or cultural practice not listed above 
+  
+- ```policy``` an unordered factor with six levels: ```research```,```develop shade-grown variatals```,``` develop/reform policy```,```provision inputs```,```expand ag extension services```,```expand carbon crediting/verification```, which correspond to:  
+  - Research on tree-crop interactions 
+  - Development of shade-tolerant crop varieties 
+  - Policy development and/or reform 
+  - Provisioning of inputs 
+  - Agricultural extension services for technical assistance 
+  - Carbon crediting/certification methods for these systems 
+  - *_Note:_* ```policy``` is relevant to biome-continent pair and all cropland in this region. However, if doing higher level analysis (at biome-continent level), we should be wary of double counting. Unchecked, experts that responded for more than one crop would have their policy recommendations counted multiple times.  
+- ```priority``` an ordered factor with ten levels:  ```First```, ```Second```, ```Third```, ```Fourth```, ```Fifth```, ```Sixth```, ```Seventh```, ```Eighth```, ```Ninth```, ```Not Meaningful```.  
+  - all reasons or policies that the experts called not important would receive the rank ```Not Meaningful```
+  - ```boundaryReason``` and ```fieldReason``` can use any of these levels; ```policyRecommendation``` uses only ```Not Meaningful``` and levels ```First``` through ```Sixth```.
+
+
+_There are seven other meaningful variables that do not change from wide to long/tidy data:_
+
+- relevant for  quantitative analysis: 
+  - ```continent```, an unordered factor with five levels: ```Africa```, ```Asia (includes Middle East)```, ```Europe```, ```North/Central America (includes Caribbean)``` and ```South America```
+  - ```biome```, an unordered factor with seven levels: ```Boreal Forests & Taiga```, ```Mediterranean Forests; Woodland; & Scrub```, ```Temperate Broadleaf & Mixed Forests```, ```Tropical & Subtropical Dry Broadleaf Forests```, ```Tropical & Subtropical Moist Broadleaf Forests```,```Temperate Grasslands; Savannas & Shrublands```, ```Tropical & Subtropical Grasslands; Savannas; and Shrublands```
+- relevant for qualitative analysis: ```repTree```,```countryExpertise```
+  - ```repTree``` and ```countryExpertise``` would require cleaning prior to quantitative analysis, generally the entries are unique to the expert 
+- relevant for IDing instances of completing questionnaire: ```id```
+  - alas, one expert (Pierluigi) completed questionnaire three times, for three different tree species. so ```name``` combined with ```repTree``` can also ID a unique questionnaire response, but ```name``` alone cannot
+  - ```institution``` provides more info about expert, but we want to avoid assumption that experts could not share the same institution
+
+```{r name factor variables and levels}
+crop<-c("corn","wheat","soy")
+b_or_f<-c("boundaries","fields")
+
+reason<-c("acts as barrier or living fence", "acts as windbreak", "produces something of extractive  value", "improves microclimate", "improves soil", "provides habitat", "aesthetics", "farmers compensated", "trees already present", "other cultural/historical reason")
+reasonImportance<-c("Top","Second","Third","Fourth","Fifth","Sixth","Seventh","Eighth","Last","Not Meaningful", "Not Meaningful","Not Meaningful","Not Meaningful","Not Meaningful","Not Meaningful","Not Meaningful","Not Meaningful","Not Meaningful")
+
+policy<-c("research","develop shade-grown variatals","develop/reform policy","provision inputs","expand ag extension services","expand carbon crediting/verification")
+policyPriority<-c("Top","Second","Third","Fourth","Fifth","Last","Not Meaningful","Not Meaningful", "Not Meaningful","Not Meaningful","Not Meaningful","Not Meaningful")
+
+general_cols<-c("continent","biome","repTree","name","id","institution","countryExpertise")
+```
+1. Subset dataframes
+```{r subset wide data, warning=F}
+#subset trees in boundaries data
+wide_wb<-subset(policy_wide,select=c(general_cols,wheatB_cols,wheatNB_cols),value=T)
+wide_cb<-subset(policy_wide,select=c(general_cols,cornB_cols,cornNB_cols),value=T)
+wide_sb<-subset(policy_wide,select=c(general_cols,soyB_cols,soyNB_cols),value=T)
+
+#subset trees in fields data
+wide_wf<-subset(policy_wide,select=c(general_cols,wheatF_cols,wheatNF_cols),value=T)
+wide_cf<-subset(policy_wide,select=c(general_cols,cornF_cols,cornNF_cols),value=T)
+wide_sf<-subset(policy_wide,select=c(general_cols,soyF_cols,soyNF_cols),value=T)
+
+#subset policy  data
+wide_p<-subset(policy_wide,select=c(general_cols,policy_cols,policyN_cols),value=T)
+```
+2. Create Long Formats of Subset dataframes
+```{r create long forms, warning=F}
+#CREATE LONG FORMATS OF SUBSET DATAFRAMES
+#boundary data frames
+#corn 
+long_cb<-
+  wide_cb%>%
+  #reshape this chosen data frame from wide to long
+  reshape(
+                     direction="long",
+                     varying=c(cornB_cols,cornNB_cols),
+                     v.name="reason",
+                     timevar="reasonImportance",
+                     idvar="id",
+                     times=reasonImportance,
+                     new.row.names=1:1000
+                     )%>%
+  #create crop column and b_or_f column and code with appropriate values
+  #and recode reason column to use informative names (that don't appear ordered)
+  mutate(
+    crop="corn",
+    b_or_f="boundary",
+    reason=
+      recode(reason,
+             "1"="acts as barrier or living fence", 
+             "2"="acts as windbreak", 
+             "3"="produces something of extractive  value", 
+             "4"="improves microclimate", 
+             "5"="improves soil", 
+             "6"="provides habitat", 
+             "7"="aesthetics", 
+             "8"="farmers compensated", 
+             "9"="trees already present")
+    )%>%
+  #in order to reduce object size, remove instances of reason = NA
+  dplyr::filter(!is.na(reason))
+#wheat
+long_wb<-
+  wide_wb%>%
+  #reshape this chosen data frame from wide to long
+  reshape(
+                     direction="long",
+                     varying=c(wheatB_cols,wheatNB_cols),
+                     v.name="reason",
+                     timevar="reasonImportance",
+                     idvar="id",
+                     times=reasonImportance,
+                     new.row.names=1:1000
+                     )%>%
+  mutate(
+    crop="wheat",
+    b_or_f="boundary",
+    reason=
+      recode(reason,
+             "1"="acts as barrier or living fence", 
+             "2"="acts as windbreak", 
+             "3"="produces something of extractive  value", 
+             "4"="improves microclimate", 
+             "5"="improves soil", 
+             "6"="provides habitat", 
+             "7"="aesthetics", 
+             "8"="farmers compensated", 
+             "9"="trees already present")
+    )%>%
+  #in order to reduce object size, remove instances of reason = NA
+  dplyr::filter(!is.na(reason))
+#soy
+long_sb<-
+  wide_sb%>%
+  #reshape this chosen data frame from wide to long
+  reshape(
+                     direction="long",
+                     varying=c(soyB_cols,soyNB_cols),
+                     v.name="reason",
+                     timevar="reasonImportance",
+                     idvar="id",
+                     times=reasonImportance,
+                     new.row.names=1:1000
+                     )%>%
+  mutate(
+    crop="soy",
+    b_or_f="boundary",
+    reason=
+      recode(reason,
+             "1"="acts as barrier or living fence", 
+             "2"="acts as windbreak", 
+             "3"="produces something of extractive  value", 
+             "4"="improves microclimate", 
+             "5"="improves soil", 
+             "6"="provides habitat", 
+             "7"="aesthetics", 
+             "8"="farmers compensated", 
+             "9"="trees already present")
+  )%>%
+  #in order to reduce object size, remove instances of reason = NA
+  dplyr::filter(!is.na(reason))
+
+#field data frames
+#corn
+long_cf<-
+  wide_cf%>%
+  #reshape this chosen data frame from wide to long
+  reshape(
+                     direction="long",
+                     varying=c(cornF_cols,cornNF_cols),
+                     v.name="reason",
+                     timevar="reasonImportance",
+                     idvar="id",
+                     times=reasonImportance,
+                     new.row.names=1:1000
+                     )%>%
+  mutate(
+    crop="corn",
+    b_or_f="field",
+    reason=
+      recode(reason,
+             "1"="acts as windbreak", 
+             "2"="produces something of extractive  value", 
+             "3"="improves microclimate", 
+             "4"="improves soil", 
+             "5"="provides habitat", 
+             "6"="aesthetics", 
+             "7"="farmers compensated", 
+             "8"="trees already present",
+             "9"="other cultural/historical reason")
+    )%>%
+  #in order to reduce object size, remove instances of reason = NA
+  dplyr::filter(!is.na(reason))
+#wheat
+long_wf<-
+  wide_wf%>%
+  #reshape this chosen data frame from wide to long
+  reshape(
+                     direction="long",
+                     varying=c(wheatF_cols,wheatNF_cols),
+                     v.name="reason",
+                     timevar="reasonImportance",
+                     idvar="id",
+                     times=reasonImportance,
+                     new.row.names=1:1000
+                     )%>%
+  mutate(
+    crop="wheat",
+    b_or_f="field",
+    reason=
+      recode(reason,
+             "1"="acts as windbreak", 
+             "2"="produces something of extractive  value", 
+             "3"="improves microclimate", 
+             "4"="improves soil", 
+             "5"="provides habitat", 
+             "6"="aesthetics", 
+             "7"="farmers compensated", 
+             "8"="trees already present",
+             "9"="other cultural/historical reason")
+    )%>%
+  #in order to reduce object size, remove instances of reason = NA
+  dplyr::filter(!is.na(reason))
+#soy
+long_sf<-
+  wide_sf%>%
+  #reshape this chosen data frame from wide to long
+  reshape(
+                     direction="long",
+                     varying=c(soyF_cols,soyNF_cols),
+                     v.name="reason",
+                     timevar="reasonImportance",
+                     idvar="id",
+                     times=reasonImportance,
+                     new.row.names=1:1000
+                     )%>%
+  mutate(
+    crop="soy",
+    b_or_f="field",
+    reason=
+      recode(reason,
+             "1"="acts as windbreak", 
+             "2"="produces something of extractive  value", 
+             "3"="improves microclimate", 
+             "4"="improves soil", 
+             "5"="provides habitat", 
+             "6"="aesthetics", 
+             "7"="farmers compensated", 
+             "8"="trees already present",
+             "9"="other cultural/historical reason")
+    )%>%
+  #in order to reduce object size, remove instances of reason = NA
+  dplyr::filter(!is.na(reason))
+#policy data frames
+long_p<-
+  wide_p%>%
+  #reshape this chosen data frame from wide to long
+  reshape(
+                     direction="long",
+                     varying=c(policy_cols,policyN_cols),
+                     v.name="policy",
+                     timevar="policyPriority",
+                     idvar="id",
+                     times=policyPriority,
+                     new.row.names=1:1000
+                     )%>%
+  mutate(
+    policy=recode(policy,
+                  "1"="research",
+                  "2"="develop shade-grown variatals",
+                  "3"="develop/reform policy",
+                  "4"="provision inputs",
+                  "5"="expand ag extension services",
+                  "6"="expand carbon crediting/verification")
+  )%>%
+  #in order to reduce object size, remove instances of reason = NA
+  dplyr::filter(!is.na(policy))
+
+```
+3. Write long dataframe to folder as csv and subsetted versions of this to subfolder ```tia1_long_data```
+```{r write long data csvs, message=FALSE}
+#clear environment to free up space
+env_all<-ls() #returns names of all objects
+env_not_needed<-env_all[! env_all %in% c("general_cols","long_p","long_cb","long_wb","long_sb","long_cf","long_wf","long_sf")] #only objects we don't need anymore
+rm(list=env_not_needed) #removes objects we don't need anymore
+
+policy_long<-
+  long_cb%>%
+  full_join(long_wb)%>%
+  full_join(long_sb)%>%
+  full_join(long_cf)%>%
+  full_join(long_wf)%>%
+  full_join(long_sf)%>%
+  full_join(long_p,by=general_cols)%>%
+  mutate_at(vars(reasonImportance),factor,levels=c("Not Meaningful","Last","Eighth","Seventh","Sixth","Fifth","Fourth","Third","Second","Top"))%>%
+  mutate_at(vars(policyPriority),factor,levels=c("Not Meaningful","Last","Fifth","Fourth","Third","Second","Top"))
+write.csv(policy_long, file="tia1_policy_long.csv")
+
+#write csvs of subsetted long data
+setwd("./tia1_long_data")
+write.csv(long_p, file="tia1_policyRecs_long.csv")
+write.csv(long_cb, file="tia1_cornBound_long.csv")
+write.csv(long_wb, file="tia1_wheatBound_long.csv")
+write.csv(long_sb, file="tia1_soyBound_long.csv")
+write.csv(long_cf, file="tia1_cornField_long.csv")
+write.csv(long_wf, file="tia1_wheatField_long.csv")
+write.csv(long_sf, file="tia1_soyField_long.csv")
+
+
+```
+
+# Visualize Data
+_For now this only shows choices for crop, with other defaults applied_
+- Defaults
+  - It will plot "Reasons for Trees in Boundaries or in Fields"
+  - It will include responses for all continents and all biomes
+
+1. Create Histogram Function
+
+```{r function}
+
+crop_histogram<-function(crop,data,what2plot,continent,biome){
+    if(crop!="All"){
+      if(crop=="corn"){
+        data<-data%>%filter(crop=="corn")
+        }
+      if(crop=="wheat"){
+        data<-data%>%filter(crop=="wheat")
+        }
+      if(crop=="soy"){
+        data<-data%>%filter(crop=="soy")
+        }
+    }
+    dimDistinct<-transmute(data,name=name,repTree=repTree)%>%distinct()%>%dim()
+  numResp<-dimDistinct[1]
+
+  data%>%
+    filter(reason!="Other"&reason!="None"&!is.na(reason))%>%
+    ggplot(mapping=aes(x=reason)) +
+      geom_bar(position="fill",aes(fill=reasonImportance))+
+      coord_flip()+
+      labs(y="Proportion of Reponses",x=what2plot,title="Expert Responses",subtitle=paste("Continent:",continent," Biome:",biome," Crop:",crop),caption=paste("Number of Unique Responses:",as.character(numResp)))+
+      theme_minimal()+
+      scale_fill_brewer(type="div",palette="RdYlBu",direction=-1,aesthetics=c("fill"))
+}
+
+```
+2. Display plot for All Crops
+```{r all crop plot}
+#initialize defaults
+what2plot<-"Reasons for Trees in Fields or in Boundaries"
+continent<-"All"
+biome<-"All"
+
+
+crop_histogram(crop="All",data=policy_long,what2plot=what2plot,continent=continent,biome=biome)
+
+```
+
+2. Display plot for Corn
+```{r corn plot}
+crop_histogram(crop="corn",data=policy_long,what2plot=what2plot,continent=continent,biome=biome)
+```
+
+3. Display plot for Wheat
+```{r wheat plot}
+crop_histogram(crop="wheat",data=policy_long,what2plot=what2plot,continent=continent,biome=biome)
+```
+
+2. Display plot for Soy
+```{r soy plot}
+crop_histogram(crop="soy",data=policy_long,what2plot=what2plot,continent=continent,biome=biome)
+```
+
+
+# Questions and Next Steps
+
+## Graphing options
+1. At your request I can add other user inputs (for different combinations of biome, continent, policy recommendations/reasons for fields/reasons for boundaries)
+
+2. I can also export plots from R as jpegs.
+
+3. Colors, style, etc are mutable.
+
+4. We can make other kinds of graphs: pie charts, side-by-side bar charts, and more.
+
+## I have three data questions:
+
+1. How do you want to handle the rare instances where experts typed in their own "reason" or "policy recommendation"  
+- Exclude these from quantitative analysis but mention them in discussion
+- Choose the reason that is most closely connected to the reason they describe, but mention their nuance in the discussion
+
+2. One expert (Pierluigi) filled out the questionnaire three times, each for a unique representative tree. How do you want to handle this?
+- keep just one of Pierluigi's responses, so that the "unique responses" are just "one per expert"
+- expand all representative tree species columns for every expert, and treat them as having a unique (though duplicated) response for each tree
+- do nothing, allow Pierluigi to have contributed three unique responses
+
+3. Do you consider it ever meaningful to combine "reasons trees in boundaries" and "reasons trees in fields" for comparison between continent-biome pairs?
+- I did so in this document just to demonstrate
+- it's also possible to keep these totally separate
+- it's slightly misleading to combine them, because only 8/9 of the options overlapped.
