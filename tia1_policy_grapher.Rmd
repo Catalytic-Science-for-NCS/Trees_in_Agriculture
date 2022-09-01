@@ -3,16 +3,18 @@ title: "Trees in Agriculture Policy Analysis"
 author: "Lisa Meixner McCullough"
 date: '2022-08-15'
 output:
+  word_document:
+    toc: yes
   html_document:
     code_folding: hide
     theme: lumen
     highlight: espresso
-    toc: true
-    number_section: true
-    toc_float: true
+    toc: yes
+    number_section: yes
+    toc_float: yes
     fig_width: 7
     fig_height: 6
-    fig_caption: true
+    fig_caption: yes
     df_print: paged
 ---
 
