@@ -36,8 +36,9 @@ require(RColorBrewer)
 #read csv
 policy_long<-read_delim("tia1_policy_long.csv",delim=",",col_names=T)
 policy_long<-policy_long%>%
-  mutate_at(vars(reasonImportance),factor,levels=c("Not Meaningful","Last","Eighth","Seventh","Sixth","Fifth","Fourth","Third","Second","Top"))%>%
-  mutate_at(vars(policyPriority),factor,levels=c("Not Meaningful","Last","Fifth","Fourth","Third","Second","Top"))
+  mutate_at(vars(reasonImportance),factor,levels=c("Top","Second","Third","Fourth","Fifth","Sixth","Seventh","Eighth","Last","Not Meaningful"))%>%
+  mutate_at(vars(policyPriority),factor,levels=c("Top","Second","Third","Fourth","Fifth","Last","Not Meaningful"))
+write.csv(policy_long, file="tia1_policy_long.csv")
 
 ```
 
@@ -71,7 +72,7 @@ crop_histogram<-function(crop,data,what2plot,continent,biome){
       coord_flip()+
       labs(y="Proportion of Reponses",x=what2plot,title="Expert Responses",subtitle=paste("Continent:",continent," Biome:",biome," Crop:",crop),caption=paste("Number of Unique Responses:",as.character(numResp)))+
       theme_minimal()+
-      scale_fill_brewer(type="div",palette="RdYlBu",direction=-1,aesthetics=c("fill"))
+      scale_fill_brewer(type="div",palette="RdYlBu",direction=1,aesthetics=c("fill"))
 }
 
 ```

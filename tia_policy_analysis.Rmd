@@ -468,7 +468,9 @@ policy_long<-
   full_join(long_cf)%>%
   full_join(long_wf)%>%
   full_join(long_sf)%>%
-  mutate_at(vars(reasonImportance),factor,levels=c("Top","Second","Third","Fourth","Fifth","Sixth","Seventh","Eighth","Last","Not Meaningful"))
+  mutate_at(vars(reasonImportance),factor,levels=c("Not Meaningful","Last","Eighth","Seventh","Sixth","Fifth","Fourth","Third","Second","Top"))%>%
+  mutate_at(vars(policyPriority),factor,levels=c("Not Meaningful","Last","Fifth","Fourth","Third","Second","Top"))
+write.csv(policy_long, file="tia1_policy_long.csv")
 #write.csv(policy_long, file="tia1_policy_long.csv")
 
 #write csvs of subsetted long data
@@ -534,8 +536,7 @@ crop_histogram<-function(crop,data,what2plot,continent,biome){
         data<-data%>%filter(crop=="soy")
         }
     }
-  
-  dimDistinct<-transmute(data,name=name,repTree=repTree)%>%distinct()%>%dim()
+    dimDistinct<-transmute(data,name=name,repTree=repTree)%>%distinct()%>%dim()
   numResp<-dimDistinct[1]
 
   data%>%
@@ -545,7 +546,7 @@ crop_histogram<-function(crop,data,what2plot,continent,biome){
       coord_flip()+
       labs(y="Proportion of Reponses",x=what2plot,title="Expert Responses",subtitle=paste("Continent:",continent," Biome:",biome," Crop:",crop),caption=paste("Number of Unique Responses:",as.character(numResp)))+
       theme_minimal()+
-      scale_fill_brewer(type="div",palette="RdYlBu",direction=1,aesthetics=c("fill"))
+      scale_fill_brewer(type="div",palette="RdYlBu",direction=-1,aesthetics=c("fill"))
 }
 
 # create the shiny Server

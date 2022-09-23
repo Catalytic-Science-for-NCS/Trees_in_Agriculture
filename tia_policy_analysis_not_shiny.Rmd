@@ -7,13 +7,15 @@ output:
     code_folding: hide
     theme: lumen
     highlight: espresso
-    toc: true
-    number_section: true
-    toc_float: true
+    toc: yes
+    number_section: yes
+    toc_float: yes
     fig_width: 7
     fig_height: 6
-    fig_caption: true
+    fig_caption: yes
     df_print: paged
+  word_document:
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -65,7 +67,7 @@ policy_raw<-read_delim("TIA_Policy.csv",delim=",",col_names=T)
 ```
 ## A view of the imported, pre-processed data
 ```{r tables-policy_raw}
-knitr::kable(policy_raw[1:5,],caption='Following edits made in Excel, this is the data that was imported to R')
+#knitr::kable(policy_raw[1:5,],caption='Following edits made in Excel, this is the data that was imported to R')
 ```
 
 ## Code to create a wide format document
@@ -464,8 +466,8 @@ policy_long<-
   full_join(long_wf)%>%
   full_join(long_sf)%>%
   full_join(long_p,by=general_cols)%>%
-  mutate_at(vars(reasonImportance),factor,levels=c("Not Meaningful","Last","Eighth","Seventh","Sixth","Fifth","Fourth","Third","Second","Top"))%>%
-  mutate_at(vars(policyPriority),factor,levels=c("Not Meaningful","Last","Fifth","Fourth","Third","Second","Top"))
+  mutate_at(vars(reasonImportance),factor,levels=c("Top","Second","Third","Fourth","Fifth","Sixth","Seventh","Eighth","Last","Not Meaningful"))%>%
+  mutate_at(vars(policyPriority),factor,levels=c("Top","Second","Third","Fourth","Fifth","Last","Not Meaningful"))
 write.csv(policy_long, file="tia1_policy_long.csv")
 
 #write csvs of subsetted long data
@@ -492,7 +494,8 @@ _For now this only shows choices for crop, with other defaults applied_
 ```{r function}
 
 crop_histogram<-function(crop,data,what2plot,continent,biome){
-    if(crop!="All"){
+  #filter data to just crop requested 
+   if(crop!="All"){
       if(crop=="corn"){
         data<-data%>%filter(crop=="corn")
         }
@@ -503,20 +506,65 @@ crop_histogram<-function(crop,data,what2plot,continent,biome){
         data<-data%>%filter(crop=="soy")
         }
     }
+  
+  #calc number of unique responses
     dimDistinct<-transmute(data,name=name,repTree=repTree)%>%distinct()%>%dim()
   numResp<-dimDistinct[1]
+  
+#reorder reason based on frequency
+  #assign a value to reasonImportance
+  data<-data%>%
+    mutate(reasonValue=recode(reasonImportance,"Not Meaningful"=0,"Last"=1,"Eighth"=2,"Seventh"=3,"Sixth"=4,"Fifth"=5,"Fourth"=6,"Third"=7,"Second"=8,"Top"=9))
 
+  #initialize order data frame
+order<-array(data=NA,dim=c(length(unique(data$reason)),4), dimnames=list(NULL,c("reason","sum.b","sum.f","rank")))
+n=1
+  #for each reason, sum the reasonValues separately
+for(r in unique(data$reason)){
+  data.rb<-data%>%
+    filter(reason==r&b_or_f=="boundary")
+  data.rf<-data%>%
+    filter(reason==r&b_or_f=="field")
+  order[n,]<-c(r,
+              sum(data.rb$reasonValue),
+              sum(data.rf$reasonValue),
+              ifelse(min(c(sum(data.rb$reasonValue),sum(data.rf$reasonValue)))==0,
+                sum(sum(data.rb$reasonValue),sum(data.rf$reasonValue)),
+                mean(c(sum(data.rb$reasonValue),sum(data.rf$reasonValue)))
+              )
+  )
+  n=n+1
+}
+
+order<-order%>%
+  as.data.frame()%>%
+  mutate(rank=as.numeric(rank))%>%
+  arrange(rank)
+
+print(order)
+
+reasonOrder<-order$reason
+
+data<-data%>%
+  mutate_at(vars(reason),factor,levels=reasonOrder)%>%
+    filter(reason!="Other"&reason!="None"&!is.na(reason))
+
+#display graph
   data%>%
-    filter(reason!="Other"&reason!="None"&!is.na(reason))%>%
     ggplot(mapping=aes(x=reason)) +
       geom_bar(position="fill",aes(fill=reasonImportance))+
       coord_flip()+
       labs(y="Proportion of Reponses",x=what2plot,title="Expert Responses",subtitle=paste("Continent:",continent," Biome:",biome," Crop:",crop),caption=paste("Number of Unique Responses:",as.character(numResp)))+
+   # geom_text(aes(y=1,label=b_or_f,hjust="right"),
+   #           check_overlap = T,
+    #        nudge_y = 0.2) +
+  #guides(color = guide_legend(reverse=TRUE))+
       theme_minimal()+
-      scale_fill_brewer(type="div",palette="RdYlBu",direction=-1,aesthetics=c("fill"))
+      scale_fill_brewer(type="div",palette="RdYlBu",direction=1,aesthetics=c("fill"))
 }
 
 ```
+
 2. Display plot for All Crops
 ```{r all crop plot}
 #initialize defaults
@@ -526,7 +574,6 @@ biome<-"All"
 
 
 crop_histogram(crop="All",data=policy_long,what2plot=what2plot,continent=continent,biome=biome)
-
 ```
 
 2. Display plot for Corn
