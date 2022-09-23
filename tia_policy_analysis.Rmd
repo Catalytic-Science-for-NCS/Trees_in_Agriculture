@@ -109,10 +109,7 @@ policy_wide<-
 
 ```
 
-2. Export reshaped, wide data to working directory as a csv named ```tia1_policy_wide.csv```
-```{r write wide data as csvs}
-#write.csv(policy_wide,file="tia1_policy_wide.csv")
-```
+
 
 ## Code to create multiple long format documents
 Use the tidyverse function ```reshape``` to convert the wide format dataset to its long form.
@@ -452,8 +449,8 @@ long_p<-
   dplyr::filter(!is.na(policy))
 
 ```
-3. Write long dataframe to folder as csv and subsetted versions of this to subfolder ```tia1_long_data```
-```{r write long data csvs, message=FALSE}
+3. Clean long dataframe 
+```{r clean long data, message=FALSE}
 #clear environment to free up space
 env_all<-ls() #returns names of all objects
 env_not_needed<-env_all[! env_all %in% c("general_cols","long_p","long_cb","long_wb","long_sb","long_cf","long_wf","long_sf")] #only objects we don't need anymore
@@ -470,20 +467,6 @@ policy_long<-
   full_join(long_sf)%>%
   mutate_at(vars(reasonImportance),factor,levels=c("Not Meaningful","Last","Eighth","Seventh","Sixth","Fifth","Fourth","Third","Second","Top"))%>%
   mutate_at(vars(policyPriority),factor,levels=c("Not Meaningful","Last","Fifth","Fourth","Third","Second","Top"))
-write.csv(policy_long, file="tia1_policy_long.csv")
-#write.csv(policy_long, file="tia1_policy_long.csv")
-
-#write csvs of subsetted long data
-#setwd("./tia1_long_data")
-#write.csv(long_p, file="tia1_policyRecs_long.csv")
-#write.csv(long_cb, file="tia1_cornBound_long.csv")
-#write.csv(long_wb, file="tia1_wheatBound_long.csv")
-#write.csv(long_sb, file="tia1_soyBound_long.csv")
-#write.csv(long_cf, file="tia1_cornField_long.csv")
-#write.csv(long_wf, file="tia1_wheatField_long.csv")
-#write.csv(long_sf, file="tia1_soyField_long.csv")
-
-
 ```
 
 # Visualize Data
