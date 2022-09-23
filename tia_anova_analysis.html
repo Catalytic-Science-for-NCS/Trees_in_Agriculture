@@ -2976,32 +2976,14 @@ generated that includes both content as well as the output of any
 embedded R code chunks within the document. You can embed an R code
 chunk like this:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#include = TRUE (also this is the default) means in the knitted document, this code chunk will be printed</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidyverse) <span class="co">#This is a package - code that has lovely functions i want to use in this file</span></span></code></pre></div>
-<pre><code>## Loading required package: tidyverse</code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.5     v purrr   0.3.4
-## v tibble  3.1.6     v dplyr   1.0.8
-## v tidyr   1.2.0     v stringr 1.4.0
-## v readr   2.1.2     v forcats 0.5.1</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.1.3</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(knitr) <span class="co">#This package has a table function that I like; makes nice tables in final doc</span></span></code></pre></div>
-<pre><code>## Loading required package: knitr</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(RColorBrewer) <span class="co">#This package has great color vectors that are fab for discrete or continous datasets when making graphs</span></span></code></pre></div>
-<pre><code>## Loading required package: RColorBrewer</code></pre>
-</div>
-<div id="import-dataset" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Import dataset</h1>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#warning=FALSE mutes warnings, which once confirmed not to be problems are just eyesores</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#message=FALSE mutes messages, which once confirmed not to be problems are just eyesores</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidyverse) <span class="co">#This is a package - code that has lovely functions i want to use in this file</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(knitr) <span class="co">#This package has a table function that I like; makes nice tables in final doc</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(RColorBrewer) <span class="co">#This package has great color vectors that are fab for discrete or continous datasets when making graphs</span></span></code></pre></div>
+<div id="formatting-tips" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Formatting Tips</h2>
 <p><strong>P.S. THis is bold print</strong><br />
 <em>P.P.S. This is italics</em></p>
 <p>You have to add two spaces at the end of the line, and then hit
@@ -3010,16 +2992,167 @@ Otherwise a new line will not be created</p>
 <p>See:<br />
 I want to add a new line HERE but i forgot to add the two spaces after
 HERE</p>
-<div id="examine-the-anova11.csv-file" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Examine the
-<code>ANOVA11.csv</code> file</h2>
 </div>
-<div id="set-the-data-types-for-each-variable" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Set the data types
+</div>
+<div id="import-dataset" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Import dataset</h1>
+<div id="examine-the-anovadata11.csv-file" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Examine the
+<code>anovaData11.csv</code> file</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#the &lt;- operator stores data in a variable. below, data11 is the variable, and everthing to the right on that line is the data. you can see data11 appear in the environment, usually in the upperright of RStudio, once you run this code</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data11<span class="ot">&lt;-</span><span class="fu">read_delim</span>(<span class="st">&quot;anovaData11.csv&quot;</span>,<span class="at">delim=</span><span class="st">&quot;,&quot;</span>,<span class="at">col_names=</span>T)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#glimpse gives a cute lil look at your variable</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data11)</span></code></pre></div>
+<pre><code>## Rows: 56
+## Columns: 97
+## $ ID                                                                                                                                                                                                        &lt;chr&gt; ~
+## $ ANOVA                                                                                                                                                                                                     &lt;dbl&gt; ~
+## $ `Name (First Last):`                                                                                                                                                                                      &lt;chr&gt; ~
+## $ `CONTINENT: Please select the continent you will address in this questionnaire.  Please select only one.  We welcome responses for multiple continents; however; as responses will likely vary by bio...` &lt;chr&gt; ~
+## $ `TreeAvgMatureHeight(M)R2`                                                                                                                                                                                &lt;chr&gt; ~
+## $ `TreeAvgMatureWidth(M)R2`                                                                                                                                                                                 &lt;chr&gt; ~
+## $ `Tree Area (m2)RecalculatedR2`                                                                                                                                                                            &lt;chr&gt; ~
+## $ Crop                                                                                                                                                                                                      &lt;chr&gt; ~
+## $ Biome                                                                                                                                                                                                     &lt;chr&gt; ~
+## $ Clim                                                                                                                                                                                                      &lt;chr&gt; ~
+## $ Veg                                                                                                                                                                                                       &lt;chr&gt; ~
+## $ `CS_Final1OptimalCropSpecificTotal TreeCover/ha (%) w/ Mechanization scaled across all cropland by level of mech(CY)GivenR2`                                                                              &lt;chr&gt; ~
+## $ `Tha_2FinalOptimalAcrossAll CropsTrees/ha_GivenR2`                                                                                                                                                        &lt;chr&gt; ~
+## $ `AA_3FinalOptimalAcrossAllCrops%cover_GivenR2`                                                                                                                                                            &lt;chr&gt; ~
+## $ ...15                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...16                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...17                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...18                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...19                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...20                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...21                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...22                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...23                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...24                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...25                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...26                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...27                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...28                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...29                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...30                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...31                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...32                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...33                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...34                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...35                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...36                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...37                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...38                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...39                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...40                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...41                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...42                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...43                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...44                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...45                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...46                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...47                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...48                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...49                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...50                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...51                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...52                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...53                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...54                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...55                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...56                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...57                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...58                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...59                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...60                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...61                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...62                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...63                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...64                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...65                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...66                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...67                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...68                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...69                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...70                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...71                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...72                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...73                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...74                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...75                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...76                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...77                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...78                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...79                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...80                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...81                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...82                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...83                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...84                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...85                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...86                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...87                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...88                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...89                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...90                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...91                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...92                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...93                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...94                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...95                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...96                                                                                                                                                                                                     &lt;lgl&gt; ~
+## $ ...97                                                                                                                                                                                                     &lt;lgl&gt; ~</code></pre>
+</div>
+<div id="make-data-look-nice-because-it-could-be-neater" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Make data look nice
+because it could be neater</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %&gt;% is a &quot;pipe operator&quot;, from the tidyverse package. it says &quot;pass the result of the function to the left of the operator on, and use it as the input for the function to the right of the pipe operator</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data11<span class="ot">&lt;-</span>data11 <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">id=</span>ID,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">anova=</span>ANOVA,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">continent=</span><span class="st">`</span><span class="at">CONTINENT: Please select the continent you will address in this questionnaire.  Please select only one.  We welcome responses for multiple continents; however; as responses will likely vary by bio...</span><span class="st">`</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">avgHeight=</span><span class="st">`</span><span class="at">TreeAvgMatureHeight(M)R2</span><span class="st">`</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">avgWidth=</span><span class="st">`</span><span class="at">TreeAvgMatureWidth(M)R2</span><span class="st">`</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">treeArea=</span><span class="st">`</span><span class="at">Tree Area (m2)RecalculatedR2</span><span class="st">`</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">crop=</span>Crop,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">biome=</span>Biome,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">climate=</span>Clim,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">vegetation=</span>Veg,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">percentCover_optimalWithMech=</span><span class="st">`</span><span class="at">CS_Final1OptimalCropSpecificTotal TreeCover/ha (%) w/ Mechanization scaled across all cropland by level of mech(CY)GivenR2</span><span class="st">`</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">treesPerHec_optimalOverall=</span><span class="st">`</span><span class="at">Tha_2FinalOptimalAcrossAll CropsTrees/ha_GivenR2</span><span class="st">`</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">percentCover_optimalOverall=</span><span class="st">`</span><span class="at">AA_3FinalOptimalAcrossAllCrops%cover_GivenR2</span><span class="st">`</span>  </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#to make it cute, i used camel case (with a bit of snake case) and shortened the names</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#transmute() tidyverse function  will only keep the columns I list, whereas mutate() tidyverse function would keep all of them. by using transmute i automatically delete the empty columns at the end</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#i could also use transmute and mutate to modify the data type and do other funky things to the data, but in this case I&#39;m just using it to rename the columns</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data11)</span></code></pre></div>
+<pre><code>## Rows: 56
+## Columns: 13
+## $ id                           &lt;chr&gt; &quot;14&quot;, &quot;8&quot;, &quot;23&quot;, &quot;x1&quot;, &quot;22&quot;, &quot;21&quot;, &quot;19&quot;, ~
+## $ anova                        &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1,~
+## $ continent                    &lt;chr&gt; &quot;Asia&quot;, &quot;Asia&quot;, &quot;Europe&quot;, &quot;Europe&quot;, &quot;Nort~
+## $ avgHeight                    &lt;chr&gt; &quot;18&quot;, &quot;20&quot;, &quot;23&quot;, &quot;20&quot;, &quot;no data&quot;, &quot;no da~
+## $ avgWidth                     &lt;chr&gt; &quot;2.25&quot;, &quot;7.6&quot;, &quot;6.9&quot;, &quot;5&quot;, &quot;11.5&quot;, &quot;15&quot;, ~
+## $ treeArea                     &lt;chr&gt; &quot;4.2&quot;, &quot;45.36459792&quot;, &quot;37.39280656&quot;, &quot;19.~
+## $ crop                         &lt;chr&gt; &quot;Corn&quot;, &quot;Corn&quot;, &quot;Corn&quot;, &quot;Corn&quot;, &quot;Corn&quot;, &quot;~
+## $ biome                        &lt;chr&gt; &quot;TBMF&quot;, &quot;TBMF&quot;, &quot;TBMF&quot;, &quot;TBMF&quot;, &quot;TBMF&quot;, &quot;~
+## $ climate                      &lt;chr&gt; &quot;Tem&quot;, &quot;Tem&quot;, &quot;Tem&quot;, &quot;Tem&quot;, &quot;Tem&quot;, &quot;Tem&quot;,~
+## $ vegetation                   &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;~
+## $ percentCover_optimalWithMech &lt;chr&gt; &quot;25%&quot;, &quot;40%&quot;, &quot;13%&quot;, &quot;10%&quot;, &quot;26%&quot;, &quot;75%&quot;,~
+## $ treesPerHec_optimalOverall   &lt;chr&gt; &quot;772&quot;, &quot;88&quot;, &quot;no data&quot;, &quot;60&quot;, &quot;37&quot;, &quot;42&quot;,~
+## $ percentCover_optimalOverall  &lt;chr&gt; &quot;32%&quot;, &quot;40%&quot;, &quot;4%&quot;, &quot;12%&quot;, &quot;38%&quot;, &quot;75%&quot;, ~</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(data11) <span class="co">#View() - note capital V - opens variable in a new tab. nice for scrolling.</span></span></code></pre></div>
+</div>
+<div id="set-the-data-types-for-each-variable" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Set the data types
 for each variable</h2>
 </div>
-<div id="print-the-unique-values-in-each-column-andor-get-a-glimpse-of-the-data" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Print the
+<div id="print-the-unique-values-in-each-column-andor-get-a-glimpse-of-the-data" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Print the
 <code>unique</code> values in each column, and/or get a
 <code>glimpse</code> of the data</h2>
 </div>
