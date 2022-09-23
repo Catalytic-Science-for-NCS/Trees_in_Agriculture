@@ -25,3 +25,21 @@
 ##### output by `tia1_policy_grapher.Rmd`
 * `tia1_policy_grapher.html`: a knit html document of tia1_policy_grapher.Rmd. Beware that knitting is done manually. To ensure up-to-date html document, open tia1_policy_grapher.Rmd and re-knit it. Advantage of HTML document is it has the niftiest formatting for online viewing/sharing experience
 * `tia1_policy_grapher.docx`: a knit Word document of tia1_policy_grapher.Rmd. Beware that knitting is done manually. To ensure up-to-date Word document, open tia1_policy_grapher.Rmd and re-knit it. Advantage of Word document is you can copy and paste images of graphs from it.
+
+### Coffee/Cacao Project
+#### Raw data /Files for input
+* `Agroforestry Data Dec 2021_MERGED_METANALYSES_coffee_cacao_subset.xlsx` : Created by Vivian from some wizardry in Excel. See outlook emails from July/August 2022 for how she adapted it from Agroforestry Database.
+#### Files for analysis
+* None at the moment
+#### Output files
+* None at the moment
+
+### TIA ANOVA Project
+#### Raw data /Files for input
+* `TIA1ANOVASept22.xlsx`: Uploaded by Lisa; sent by Starry S-H in email with description in mid-September 2022.
+* `anovaData11.csv`: csv version of the corresponding sheet in TIA1ANOVASept22.xlsx
+#### Files for analysis
+* `tia_anova_analysis.Rmd`: imports anovaData11.csv and eventually will do anova and manova on some cool stuff
+#### Output files
+##### output by `tia_anova_analysis.Rmd`
+* `tia_anova_analysis.html`: a knit html document of tia_anova_analysis.Rmd. Beware that knitting is done manually. To ensure up-to-date html document, open tia_anova_analysis.Rmd and re-knit it. Advantage of HTML document is it has the niftiest formatting for online viewing/sharing experience
