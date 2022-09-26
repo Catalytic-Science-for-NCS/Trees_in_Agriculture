@@ -110,7 +110,7 @@ policy_wide<-
 
 2. Export reshaped, wide data to working directory as a csv named ```tia1_policy_wide.csv```
 ```{r write wide data as csvs}
-#write.csv(policy_wide,file="tia1_policy_wide.csv")
+write.csv(policy_wide,file="tia1_policy_wide.csv")
 ```
 
 ## Code to create multiple long format documents
