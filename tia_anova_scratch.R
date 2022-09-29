@@ -28,6 +28,12 @@ data11<-data11 %>%
 data11$percentCover_optimalOverall <- gsub("%","", data11$percentCover_optimalOverall)
 data11$percentCover_optimalWithMech <- gsub("%","", data11$percentCover_optimalWithMech)
 
+#make full biome names
+data11 <- data11 %>% mutate(biome_fullName=case_when(
+  "MF"~
+))
+  
+  
 #change data classes as needed
 data11$crop <- as.factor(data11$crop)
 data11$treesPerHec_optimalOverall <- as.numeric(data11$treesPerHec_optimalOverall)
@@ -38,10 +44,11 @@ data11$percentCover_optimalWithMech <- as.numeric(data11$percentCover_optimalWit
 data11 <- data11[!is.na(data11$id),]
 
 ggplot(data11, aes(x=crop, y=percentCover_optimalOverall, color=biome))+ 
-  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
-  geom_boxplot(outlier.shape=1)+    
-  stat_summary(fun.y=mean, geom="point", size=2)+   #dot for the mean  theme_minimal()
-  theme_minimal()
+  geom_bar(position=position_dodge(), aes(y=percentCover_optimalOverall), stat="identity") +
+  geom_errorbar(position=position_dodge(width=0.9), colour="black") +
+  geom_point(position=position_dodge(width=0.9), aes(y=percentCover_optimalOverall, colour=biome))+
+  theme_minimal()+
+  labs(x="Crop", y="Percent Cover Optimal Overall")
 
 ggplot(data11, aes(x=crop, y=percentCover_optimalWithMech, color=biome))+ 
   stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
