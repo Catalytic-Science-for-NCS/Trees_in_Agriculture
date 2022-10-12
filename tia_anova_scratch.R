@@ -26,7 +26,7 @@ data11<-data11 %>%
     cover_allCrops=`AA_3FinalOptimalAcrossAllCrops%cover_GivenR2`  
   )
 #drop unecessary columns
-data11 <- subset(data11, select=c(id, continent, biome, climate, vegetation, cover_byCrop, tph, cover_allCrops, crop))
+data11 <- subset(data11, select=c(id,anova, continent, biome, climate, vegetation, cover_byCrop, tph, cover_allCrops, crop))
 
 #remove % sign
 data11$cover_allCrops <- gsub("%","", data11$cover_allCrops)
@@ -34,15 +34,23 @@ data11$cover_byCrop <- gsub("%","", data11$cover_byCrop)
 
 #make full biome names
 data11 <- data11 %>% mutate(biome_fullName=case_when(
- biome == "MF" ~ "Med. Forests",
- biome == "TBMF" ~ "Temp. Broadleaf & Mix Forests",
- biome == "TGSS"~ "Temp. Grass, Savanna, Shrub",
- biome == "TrSDBF"~"Trop.Subtrop. Dry Broad Forests ",
- biome =="TrSGSS"~"Trop. Subtrop. Grass, Savanna, Shrub",
- biome == "TrSMBF" ~ "Trop. Subtrop. Moist Broad Forests"
+ biome == "MF" ~ "Mediterranean Forests, Woodland, & Scrub",
+ biome == "TBMF" ~ "Temperate Broadleaf & Mixed Forests",
+ biome == "TGSS"~ "Temperate Grasslands, Savannas, and Shrublands",
+ biome == "TrSDBF"~"Tropical & Subtropical Dry Broadleaf Forests",
+ biome =="TrSGSS"~"Tropical & Subtropical Grasslands, Savannas, and Shrublands",
+ biome == "TrSMBF" ~ "Tropical & Subtropical Moist Broadleaf Forests"
 ))
-  
 
+#format long continent names (consider for biome names as well)
+data11$continent <- ifelse(data11$continent=="North/Central America (includes Caribbean)",
+                           "North/Central America\n (includes Caribbean)",
+                           data11$continent)
+
+#spell out F and G
+data11$vegetation <- ifelse(data11$vegetation=="F", "Forest","Grass")
+
+  
 #change data classes as needed
 data11$crop <- as.factor(data11$crop)
 data11$tph <- as.numeric(data11$tph)
@@ -57,6 +65,7 @@ data11$biome_fullName <- as.factor(data11$biome_fullName)
 #remove the weird one row of NA
 data11 <- data11[!is.na(data11$id),]
 
+
 #calculate n for above each boxplot
 n_crop <- data11 %>% 
   group_by(crop, biome) %>% 
@@ -67,23 +76,24 @@ bycrop1 <- ggplot(data11, aes(x=crop, y=cover_allCrops, color=biome))+
   geom_boxplot(outlier.shape=1)+    
   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
   theme_minimal()+
-  labs(x="Crop", y="Cover (overall)", title="Overall Tree Cover by Crop and Biome")+
-  geom_text(data = n_crop, aes(crop, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))
+  labs(x="Crop", y="Cover (%)", title="By crop and biome")+
+  geom_text(data = n_crop, aes(crop, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))+
+  theme(legend.title = element_blank())
 
-bycrop2 <- ggplot(data11, aes(x=crop, y=cover_byCrop, color=biome))+ 
-  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
-  geom_boxplot(outlier.shape=1)+    
-  stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
-  theme_minimal()+
-  labs(x="Crop", y="Cover (by crop)")+
-  geom_text(data = n_crop, aes(crop, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))
+# bycrop2 <- ggplot(data11, aes(x=crop, y=cover_byCrop, color=biome))+ 
+#   #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
+#   geom_boxplot(outlier.shape=1)+    
+#   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
+#   theme_minimal()+
+#   labs(x="Crop", y="Cover (by crop)")+
+#   geom_text(data = n_crop, aes(crop, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))
 
 #library(patchwork) allows arranging ggplots using +, -, / etc
-bycrop1/bycrop2
+#bycrop1/bycrop2
 
 #need to remove duplicates after taking out crops
-data11_sub <- subset(data11, select=-c(crop))
-data11_sub <- data11_sub[!duplicated(data11_sub),]
+data11_sub <- data11[data11$anova!=2,]
+
 
 n_biome <- data11_sub %>% 
   group_by(biome) %>% 
@@ -91,52 +101,103 @@ n_biome <- data11_sub %>%
 n_climate <- data11_sub %>% 
   group_by(climate, vegetation) %>% 
   tally()
+n_biome_cont <- data11_sub %>%
+  group_by(biome, continent) %>%
+  tally()
+
 
 bybiome1 <- ggplot(data11_sub, aes(x=biome, y=cover_allCrops))+ 
   #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
   geom_boxplot(outlier.shape=1)+    
   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
   theme_minimal()+
-  labs(x="Biome", y="Cover (overall)", title="Overall tree cover by biome")+
+  labs(x="Biome", y="", title="By biome only")+
   theme(axis.text.x=element_text(angle=90))+
-  geom_text(data = n_biome, aes(biome, Inf, label = n), vjust = 1)
+  geom_text(data = n_biome, aes(biome, Inf, label = n), vjust = 1)+
+  theme(legend.title = element_blank())
 
-bybiome2 <- ggplot(data11_sub, aes(x=biome, y=cover_byCrop))+ 
-  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
-  geom_boxplot(outlier.shape=1)+    
-  stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
-  theme_minimal()+
-  labs(x="Biome", y="Cover (overall)")+
-  theme(axis.text.x=element_text(angle=90))+
-  geom_text(data = n_biome, aes(biome, Inf, label = n), vjust = 1)
-
-bybiome1/bybiome2
+# bybiome2 <- ggplot(data11_sub, aes(x=biome, y=cover_byCrop))+ 
+#   #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
+#   geom_boxplot(outlier.shape=1)+    
+#   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
+#   theme_minimal()+
+#   labs(x="Biome", y="Cover (overall)")+
+#   theme(axis.text.x=element_text(angle=90))+
+#   geom_text(data = n_biome, aes(biome, Inf, label = n), vjust = 1)
+# 
+# bybiome1/bybiome2
 
 byclimate1 <- ggplot(data11_sub, aes(climate, cover_allCrops, color=vegetation))+
   geom_boxplot(outlier.shape=1)+    
   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
   theme_minimal()+
-  labs(x="Climate", y="Cover (overall)",title="Overall tree cover by climate and veg")+
+  labs(x="Climate", y="",title="By climate and veg")+
   #theme(axis.text.x=element_text(angle=90))+
-  geom_text(data = n_climate, aes(climate, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))
+  geom_text(data = n_climate, aes(climate, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))+
+  theme(legend.title = element_blank())
 
-byclimate2 <- ggplot(data11_sub, aes(climate, cover_byCrop, color=vegetation))+
+# byclimate2 <- ggplot(data11_sub, aes(climate, cover_byCrop, color=vegetation))+
+#   geom_boxplot(outlier.shape=1)+    
+#   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
+#   theme_minimal()+
+#   labs(x="Climate", y="Cover (overall)")+
+#   #theme(axis.text.x=element_text(angle=90))+
+#   geom_text(data = n_climate, aes(climate, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))
+# 
+# byclimate1/byclimate2
+
+cont1 <- ggplot(data11_sub, aes(x=biome, y=cover_allCrops, color=continent))+ 
+  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
   geom_boxplot(outlier.shape=1)+    
   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
   theme_minimal()+
-  labs(x="Climate", y="Cover (overall)")+
-  #theme(axis.text.x=element_text(angle=90))+
-  geom_text(data = n_climate, aes(climate, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))
-
-byclimate1/byclimate2
+  labs(x="Biome", y="Cover (%)", title="By biome and continent")+
+  theme(axis.text.x=element_text(angle=90))+
+  geom_text(data = n_biome_cont, aes(biome, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))+
+  theme(legend.title = element_blank())
 
 #altogether now
-tot <- bycrop1 + byclimate1 + bybiome1 + plot_layout(ncol=2) 
+#change x axislabels to abbrevs, changed y axis to "expert reco tree cov"
+
+tot <- bycrop1 + byclimate1 + cont1 + bybiome1 + plot_layout(ncol=2) +plot_annotation(title="Tree Cover Overall")
 ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/boxplots_TIA1.png",
-       tot, width=8.5, height=6, dpi=300)
+       tot, width=9, height=6, dpi=300)
 
 
+#if we removed the rows that Starry filled in for and duplicates
+data11_sub_starry <- data11_sub[grep("x", data11_sub$id, invert = T),]
+n_biome <- data11_sub_starry %>% 
+  group_by(biome) %>% 
+  tally()
+n_biome_cont <- data11_sub_starry %>%
+  group_by(biome, continent) %>%
+  tally()
 
+bybiome2 <- ggplot(data11_sub_starry, aes(x=biome, y=cover_allCrops))+ 
+  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
+  geom_boxplot(outlier.shape=1)+    
+  stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
+  theme_minimal()+
+  labs(x="Biome", y="", title="By biome only")+
+  theme(axis.text.x=element_text(angle=90))+
+  geom_text(data = n_biome, aes(biome, Inf, label = n), vjust = 1)+
+  theme(legend.title = element_blank())
+
+cont2 <- ggplot(data11_sub_starry, aes(x=biome, y=cover_allCrops, color=continent))+ 
+  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
+  geom_boxplot(outlier.shape=1)+    
+  stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
+  theme_minimal()+
+  labs(x="Biome", y="Cover (%)", title="By biome and continent")+
+  theme(axis.text.x=element_text(angle=90))+
+  geom_text(data = n_biome_cont, aes(biome, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))+
+  theme(legend.title = element_blank())
+
+remove_fillins <-  cont2 + bybiome2
+ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/boxplots_TIA1_noFilledIn.png",
+       remove_fillins, width=9, height=4, dpi=300)
+
+##################################################################################
 ## ANOVA/KW/other analyses below
 ## currently not in use bc of small sample size and subjective dependent variable
 data11 %>% 
