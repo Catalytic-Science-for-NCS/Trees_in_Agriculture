@@ -79,31 +79,31 @@ cow$cover_bySys <- cow$cover_bySys*100
 #remove duplicates for all ungulates
 cow <- subset(cow, anova!=2)
 
-#calculate n for above each boxplot
-n_sys <- cow %>% 
-  group_by(biome_fullName) %>% 
-  tally()
-
-byGrazer <- ggplot(cow, aes(x=biome_fullName, y=cover_all))+ 
-  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
-  geom_boxplot(outlier.shape=1)+    
-  stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
-  theme_minimal()+
-  labs(x="Biome", y="Cover (%)")+
-  geom_text(data = n_sys, aes(Biome, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))+
-  theme(legend.title = element_blank(),
-        axis.text.x = element_text(angle=70, size=5, vjust=0.9, hjust=0.85))
-byGrazer
+# #calculate n for above each boxplot
+# n_sys <- cow %>% 
+#   group_by(biome_fullName) %>% 
+#   tally()
+# 
+# byGrazer <- ggplot(cow, aes(x=biome_fullName, y=cover_all))+ 
+#   #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
+#   geom_boxplot(outlier.shape=1)+    
+#   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
+#   theme_minimal()+
+#   labs(x="Biome", y="Cover (%)")+
+#   geom_text(data = n_sys, aes(Biome, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))+
+#   theme(legend.title = element_blank(),
+#         axis.text.x = element_text(angle=70, size=5, vjust=0.9, hjust=0.85))
+# byGrazer
 
 #get summary stats
 
-grazing_biome <- cow %>%
-  group_by(biome_fullName, Ungulate_Code) %>%
-  summarize(mn = mean(cover_all),
-            stdev = sd(cover_all),
-            p25 = quantile(cover_all, c(0.25)),
-            p75 = quantile(cover_all, c(0.75)))
-write.csv(grazing_biome, "TIA/grazers_byUngulateBiome.csv")
+# grazing_biome <- cow %>%
+#   group_by(biome_fullName, Ungulate_Code) %>%
+#   summarize(mn = mean(cover_all),
+#             stdev = sd(cover_all),
+#             p25 = quantile(cover_all, c(0.25)),
+#             p75 = quantile(cover_all, c(0.75)))
+# write.csv(grazing_biome, "TIA/grazers_byUngulateBiome.csv")
 
 #combine with crop data
 data11_sub$C_G <- "Crop"
@@ -160,7 +160,7 @@ n_both <- rbind(tet,tet_missing) %>%
   tally()
 #n_both$combo_ID <- paste0(n_both$C_G, "_", n_both$biome_fullName)
 
-ggplot(tet, aes(x=biome_abbrev, y=value, color=C_G))+ 
+bplot <- ggplot(tet, aes(x=biome_abbrev, y=value, color=C_G))+ 
   #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
   geom_boxplot(outlier.shape=1)+    
   stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
@@ -171,84 +171,6 @@ ggplot(tet, aes(x=biome_abbrev, y=value, color=C_G))+
   geom_point(data=tet_missing, aes(x=biome_abbrev, y=value, color=C_G))
 
 
-#does tree cover per hectare, 
+ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/expertRecs_boxplots.png",
+       bplot, width=8, height=5, dpi=300, bg="white")
 
-#biome potential as % C of total
-
-
-
-## Boxplots for comparing final TIA 1 and 2 expert recommended tree cover across biomes
-## Boxplots for comparing final TIA 1 and 2 expert recommended tree cover across biomes
-fin <- read.csv("TIA/biomes_stats_update_2.csv") %>% subset(select=c(X.1, X.2, TIA1,TIA1.4, TIA2, TIA2.4))
-colnames(fin) <- c("biome_abbrev","biome_fullName","TIA1_mn","TIA1_n","TIA2_mn","TIA2_n")
-fin <- fin[2:nrow(fin),]
-
-#change data classes as needed
-#cow$P_R <- as.factor(cow$P_R)
-fin$TIA1_mn <- as.numeric(fin$TIA1_mn)
-fin$TIA2_mn <- as.numeric(fin$TIA2_mn)
-fin$TIA1_n <- as.numeric(fin$TIA1_n)
-fin$TIA2_n <- as.numeric(fin$TIA2_n)
-fin$biome_fullName <- as.factor(fin$biome_fullName)
-fin$biome_abbrev <- as.factor(fin$biome_abbrev)
-
-#convert to long format for ggplot
-long <- pivot_longer(fin, cols=c(TIA1_mn, TIA2_mn, TIA1_n, TIA2_n))
-
-byGrazer <- ggplot(subset(long, name=="TIA1_mn" | name=="TIA2_mn"), aes(x=biome_abbrev, y=value, color=name))+ 
-  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
-  geom_boxplot(outlier.shape=1)+    
-  stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
-  theme_minimal()+
-  labs(x="Biome", y="Expert Recommended Tree Cover (%)")+
-  #geom_text(subset(long, value=="TIA1_n" | value=="TIA2_n"), aes(x=biome_abbrev, y=Inf, label = value), vjust = 1, position=position_dodge(width=0.755))+
-  theme(legend.title = element_blank())
-byGrazer
-
-#get summary stats
-
-grazing_biome <- cow %>%
-  group_by(biome_fullName, Ungulate_Code) %>%
-  summarize(mn = mean(cover_all),
-            stdev = sd(cover_all),
-            p25 = quantile(cover_all, c(0.25)),
-            p75 = quantile(cover_all, c(0.75)))
-write.csv(grazing_biome, "TIA/grazers_byUngulateBiome.csv")
-
-#combine with crop data
-data11_sub$C_G <- "C"
-cow$C_G <- "G"
-data11_long <- pivot_longer(data11_sub, c("cover_allCrops"))
-cow_long <- pivot_longer(cow, "cover_all")
-tet <- rbind(cow_long[,c("biome_fullName","C_G","name","value")], 
-             data11_long[, c("biome_fullName", "C_G", "name", "value")])
-desert_crop <- c("Deserts & Xeric Shrublands", "C", "cover_allCrops", 4)
-montane_crop <- c("Montane Grasslands & Shrublands","C","cover_allCrops", 27.7)
-tempgrass_graze <- c("Temperate Grasslands, Savannas, and Shrublands",
-                     "G","cover_all", 27.7)
-conifer_crop <- c("Temperate Conifer Forests", "C", "cover_allCrops", 19.7)
-
-tet_missing <- rbind(desert_crop, montane_crop) %>% rbind(tempgrass_graze) %>% rbind(conifer_crop) %>% as.data.frame() %>% as.tibble()
-colnames(tet_missing) <- colnames(tet)
-tet_missing$value <- as.numeric(tet_missing$value)
-
-n_both <- tet %>% 
-  group_by(C_G, biome_fullName) %>% 
-  tally()
-n_both$combo_ID <- paste0(n_both$C_G, "_", n_both$biome_fullName)
-
-ggplot(tet, aes(x=biome_fullName, y=value, color=C_G))+ 
-  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
-  geom_boxplot(outlier.shape=1)+    
-  stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
-  theme_minimal()+
-  labs(x="Biome", y="Cover (%)")+
-  # geom_text(data = n_both, aes(combo_ID, Inf, label = n), vjust = 1, position=position_dodge(width=0.755))+
-  theme(legend.title = element_blank(),
-        axis.text.x = element_text(angle=70, size=5, vjust=0.9, hjust=0.85))+
-  geom_point(data=tet_missing, aes(x=biome_fullName, y=value, color=C_G))
-
-
-#does tree cover per hectare, 
-
-#biome potential as % C of total
