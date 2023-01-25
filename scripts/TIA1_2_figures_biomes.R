@@ -23,6 +23,8 @@ comb$C_tip_ha <- comb$C.Potential.TIP/comb$Ag.Area.TIP..has.
 comb$C_tic_ha_Chapman <- comb$crop/comb$Ag.Area.TIC..has.
 comb$C_tip_ha_Chapman <- comb$pasture/comb$Ag.Area.TIP..has.
 
+#shift left to right as arid to humid 
+#add in bracket for temp and tropical/subtropical 
 long <- pivot_longer(comb, cols=c(C_tic_ha_Chapman, C_tip_ha_Chapman, C_tic_ha, C_tip_ha))
 long <- long %>% mutate(biome_abbrev = case_when(
   BIOME_NAME == "Mediterranean Forests, Woodlands & Scrub" ~"MF" ,
@@ -35,6 +37,8 @@ long <- long %>% mutate(biome_abbrev = case_when(
   BIOME_NAME ==  "Montane Grasslands & Shrublands" ~ "MGSS",
   BIOME_NAME ==  "Temperate Conifer Forests" ~ "TeCF",
   BIOME_NAME ==  "Tropical & Subtropical Coniferous Forests" ~ "TrSCF"))
+long$biome_abbrev <- factor(long$biome_abbrev, levels=c("DXS","MF","MGSS","TeGSS","TeCF",
+                                                        "TeBMF","TrSGSS","TrSCF","TrSDBF","TrSMBF"))
 long$label <- ifelse(long$name=="C_tic_ha" | long$name == "C_tip_ha","TIA","Chapman")
 long$CP <- ifelse(long$name == "C_tic_ha" | long$name=="C_tic_ha_Chapman","Crop","Graze")
 
@@ -43,8 +47,10 @@ p <- ggplot(long, aes(x=biome_abbrev, y=value, fill=label))+
   labs(x="Biome", y="Mg C potential / ha")+
   theme_minimal()+
   theme(legend.title = element_blank())+
-  facet_wrap(~CP)
+  facet_wrap(~CP, ncol=1)
 
 ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/C_ha_biomes.png",
        p, width=12, height=7, dpi=300, bg="white")
+
+
 

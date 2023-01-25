@@ -139,6 +139,7 @@ tet <- tet %>% mutate(biome_abbrev = case_when(
   biome_fullName ==  "Tropical & Subtropical Coniferous Forest" ~ "TrSCF",
   biome_fullName ==  "Tropical & Subtropical Grasslands, Savannas, and Shrublands" ~ "TrSGSS"
 ))
+tet$missing <- "no"
 
 tet_missing <- tet_missing %>% mutate(biome_abbrev = case_when(
   biome_fullName == "Mediterranean Forests, Woodland, & Scrub" ~"MF" ,
@@ -154,23 +155,37 @@ tet_missing <- tet_missing %>% mutate(biome_abbrev = case_when(
   biome_fullName ==  "Tropical & Subtropical Grasslands, Savannas, and Shrublands" ~ "TrSGSS"
 ))
 
+tet_missing$missing <- "yes"
 
-n_both <- rbind(tet,tet_missing) %>% 
-  group_by(C_G, biome_abbrev) %>% 
+
+
+both <- rbind(tet,tet_missing)
+both$biome_abbrev <- factor(both$biome_abbrev, levels=c("DXS","MF","MGSS","TeGSS","TeCF",
+                                                            "TeBMF","TrSGSS","TrSCF","TrSDBF","TrSMBF"))
+
+
+n_both <-both %>%
+  group_by(C_G, biome_abbrev, missing) %>% 
   tally()
-#n_both$combo_ID <- paste0(n_both$C_G, "_", n_both$biome_fullName)
 
-bplot <- ggplot(tet, aes(x=biome_abbrev, y=value, color=C_G))+ 
-  #  stat_boxplot(geom='errorbar', linetype=1, width=0.5)+  #whiskers
-  geom_boxplot(outlier.shape=1)+    
-  stat_summary(fun=mean, geom="point", size=2, position=position_dodge(width=0.755))+   #dot for the mean  theme_minimal()
-  theme_minimal()+
+theme = theme_set(theme_minimal())
+theme = theme_update(legend.position="right", legend.title=element_blank(), panel.grid.major.x=element_blank())
+theme = theme_update(axis.line.y = element_blank(), axis.title.y=element_blank(), axis.text.y = element_text(colour="grey"), axis.ticks.y= element_line(colour="grey"))
+cols= c("#CEAB07", "#798E87")
+
+bplot <- ggplot(both, aes(x=biome_abbrev, y=value, color=C_G))+ 
+  geom_boxplot(outlier.colour = NULL, aes_string(colour="C_G", fill="C_G"), width = 0.5, position = "dodge")+
+  #stat_summary(fun=mean, geom="line", size=1.5, position=position_dodge(width=0.5))+   #dot for the mean
   labs(x="Biome", y="Expert Recommended Tree Cover (%)")+
- geom_text(data = n_both, aes(biome_abbrev, Inf, label = n, color=C_G), vjust = 1, position=position_dodge(width=0.755))+
+  #geom_text(data = n_both, aes(biome_abbrev, Inf, label = n, color=C_G), vjust = 1, position=position_dodge(width=0.755))+
   theme(legend.title = element_blank())+
-  geom_point(data=tet_missing, aes(x=biome_abbrev, y=value, color=C_G))
+  #geom_point(data=tet_missing, aes(x=biome_abbrev, y=value, color=C_G))+
+  geom_text(data=n_both, aes(x=biome_abbrev, y=104, label=n, color=C_G), 
+            size=3.5, vjust = 1, position=position_dodge(width = 0.5))
+bplot <- bplot +   scale_fill_manual(values = cols)+
+  scale_color_manual(values = cols)
 
+ 
 
 ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/expertRecs_boxplots.png",
        bplot, width=8, height=5, dpi=300, bg="white")
-
