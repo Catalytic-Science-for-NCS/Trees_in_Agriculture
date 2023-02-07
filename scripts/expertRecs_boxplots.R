@@ -1,10 +1,24 @@
-## Create boxplot figures of expert recommended tree cover
-## By biome, by crop vs grazing
-# Vivian Griffey, vgriffey@conservation.org
-# Last updated: 10/11/2022
 
+# ------------------------------------------------------------------------
+# ------------------------------------------------------------------------
+# ===============
+# PROJECT NAME: TIA
+# ===============
+# Description: Create boxplot figures of expert recommended tree cover
+#
+#
+# ===============
+# AUTHOR: Vivian Griffey
+# Date created: 
+# Date updated:01/27/2023
+# ===============
+# load libraries
 library(tidyverse)
 library(patchwork)
+
+# ------------------------------------------------------------------------
+# ------------------------------------------------------------------------
+
 
 data11<-read_delim("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Documents/GitHub/Trees_in_Agriculture/anovaData11.csv",delim=",",col_names=T)
 data11<-data11 %>% 
@@ -162,6 +176,9 @@ tet_missing$missing <- "yes"
 both <- rbind(tet,tet_missing)
 both$biome_abbrev <- factor(both$biome_abbrev, levels=c("DXS","MF","MGSS","TeGSS","TeCF",
                                                             "TeBMF","TrSGSS","TrSCF","TrSDBF","TrSMBF"))
+
+#remove 2 100% recommended cover
+both <- subset(both, both$value!=100)
 
 
 n_both <-both %>%
