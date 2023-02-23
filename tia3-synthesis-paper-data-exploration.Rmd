@@ -1,0 +1,37 @@
+---
+#This section tells RMarkdown what kind of file to produce and how to make the graphics cute once you hit "knit"
+title: "TIA 3 Synthesis Paper Data Exploration"
+author: "Lisa Meixner McCullough"
+date: '2023-02-23'
+output:
+  html_document:
+    code_folding: hide
+    theme: lumen
+    highlight: espresso
+    toc: yes
+    number_section: yes
+    toc_float: yes
+    fig_width: 7
+    fig_height: 6
+    fig_caption: yes
+    df_print: paged
+  word_document:
+    toc: yes
+---
+
+# This is  R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Import Datasets
+
+#Make Figures
+##Map
+
+##Line Chart
