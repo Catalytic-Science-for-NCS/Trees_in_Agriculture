@@ -7,9 +7,7 @@ library(rnaturalearthdata)
 
 #let's look at these results!! by country
 #ours
-#comb <- read.csv("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/master_data_byCountry.csv")
-#comb <- read.csv("TIA/draft_new_carbonaccumulation.csv") #is this including BGB?
-comb <- full
+comb <- read.csv("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/master_data_byCountry.csv")
 
 #colnames(comb)[[1]] <- "full_name"
 
@@ -17,78 +15,47 @@ comb <- full
 chp <- read.csv("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Documents/GitHub/treesincroplands/country_summary.csv")
 #chp$full_name <- countrycode::countrycode(chp$ISO_A3, origin="iso3c", destination = "country.name", warn=T)
 
-# roe <- readxl::read_excel("TIA/Roe_byCountry.xlsx")
-# #roe <- subset(roe, Mitigation.measure == "Agroforestry", select=c(ISO, Country, RoeTechnical))
-# roe <- roe[-c(1:7),]
-# colnames(roe) <- roe[1,]
-# roe <- roe[-1,]
-# roe$full_name <- countrycode::countrycode(roe$ISO, origin="iso3c", destination="country.name", warn=T)
-# roe$agrofor_techcum <- as.numeric(roe$agrofor_techcum)
+roe <- readxl::read_excel("TIA/Roe_byCountry.xlsx")
+#roe <- subset(roe, Mitigation.measure == "Agroforestry", select=c(ISO, Country, RoeTechnical))
+roe <- roe[-c(1:7),]
+colnames(roe) <- roe[1,]
+roe <- roe[-1,]
+#roe$full_name <- countrycode::countrycode(roe$ISO, origin="iso3c", destination="country.name", warn=T)
+roe$agrofor_techcum <- as.numeric(roe$agrofor_techcum)
 
-# comb_roe <- inner_join(chp[,c("full_name","potential_crop_mg", "potential_pasture_mg","total_potential_mg")], 
-#                        roe[,c("agrofor_tech","agrofor_techcum", "full_name")], 
-#                        by=c("full_name"))
-# comb_roe <- inner_join(chp, comb[,c("Mg.C.Potential.TIA1.100.", 
-#                                          "Mg.C.Potential.TIA2.100.", "Ag.Area.TIA1..has.",    
-#                                          "Ag.Area.TIA2..has.","full_name", "Mean.expert.rec.TIA1", "Mean.expert.rec.TIA2",
-#                                          "Mean.delta.TIA1","Mean.delta.TIA2")],
-#                        by="full_name")
+comb_roe <- inner_join(chp[,c("ISO_A3","potential_crop_mg", "potential_pasture_mg","total_potential_mg", "density_crop", "density_pasture")],
+                       roe[,c("agrofor_tech","agrofor_techcum", "ISO")],
+                       by=c("ISO_A3"="ISO"))
+comb_roe <- inner_join(chp, comb[,c("Mg.C.Potential.TIA1.100.",
+                                         "Mg.C.Potential.TIA2.100.", "Ag.Area.TIA1..has.",
+                                         "Ag.Area.TIA2..has.","full_name", "Mean.expert.rec.TIA1", "Mean.expert.rec.TIA2",
+                                         "Mean.delta.TIA1","Mean.delta.TIA2")],
+                       by="full_name")
 
-comb_roe <- inner_join(chp[,c("ISO_A3","potential_crop_mg", "potential_pasture_mg","total_potential_mg")], comb, by=c("ISO_A3"="GID_0"))
-#colnames(comb_roe)[[1]] <- "country"
+comb_roe <- inner_join(chp[,c("ISO_A3","potential_crop_mg", "potential_pasture_mg","total_potential_mg")], comb, by=c("ISO_A3"="iso3.country_code"))
 
 #get total potential for TIA
 #comb_roe$sum_TIA1_2 <- rowSums(comb_roe[, c("Mg.C.Potential.TIA1.100.", "Mg.C.Potential.TIA2.100.")])
-comb_roe$sum_TIA1_2 <- rowSums(comb_roe[,c("CarbonAccByCountry_sum_tic", "CarbonAccByCountry_sum_tip")])
+comb_roe$sum_TIA1_2 <- rowSums(comb_roe[,c("Mg.C.Potential.TIA1.100.", "Mg.C.Potential.TIA2.100.")])
 
 ##make columns of ranks for each of the different carbon totals
-# order.scores<-order(comb_roe$sum_CarbonAccByCountry_tic, comb_roe$full_name , decreasing = T)
-# comb_roe$tic_rank <- NA
-# comb_roe$tic_rank[order.scores] <- 1:nrow(comb_roe)
-# 
-# order.scores<-order(comb_roe$sum_CarbonAccByCountry_tip, comb_roe$full_name , decreasing = T)
-# comb_roe$tip_rank <- NA
-# comb_roe$tip_rank[order.scores] <- 1:nrow(comb_roe)
-
-order.scores<-order(comb_roe$sum_TIA1_2, comb_roe$full_name , decreasing = T)
+order.scores<-order(comb_roe$sum_TIA1_2, comb_roe$country_name , decreasing = T)
 comb_roe$TIA1_2_rank <- NA
 comb_roe$TIA1_2_rank[order.scores] <- 1:nrow(comb_roe)
 
-#order.scores<-order(comb_roe$agrofor_techcum, comb_roe$full_name , decreasing = T)
-#comb_roe$roe_rank <- NA
-#comb_roe$roe_rank[order.scores] <- 1:nrow(comb_roe)
-
-# order.scores<-order(comb_roe$potential_crop_mg, comb_roe$full_name , decreasing = T)
-# comb_roe$chapman_crop_rank <- NA
-# comb_roe$chapman_crop_rank[order.scores] <- 1:nrow(comb_roe)
-
-# order.scores<-order(comb_roe$potential_pasture, comb_roe$full_name , decreasing = T)
-# comb_roe$chapman_pasture_rank <- NA
-# comb_roe$chapman_pasture_rank[order.scores] <- 1:nrow(comb_roe)
-
-#order.scores<-order(comb_roe$total_potential, comb_roe$full_name , decreasing = T)
-#comb_roe$chapman_total_potential_rank <- NA
-#comb_roe$chapman_total_potential_rank[order.scores] <- 1:nrow(comb_roe)
-
-
 #what units are we in? Mg C. Which just means tons
 #1 megaton carbon = 1000000 tons
-#divide by 2 (Roe did 50% implementation) and convert to CO2 (*3.67) and divide by 1000000 (to Mt) to compare to Roe
-comb_roe$sum_CarbonAccByCountry_tic_CO2_Mt <- comb_roe$CarbonAccByCountry_sum_tic/2*3.67/1000000
-comb_roe$sum_CarbonAccByCountry_tip_CO2_Mt <- comb_roe$CarbonAccByCountry_sum_tip/2*3.67/1000000
-comb_roe$sum_TIA1_2_CO2_Mt <- comb_roe$sum_TIA1_2/2*3.67/1000000
-comb_roe$total_potential_CO2_Mt <- comb_roe$total_potential_mg/2*3.67/1000000
-comb_roe$potential_crop_CO2_Mt <- comb_roe$potential_crop_mg/2*3.67/1000000
-comb_roe$potential_pasture_CO2_Mt <- comb_roe$potential_pasture_mg/2*3.67/1000000
-##write.csv(comb_roe, "TIA/second_pass_compare.csv")
+#convert to CO2 (*3.67) and divide by 1000000 (to Mt) to compare to Roe
+comb_roe$sum_CarbonAccByCountry_tic_CO2_Mt <- comb_roe$Mg.C.Potential.TIA1.100.*3.67/1000000
+comb_roe$sum_CarbonAccByCountry_tip_CO2_Mt <- comb_roe$Mg.C.Potential.TIA2.100.*3.67/1000000
+comb_roe$sum_TIA1_2_CO2_Mt <- comb_roe$sum_TIA1_2*3.67/1000000
+comb_roe$total_potential_CO2_Mt <- comb_roe$total_potential_mg*3.67/1000000
+comb_roe$potential_crop_CO2_Mt <- comb_roe$potential_crop_mg*3.67/1000000
+comb_roe$potential_pasture_CO2_Mt <- comb_roe$potential_pasture_mg*3.67/1000000
 
-comb_roe$C_tic_mg_ha <- comb_roe$CarbonAccByCountry_sum_tic/comb_roe$CropAreaByCountry_tic_ha
-comb_roe$C_tip_mg_ha <- comb_roe$CarbonAccByCountry_sum_tip/comb_roe$GrazeAreaByCountry_tip_ha
-comb_roe$C_tic_mg_ha_chap <- comb_roe$potential_crop_mg/comb_roe$CropAreaByCountry_tic_ha
-comb_roe$C_tip_mg_ha_chap <- comb_roe$potential_pasture_mg/comb_roe$GrazeAreaByCountry_tip_ha
+#comb_roe$C_tic_mg_ha_chap <- comb_roe$potential_crop_mg/comb_roe$Crop.Area..m2./10000
+#comb_roe$C_tip_mg_ha_chap <- comb_roe$potential_pasture_mg/comb_roe$Graze.Area..m2./10000
 
-
-#comb_roe$full_name <- countrycode::countrycode(comb_roe$ISO_A3, origin="iso3c", destination = "country.name", warn=T)
 
 ##########################################
 ## PLOTTING ##
@@ -109,10 +76,10 @@ cols= c("#CEAB07", "#798E87")
 # test$net_TIA_Chap_crops <- test$potential_crop_CO2_Mt - test$sum_CarbonAccByCountry_tic_CO2_Mt
 # test$net_TIA_Chap_pasture <- test$potential_pasture_CO2_Mt - test$sum_CarbonAccByCountry_tip_CO2_Mt
 
-test <- subset(comb_roe, TIA1_2_rank <50,  select=c(TIA1_2_rank, full_name, sum_TIA1_2,
-                                                    CarbonAccByCountry_sum_tic, CarbonAccByCountry_sum_tip, 
+test <- subset(comb_roe, TIA1_2_rank <50,  select=c(TIA1_2_rank, country_name, sum_TIA1_2,
+                                                    Mg.C.Potential.TIA1.100., Mg.C.Potential.TIA2.100., 
                                                     potential_crop_mg, potential_pasture_mg))
-ord <- test$full_name[order(test$TIA1_2_rank, test$full_name)]
+ord <- test$country_name[order(test$TIA1_2_rank, test$country_name)]
 
 
 # long <- pivot_longer(test, cols=c(sum_CarbonAccByCountry_tic_CO2_Mt, sum_CarbonAccByCountry_tip_CO2_Mt, 
@@ -124,13 +91,13 @@ ord <- test$full_name[order(test$TIA1_2_rank, test$full_name)]
 # long$CP <- ifelse(long$name=="sum_CarbonAccByCountry_tic_CO2_Mt" | long$name=="potential_crop_CO2_Mt", "Crop", 
 #                   ifelse(long$name=="sum_CarbonAccByCountry_tip_CO2_Mt" | long$name=="potential_pasture_CO2_Mt", "Graze", NA))
 
-long <- pivot_longer(test, cols=c(CarbonAccByCountry_sum_tic, CarbonAccByCountry_sum_tip,
+long <- pivot_longer(test, cols=c(Mg.C.Potential.TIA1.100., Mg.C.Potential.TIA2.100.,
                                   potential_crop_mg, potential_pasture_mg))
-long$full_name  <- factor(long$full_name , levels=ord)
-long$label <- ifelse(long$name=="CarbonAccByCountry_sum_tic"| long$name=="CarbonAccByCountry_sum_tip", "TIA",
+long$country_name  <- factor(long$country_name , levels=ord)
+long$label <- ifelse(long$name=="Mg.C.Potential.TIA1.100."| long$name=="Mg.C.Potential.TIA2.100.", "TIA",
                      ifelse(long$name=="potential_crop_mg" | long$name=="potential_pasture_mg","Chapman", NA))
-long$CP <- ifelse(long$name=="CarbonAccByCountry_sum_tic" | long$name=="potential_crop_mg", "Crop",
-                  ifelse(long$name=="CarbonAccByCountry_sum_tip" | long$name=="potential_pasture_mg", "Graze", NA))
+long$CP <- ifelse(long$name=="Mg.C.Potential.TIA1.100." | long$name=="potential_crop_mg", "Crop",
+                  ifelse(long$name=="Mg.C.Potential.TIA2.100." | long$name=="potential_pasture_mg", "Graze", NA))
 
 
 # r <- ggplot(subset(long, name=="TIA1_2_rank" | name=="chapman_total_potential_rank"), aes(x=full_name , y=value, fill=label))+
@@ -140,8 +107,8 @@ long$CP <- ifelse(long$name=="CarbonAccByCountry_sum_tic" | long$name=="potentia
 #         legend.title = element_blank())+
 #   labs(x="Countries in TIA Rank Order", y="Rank (Highest NCS Potential)", title="Rank Order")
 
-co2 <- ggplot(subset(long, name=="CarbonAccByCountry_sum_tic" | name=="potential_crop_mg" | name=="CarbonAccByCountry_sum_tip" | name=="potential_pasture_mg"),
-              aes(x=full_name, y=value, fill=label))+
+co2 <- ggplot(subset(long, name=="Mg.C.Potential.TIA1.100." | name=="potential_crop_mg" | name=="Mg.C.Potential.TIA2.100." | name=="potential_pasture_mg"),
+              aes(x=country_name, y=value, fill=label))+
   geom_col(position="dodge", width=0.75)+
   theme_minimal()+
   theme(axis.text.x = element_text(angle=90, hjust=0.95,vjust=0.2),
@@ -177,18 +144,18 @@ ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Vivia
 
 ## plot countries potential/ha
 library(scales)
-tb <- subset(comb_roe,  select=c(full_name, C_tic_mg_ha, C_tip_mg_ha))
+tb <- subset(comb_roe,  select=c(country_name, TIA1_perHA, TIA2_perHA))
 tb[is.na(tb)] <- 0 #is.na(NaN)=T
 
-ord_crop <- tb$full_name[order(tb$C_tic_mg_ha, tb$full_name, decreasing = T)]
-crop_long <- pivot_longer(tb[,c("full_name", "C_tic_mg_ha")], cols=c(C_tic_mg_ha))
-crop_long$full_name  <- factor(crop_long$full_name , levels=ord_crop)
+ord_crop <- tb$country_name[order(tb$TIA1_perHA, tb$country_name, decreasing = T)]
+crop_long <- pivot_longer(tb[,c("country_name", "TIA1_perHA")], cols=c(TIA1_perHA))
+crop_long$country_name  <- factor(crop_long$country_name , levels=ord_crop)
 
-ord_graze <- tb$full_name[order(tb$C_tip_mg_ha, tb$full_name, decreasing = T)]
-graze_long <- pivot_longer(tb[,c("full_name", "C_tip_mg_ha")], cols=c(C_tip_mg_ha))
-graze_long$full_name  <- factor(graze_long$full_name , levels=ord_graze)
+ord_graze <- tb$country_name[order(tb$TIA2_perHA, tb$country_name, decreasing = T)]
+graze_long <- pivot_longer(tb[,c("country_name", "TIA2_perHA")], cols=c(TIA2_perHA))
+graze_long$country_name  <- factor(graze_long$country_name , levels=ord_graze)
 
-crop <- ggplot(subset(crop_long, full_name %in% ord_crop[1:25]), aes(x=full_name, y=value/30))+
+crop <- ggplot(subset(crop_long, country_name %in% ord_crop[1:25]), aes(x=country_name, y=value/30))+
   geom_col(position="dodge", width=0.75)+
   theme_minimal()+
   theme(axis.text.x = element_text(angle=90, hjust=0.95,vjust=0.2),
@@ -198,7 +165,7 @@ crop <- ggplot(subset(crop_long, full_name %in% ord_crop[1:25]), aes(x=full_name
   labs( y="Mg C/ha",x="", title="Crop")
   #scale_y_continuous(labels = comma)
 
-graze <- ggplot(subset(graze_long, full_name %in% ord_graze[1:25]), aes(x=full_name, y=value/30))+
+graze <- ggplot(subset(graze_long, country_name %in% ord_graze[1:25]), aes(x=country_name, y=value/30))+
   geom_col(position="dodge", width=0.75)+
   theme_minimal()+
   theme(axis.text.x = element_text(angle=90, hjust=0.95,vjust=0.2),

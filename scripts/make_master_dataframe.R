@@ -3,31 +3,34 @@ library(countrycode)
 
 ## make master data table for countries
 
-fls <- list.files("TIA/Results_Potapov_GADM_no100s/", pattern="CarbonAccByCountry", full.names = T) 
+fls <- list.files("TIA/Results_Potapov_GADM_no100s/drive-download-20230213T231648Z-001/02_17_2023/",
+                  pattern="CarbonAcc", full.names = T) 
 tbs <- lapply(fls, read.csv)
-comb <- dplyr::inner_join(tbs[[1]], tbs[[2]], by=c("GID_0", "NAME_0"))
-colnames(comb) <- c("GID_0", "NAME_0",  gsub(".csv", "", basename(fls[[1]])), 
-                    gsub(".csv", "", basename(fls[[2]])))
+comb <- dplyr::inner_join(tbs[[1]], tbs[[2]], by=c("ISO3","COUNTRY", "BIOME_NAME","BIOME_NUM"))
+colnames(comb) <- c("BIOME_NAME", "BIOME_NUM","ISO3","NAME", str_extract(gsub(".csv", "", basename(fls[[1]])), "tic|tip"), 
+                    str_extract(gsub(".csv", "", basename(fls[[2]])), "tic|tip"))
 
-comb$full_name <- countrycode::countrycode(comb$GID_0, origin="iso3c", destination="country.name", warn=T)
+#comb$full_name <- countrycode::countrycode(comb$ISO3, origin="iso3c", destination="country.name", warn=T)
 #double check which ones got left out, make sure you're ok with it
 #comb[is.na(comb$full_name),]
 #comb <- comb[!is.na(comb$full_name),]
 
 ##add agricultural hectares
-fls <- list.files("TIA/Results_Potapov_GADM_no100s/", pattern="AreaByCountry", full.names = T)
+fls <- list.files("TIA/Results_Potapov_GADM_no100s/drive-download-20230213T231648Z-001/02_17_2023/",
+                  pattern="AreaByBiomeCountry", full.names = T)
 tbs <- lapply(fls, read.csv)
-agarea <- dplyr::inner_join(tbs[[1]], tbs[[2]], by=c("GID_0", "NAME_0"))
-colnames(agarea) <- c("GID_0", "NAME_0", gsub(".csv", "", basename(fls[[1]])), 
-                      gsub(".csv", "", basename(fls[[2]])))
-agarea$full_name <- countrycode::countrycode(agarea$GID_0, origin="iso3c", destination="country.name", warn=T)
+agarea <- dplyr::inner_join(tbs[[1]], tbs[[2]], by=c("ISO3","COUNTRY", "BIOME_NAME","BIOME_NUM"))
+colnames(agarea) <- c("ISO3","NAME","BIOME_NAME", "BIOME_NUM", str_extract(gsub(".csv", "", basename(fls[[1]])), "tic|tip"), 
+                      str_extract(gsub(".csv", "", basename(fls[[2]])), "tic|tip"))
+#agarea$full_name <- countrycode::countrycode(agarea$GID_0, origin="iso3c", destination="country.name", warn=T)
 #agarea[is.na(agarea$full_name),]
 #agarea <- agarea[!is.na(agarea$full_name),]
-agarea$CropAreaByCountry_tic_ha <- agarea$CropAreaByCountry_tic/10000
-agarea$GrazeAreaByCountry_tip_ha <- agarea$GrazeAreaByCountry_tip/10000
+agarea$CropAreaByBiomeCountry_tic_ha <- agarea$tic/10000
+agarea$GrazeAreaByBiomeCountry_tip_ha <- agarea$tip/10000
 
 ## add mean tree cover
-fls <- list.files("TIA/Results_Potapov_GADM_no100s/02022023/", pattern="CoverByCountry", full.names = T)
+fls <- list.files("TIA/Results_Potapov_GADM_no100s/drive-download-20230213T231648Z-001/02_17_2023/",
+                  pattern="CoverByCountry", full.names = T)
 tbs <- lapply(fls, read.csv)
 treecov <- dplyr::inner_join(tbs[[1]], tbs[[2]], by=c("GID_0", "NAME_0"))
 colnames(treecov) <- c("GID_0", "NAME_0",  gsub(".csv", "", basename(fls[[1]])), 
