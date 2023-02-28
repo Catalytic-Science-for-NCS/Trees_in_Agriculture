@@ -1,0 +1,563 @@
+ISO3,COUNTRY,BIOME_NAME,BIOME_NUM,sum
+ATF,French Southern Territories,"Temperate Grasslands, Savannas & Shrublands",8.0,0.0
+KAZ,Kazakhstan,"Temperate Grasslands, Savannas & Shrublands",8.0,2.060489137435135E11
+KAZ,Kazakhstan,Montane Grasslands & Shrublands,10.0,7.700824453561582E7
+KAZ,Kazakhstan,Deserts & Xeric Shrublands,13.0,1.0786998440741991E10
+KAZ,Kazakhstan,Temperate Conifer Forests,5.0,1.0566333225694582E8
+TJK,Tajikistan,"Temperate Grasslands, Savannas & Shrublands",8.0,1.0196982275426003E10
+TJK,Tajikistan,Montane Grasslands & Shrublands,10.0,1.3114358573902184E8
+TJK,Tajikistan,Deserts & Xeric Shrublands,13.0,6.375081757505915E8
+TKM,Turkmenistan,"Temperate Grasslands, Savannas & Shrublands",8.0,2.6640135328879234E8
+TKM,Turkmenistan,Montane Grasslands & Shrublands,10.0,3.1104796588782225E9
+TKM,Turkmenistan,Deserts & Xeric Shrublands,13.0,2.1038575184616524E10
+UZB,Uzbekistan,"Temperate Grasslands, Savannas & Shrublands",8.0,3.8142260173390175E10
+UZB,Uzbekistan,Montane Grasslands & Shrublands,10.0,0.0
+UZB,Uzbekistan,Deserts & Xeric Shrublands,13.0,1.3505049843649847E10
+HKG,Hong Kong,Tropical & Subtropical Moist Broadleaf Forests,1.0,445367.73218347883
+MAC,Macao,Tropical & Subtropical Moist Broadleaf Forests,1.0,9121.169799804688
+TWN,Taiwan,Tropical & Subtropical Moist Broadleaf Forests,1.0,3.0610790632220893E9
+PRK,North Korea,Temperate Broadleaf & Mixed Forests,4.0,1.8811503493789032E10
+KOR,South Korea,Temperate Broadleaf & Mixed Forests,4.0,1.105606188453843E10
+CHN,China,Temperate Broadleaf & Mixed Forests,4.0,7.581278471003627E11
+CHN,China,Temperate Conifer Forests,5.0,1.368786129493309E10
+CHN,China,Montane Grasslands & Shrublands,10.0,5.745536401122826E10
+CHN,China,Deserts & Xeric Shrublands,13.0,7.069193941369373E10
+CHN,China,Tropical & Subtropical Moist Broadleaf Forests,1.0,8.369267497010544E10
+CHN,China,"Temperate Grasslands, Savannas & Shrublands",8.0,1.2617925911681631E11
+JPN,Japan,Tropical & Subtropical Moist Broadleaf Forests,1.0,5.154216955119533E7
+JPN,Japan,Temperate Broadleaf & Mixed Forests,4.0,2.4997497476214302E10
+JPN,Japan,Temperate Conifer Forests,5.0,3.8042952311723957E9
+MNG,Mongolia,Deserts & Xeric Shrublands,13.0,3.599892470592041E7
+MNG,Mongolia,Temperate Conifer Forests,5.0,2.9870892733093742E7
+MNG,Mongolia,"Temperate Grasslands, Savannas & Shrublands",8.0,5.430044973601907E9
+MNG,Mongolia,Montane Grasslands & Shrublands,10.0,107346.62347914751
+CYP,Cyprus,"Mediterranean Forests, Woodlands & Scrub",12.0,2.560411563623165E9
+LBN,Lebanon,"Mediterranean Forests, Woodlands & Scrub",12.0,1.035378498229018E9
+KWT,Kuwait,Deserts & Xeric Shrublands,13.0,9.885882358457653E7
+BHR,Bahrain,Deserts & Xeric Shrublands,13.0,2333193.356278483
+QAT,Qatar,Deserts & Xeric Shrublands,13.0,6.65123448604564E7
+ARE,United Arab Emirates,"Temperate Grasslands, Savannas & Shrublands",8.0,2566871.466234873
+ARE,United Arab Emirates,Deserts & Xeric Shrublands,13.0,1.0275861800325665E8
+ARM,Armenia,Temperate Broadleaf & Mixed Forests,4.0,1.5598499016839583E9
+ARM,Armenia,"Temperate Grasslands, Savannas & Shrublands",8.0,2.0965845964181104E9
+ARM,Armenia,Deserts & Xeric Shrublands,13.0,12782.773873123468
+AZE,Azerbaijan,Temperate Broadleaf & Mixed Forests,4.0,3.6075813661254582E9
+AZE,Azerbaijan,"Temperate Grasslands, Savannas & Shrublands",8.0,5.809163056429367E8
+AZE,Azerbaijan,Deserts & Xeric Shrublands,13.0,8.796911464568735E9
+GEO,Georgia,Temperate Broadleaf & Mixed Forests,4.0,1.7058389742926683E9
+GEO,Georgia,"Temperate Grasslands, Savannas & Shrublands",8.0,3.0489048978574914E8
+GEO,Georgia,Deserts & Xeric Shrublands,13.0,2.6650389558437884E8
+ISR,Israel,Deserts & Xeric Shrublands,13.0,1.1175233179572349E9
+ISR,Israel,"Temperate Grasslands, Savannas & Shrublands",8.0,1.8988698015205175E7
+ISR,Israel,"Mediterranean Forests, Woodlands & Scrub",12.0,3.0164551800573087E9
+IRQ,Iraq,Temperate Broadleaf & Mixed Forests,4.0,5.883681930193023E9
+IRQ,Iraq,"Temperate Grasslands, Savannas & Shrublands",8.0,1.824399607440536E10
+IRQ,Iraq,"Mediterranean Forests, Woodlands & Scrub",12.0,9.383680034452832E8
+IRQ,Iraq,Deserts & Xeric Shrublands,13.0,3.2390894310862473E10
+JOR,Jordan,"Temperate Grasslands, Savannas & Shrublands",8.0,1.0294523975777482E9
+JOR,Jordan,"Mediterranean Forests, Woodlands & Scrub",12.0,1.170795604856872E9
+JOR,Jordan,Deserts & Xeric Shrublands,13.0,3.7605750369773954E8
+KGZ,Kyrgyzstan,"Temperate Grasslands, Savannas & Shrublands",8.0,1.0625036652880362E10
+KGZ,Kyrgyzstan,Montane Grasslands & Shrublands,10.0,3.2316030206361985E8
+KGZ,Kyrgyzstan,Temperate Conifer Forests,5.0,2.893398863870341E8
+KGZ,Kyrgyzstan,Deserts & Xeric Shrublands,13.0,2.658096103040638E9
+OMN,Oman,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
+OMN,Oman,Deserts & Xeric Shrublands,13.0,2.6657171571602377E8
+OMN,Oman,"Temperate Grasslands, Savannas & Shrublands",8.0,3.5699011692081705E7
+PSE,Palestina,"Mediterranean Forests, Woodlands & Scrub",12.0,6.48369454975896E8
+PSE,Palestina,Deserts & Xeric Shrublands,13.0,1.053647773242451E8
+SAU,Saudi Arabia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.8577466822068878E7
+SAU,Saudi Arabia,Deserts & Xeric Shrublands,13.0,1.2962454151298855E10
+SAU,Saudi Arabia,"Mediterranean Forests, Woodlands & Scrub",12.0,58457.09915819355
+SYR,Syria,"Temperate Grasslands, Savannas & Shrublands",8.0,2.023257462425979E10
+SYR,Syria,"Mediterranean Forests, Woodlands & Scrub",12.0,2.380736264568038E10
+SYR,Syria,Deserts & Xeric Shrublands,13.0,1.5837620617001553E9
+TUR,Turkey,Temperate Broadleaf & Mixed Forests,4.0,7.719282249359071E10
+TUR,Turkey,Temperate Conifer Forests,5.0,1.6036729920337255E10
+TUR,Turkey,"Temperate Grasslands, Savannas & Shrublands",8.0,2.583475469211551E10
+TUR,Turkey,"Mediterranean Forests, Woodlands & Scrub",12.0,6.2464361330424255E10
+YEM,Yemen,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,4.938293965762332E8
+YEM,Yemen,Deserts & Xeric Shrublands,13.0,5.44297125965393E9
+IOT,British Indian Ocean Territory,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+MDV,Maldives,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+AFG,Afghanistan,Montane Grasslands & Shrublands,10.0,1.4417250319962177E9
+AFG,Afghanistan,Deserts & Xeric Shrublands,13.0,2.8475174082789944E10
+AFG,Afghanistan,Temperate Conifer Forests,5.0,2.3610735101750347E8
+AFG,Afghanistan,"Temperate Grasslands, Savannas & Shrublands",8.0,3.2454584853507727E7
+BGD,Bangladesh,Tropical & Subtropical Moist Broadleaf Forests,1.0,5.561861206439396E10
+BGD,Bangladesh,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,5.558688980741764E7
+BTN,Bhutan,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.369283541803649E7
+BTN,Bhutan,Tropical & Subtropical Coniferous Forests,3.0,3968486.2286843695
+BTN,Bhutan,Temperate Broadleaf & Mixed Forests,4.0,7.886270378203724E7
+BTN,Bhutan,Temperate Conifer Forests,5.0,342117.1052102481
+BTN,Bhutan,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,297576.5985782399
+BTN,Bhutan,Montane Grasslands & Shrublands,10.0,106232.6685180664
+IND,India,Tropical & Subtropical Moist Broadleaf Forests,1.0,4.5778631825378937E11
+IND,India,Tropical & Subtropical Dry Broadleaf Forests,2.0,4.589875498250343E11
+IND,India,Deserts & Xeric Shrublands,13.0,1.8839750602904153E11
+IND,India,Tropical & Subtropical Coniferous Forests,3.0,2.3397303863586206E9
+IND,India,Temperate Broadleaf & Mixed Forests,4.0,2.899415326387783E9
+IND,India,Temperate Conifer Forests,5.0,9.090867159178422E7
+IND,India,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,4.805886664395126E9
+IND,India,Montane Grasslands & Shrublands,10.0,1.8550474457669753E8
+IRN,Iran,Temperate Broadleaf & Mixed Forests,4.0,7.710697059341881E10
+IRN,Iran,Temperate Conifer Forests,5.0,4.487565519678606E9
+IRN,Iran,"Temperate Grasslands, Savannas & Shrublands",8.0,1.2756244914248684E10
+IRN,Iran,Deserts & Xeric Shrublands,13.0,4.076472693769847E10
+IRN,Iran,Montane Grasslands & Shrublands,10.0,3.9211629845173135E9
+LKA,Sri Lanka,Tropical & Subtropical Moist Broadleaf Forests,1.0,7225620.049357575
+LKA,Sri Lanka,Tropical & Subtropical Dry Broadleaf Forests,2.0,8.241075315151979E8
+LKA,Sri Lanka,Deserts & Xeric Shrublands,13.0,6.508370356253616E7
+NPL,Nepal,Tropical & Subtropical Moist Broadleaf Forests,1.0,3.66475009219286E9
+NPL,Nepal,Tropical & Subtropical Coniferous Forests,3.0,7.952117493225218E8
+NPL,Nepal,Temperate Broadleaf & Mixed Forests,4.0,9.946195037273022E8
+NPL,Nepal,Temperate Conifer Forests,5.0,1.5607953446230876E8
+NPL,Nepal,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.1817676354447458E10
+NPL,Nepal,Montane Grasslands & Shrublands,10.0,1.0903063029966587E7
+PAK,Pakistan,Tropical & Subtropical Moist Broadleaf Forests,1.0,6510.351013183594
+PAK,Pakistan,Temperate Conifer Forests,5.0,6.936430676081389E9
+PAK,Pakistan,Montane Grasslands & Shrublands,10.0,6.038551315247452E8
+PAK,Pakistan,Deserts & Xeric Shrublands,13.0,7.194946084388289E10
+PAK,Pakistan,Tropical & Subtropical Coniferous Forests,3.0,9.428687966802129E8
+PAK,Pakistan,Temperate Broadleaf & Mixed Forests,4.0,2.288722638992128E8
+CXR,Christmas Island,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+CCK,Cocos Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+TLS,East Timor,Tropical & Subtropical Dry Broadleaf Forests,2.0,4.574872586722044E8
+BRN,Brunei,Tropical & Subtropical Moist Broadleaf Forests,1.0,1946726.1911925073
+SGP,Singapore,Tropical & Subtropical Moist Broadleaf Forests,1.0,1253482.3503774605
+S--,Spratly islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+P--,Paracel Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+IDN,Indonesia,Tropical & Subtropical Moist Broadleaf Forests,1.0,6.132546174246199E10
+IDN,Indonesia,Tropical & Subtropical Dry Broadleaf Forests,2.0,6.022456767471371E9
+IDN,Indonesia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.5504912768962377E8
+IDN,Indonesia,Montane Grasslands & Shrublands,10.0,27651.026916503906
+IDN,Indonesia,Tropical & Subtropical Coniferous Forests,3.0,4367025.24342424
+KHM,Cambodia,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.037196962053818E10
+KHM,Cambodia,Tropical & Subtropical Dry Broadleaf Forests,2.0,3.272742722794374E10
+LAO,Laos,Tropical & Subtropical Moist Broadleaf Forests,1.0,4.688932815983907E9
+LAO,Laos,Tropical & Subtropical Dry Broadleaf Forests,2.0,7.813709359504944E9
+MMR,Myanmar,Tropical & Subtropical Moist Broadleaf Forests,1.0,8.24215752490105E10
+MMR,Myanmar,Tropical & Subtropical Coniferous Forests,3.0,80124.27792394301
+MMR,Myanmar,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.7922996105979168E10
+MMR,Myanmar,Temperate Broadleaf & Mixed Forests,4.0,2155457.977354521
+MMR,Myanmar,Temperate Conifer Forests,5.0,858985.4581897211
+MMR,Myanmar,Montane Grasslands & Shrublands,10.0,3166.4640502929688
+MYS,Malaysia,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.273301825458648E9
+MYS,Malaysia,Montane Grasslands & Shrublands,10.0,0.0
+MYS,Malaysia,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+MYS,Malaysia,Montane Grasslands & Shrublands,10.0,0.0
+PHL,Philippines,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.9565630479575188E10
+PHL,Philippines,Tropical & Subtropical Coniferous Forests,3.0,9.65993793178742E7
+THA,Thailand,Tropical & Subtropical Moist Broadleaf Forests,1.0,4.079078934567999E10
+THA,Thailand,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.2026638891672247E11
+VNM,Vietnam,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.310772845232316E10
+VNM,Vietnam,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.4125817439838161E10
+GNQ,Equatorial Guinea,Tropical & Subtropical Moist Broadleaf Forests,1.0,9828.719665527344
+STP,Sao Tome and Principe,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+AGO,Angola,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+AGO,Angola,Tropical & Subtropical Dry Broadleaf Forests,2.0,1587260.1067648495
+AGO,Angola,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.765813801819411E10
+AGO,Angola,Montane Grasslands & Shrublands,10.0,1.607725354423615E9
+AGO,Angola,Deserts & Xeric Shrublands,13.0,1.2661407115449913E8
+COD,Democratic Republic of the Congo,Tropical & Subtropical Moist Broadleaf Forests,1.0,4.048791320847386E9
+COD,Democratic Republic of the Congo,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.9509598956226513E10
+COD,Democratic Republic of the Congo,Montane Grasslands & Shrublands,10.0,0.0
+CAF,Central African Republic,Tropical & Subtropical Moist Broadleaf Forests,1.0,5.559852239099144E7
+CAF,Central African Republic,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.9816895782402241E9
+COG,Republic of Congo,Tropical & Subtropical Moist Broadleaf Forests,1.0,5532029.147051643
+COG,Republic of Congo,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.2439909576097813E9
+CMR,Cameroon,Tropical & Subtropical Moist Broadleaf Forests,1.0,7.931085732994556E8
+CMR,Cameroon,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.9717138012863564E10
+GAB,Gabon,Tropical & Subtropical Moist Broadleaf Forests,1.0,405512.96923828125
+GAB,Gabon,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,7138719.55279541
+TCD,Chad,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,5.776955953190958E10
+TCD,Chad,Deserts & Xeric Shrublands,13.0,0.0
+COM,Comoros,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+MYT,Mayotte,Tropical & Subtropical Moist Broadleaf Forests,1.0,4361.735534667969
+MUS,Mauritius,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+REU,Reunion,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+DJI,Djibouti,Deserts & Xeric Shrublands,13.0,0.0
+BDI,Burundi,Tropical & Subtropical Moist Broadleaf Forests,1.0,3.253472556763349E9
+BDI,Burundi,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,7.223708496897566E8
+ERI,Eritrea,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,5.0504799463920355E8
+ERI,Eritrea,Montane Grasslands & Shrublands,10.0,2.405727465701702E9
+ERI,Eritrea,Deserts & Xeric Shrublands,13.0,6748145.852513213
+ETH,Ethiopia,Tropical & Subtropical Moist Broadleaf Forests,1.0,6.688191125561921E9
+ETH,Ethiopia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.548699308512243E10
+ETH,Ethiopia,Montane Grasslands & Shrublands,10.0,1.0178191094342943E11
+ETH,Ethiopia,Deserts & Xeric Shrublands,13.0,3.640965177521795E9
+KEN,Kenya,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.0434868334906685E10
+KEN,Kenya,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.4606575240918724E10
+KEN,Kenya,Tropical & Subtropical Moist Broadleaf Forests,1.0,1304520.1041355503
+KEN,Kenya,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1304520.1041355503
+KEN,Kenya,Montane Grasslands & Shrublands,10.0,9.305096318000968E7
+MDG,Madagascar,Tropical & Subtropical Moist Broadleaf Forests,1.0,9.803095079248117E9
+MDG,Madagascar,Tropical & Subtropical Dry Broadleaf Forests,2.0,5.421049087495295E9
+MDG,Madagascar,Montane Grasslands & Shrublands,10.0,2.2466773476976663E8
+MDG,Madagascar,Deserts & Xeric Shrublands,13.0,1.8499657260001945E9
+MWI,Malawi,Tropical & Subtropical Moist Broadleaf Forests,1.0,3206357.6354540046
+MWI,Malawi,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.2095074505109E10
+MWI,Malawi,Montane Grasslands & Shrublands,10.0,8.747296986993547E7
+MOZ,Mozambique,Tropical & Subtropical Moist Broadleaf Forests,1.0,5.982405591151191E9
+MOZ,Mozambique,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.0201882013923958E10
+MOZ,Mozambique,Montane Grasslands & Shrublands,10.0,4.9710771472865164E8
+RWA,Rwanda,Tropical & Subtropical Moist Broadleaf Forests,1.0,6.070507425083818E9
+RWA,Rwanda,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.670969936297759E9
+RWA,Rwanda,Montane Grasslands & Shrublands,10.0,232722.09029253793
+SYC,Seychelles,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+SYC,Seychelles,Deserts & Xeric Shrublands,13.0,0.0
+SOM,Somalia,Tropical & Subtropical Moist Broadleaf Forests,1.0,6.019305178728871E9
+SOM,Somalia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,5.460763944339755E9
+SOM,Somalia,Deserts & Xeric Shrublands,13.0,1.1172128314080101E8
+ATF,French Southern Territories,Deserts & Xeric Shrublands,13.0,0.0
+TZA,Tanzania,Tropical & Subtropical Moist Broadleaf Forests,1.0,3.568869164987232E9
+TZA,Tanzania,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.4320225477784006E11
+TZA,Tanzania,Montane Grasslands & Shrublands,10.0,2.1358645618792489E9
+UGA,Uganda,Tropical & Subtropical Moist Broadleaf Forests,1.0,4.301375794878308E9
+UGA,Uganda,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,4.807982251948039E10
+UGA,Uganda,Montane Grasslands & Shrublands,10.0,65368.79514686734
+ZMB,Zambia,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.3063626527878201E8
+ZMB,Zambia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.967033759181907E10
+ZMB,Zambia,Montane Grasslands & Shrublands,10.0,902742.1939967733
+ZWE,Zimbabwe,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.6700965368600164E7
+ZWE,Zimbabwe,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,5.734451580743967E10
+ZWE,Zimbabwe,Montane Grasslands & Shrublands,10.0,8.459183040449679E8
+ZWE,Zimbabwe,Deserts & Xeric Shrublands,13.0,0.0
+CPV,Cape Verde,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+BFA,Burkina Faso,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,4.23468687806354E10
+GMB,Gambia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.722036504289007E9
+GNB,Guinea-Bissau,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.633932904006766E8
+SEN,Senegal,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.405914341540757E10
+BEN,Benin,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.710796329028655E7
+BEN,Benin,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.6458817830466175E10
+CIV,Côte d'Ivoire,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.3673706803637843E9
+CIV,Côte d'Ivoire,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,9.464618500957191E9
+GHA,Ghana,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.3350605060628977E9
+GHA,Ghana,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.638279026727305E10
+GIN,Guinea,Tropical & Subtropical Moist Broadleaf Forests,1.0,3.4409517602097785E8
+GIN,Guinea,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.8615735300765743E9
+LBR,Liberia,Tropical & Subtropical Moist Broadleaf Forests,1.0,5302334.358687098
+LBR,Liberia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
+MLI,Mali,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,5.9487361522768456E10
+MLI,Mali,Deserts & Xeric Shrublands,13.0,0.0
+MRT,Mauritania,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,5.0817967844435656E8
+MRT,Mauritania,Deserts & Xeric Shrublands,13.0,0.0
+NER,Niger,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,7.97507577593174E10
+NER,Niger,Deserts & Xeric Shrublands,13.0,10787.839477539062
+NGA,Nigeria,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.0421640269462843E9
+NGA,Nigeria,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.0938959839502966E11
+NGA,Nigeria,Montane Grasslands & Shrublands,10.0,3.094730660503357E9
+SHN,Saint Helena,"Temperate Grasslands, Savannas & Shrublands",8.0,0.0
+SHN,Saint Helena,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
+SLE,Sierra Leone,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.490131970020261E8
+SLE,Sierra Leone,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,4.4550673946920715E7
+TGO,Togo,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.104285580408335E10
+TGO,Togo,Tropical & Subtropical Moist Broadleaf Forests,1.0,7.020547315698579E7
+DZA,Algeria,"Mediterranean Forests, Woodlands & Scrub",12.0,5.297752790343946E10
+DZA,Algeria,Deserts & Xeric Shrublands,13.0,1.1833834121169477E9
+DZA,Algeria,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
+DZA,Algeria,Temperate Conifer Forests,5.0,1.7032625334409046E9
+EGY,Egypt,"Mediterranean Forests, Woodlands & Scrub",12.0,1.0942238772721615E9
+EGY,Egypt,Deserts & Xeric Shrublands,13.0,7.492483710598428E9
+ESH,Western Sahara,"Mediterranean Forests, Woodlands & Scrub",12.0,2252776.172729492
+ESH,Western Sahara,Deserts & Xeric Shrublands,13.0,0.0
+LBY,Libya,Deserts & Xeric Shrublands,13.0,1.6889822508739572E9
+LBY,Libya,"Mediterranean Forests, Woodlands & Scrub",12.0,7.449573668799113E9
+MAR,Morocco,Temperate Conifer Forests,5.0,1.1377058015549583E9
+MAR,Morocco,Montane Grasslands & Shrublands,10.0,3.0926484150522504E7
+MAR,Morocco,"Mediterranean Forests, Woodlands & Scrub",12.0,6.16685746342813E10
+MAR,Morocco,Deserts & Xeric Shrublands,13.0,2.139251323725519E8
+SDN,Sudan,Tropical & Subtropical Moist Broadleaf Forests,1.0,9.90911969673328E7
+SDN,Sudan,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.8957900302903418E11
+SDN,Sudan,Montane Grasslands & Shrublands,10.0,0.0
+SDN,Sudan,Deserts & Xeric Shrublands,13.0,7.277826501594007E8
+TUN,Tunisia,Temperate Conifer Forests,5.0,1.382769414583037E9
+TUN,Tunisia,"Mediterranean Forests, Woodlands & Scrub",12.0,1.7805393422711468E10
+TUN,Tunisia,Deserts & Xeric Shrublands,13.0,4.699709053855483E7
+BWA,Botswana,Deserts & Xeric Shrublands,13.0,3.664542172462898E8
+BWA,Botswana,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.472628494535961E9
+LSO,Lesotho,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,6.806783501810211E8
+LSO,Lesotho,Montane Grasslands & Shrublands,10.0,1.7788741995247948E9
+NAM,Namibia,Deserts & Xeric Shrublands,13.0,1.4579559070083654E8
+NAM,Namibia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,5.650392828925898E9
+SWZ,Swaziland,Tropical & Subtropical Moist Broadleaf Forests,1.0,3.025389656316045E8
+SWZ,Swaziland,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,6.411244319325532E8
+SWZ,Swaziland,Montane Grasslands & Shrublands,10.0,8.661462088412057E7
+ZAF,South Africa,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.752251608055439E9
+ZAF,South Africa,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.2335143457174461E10
+ZAF,South Africa,Montane Grasslands & Shrublands,10.0,4.4708010185968056E10
+ZAF,South Africa,"Mediterranean Forests, Woodlands & Scrub",12.0,1.018844497260094E10
+ZAF,South Africa,Deserts & Xeric Shrublands,13.0,5.772293278936208E9
+BLR,Belarus,Temperate Broadleaf & Mixed Forests,4.0,5.6613879620543365E10
+HUN,Hungary,Temperate Broadleaf & Mixed Forests,4.0,4.572080275623116E10
+BGR,Bulgaria,Temperate Broadleaf & Mixed Forests,4.0,3.6532685881298065E10
+BGR,Bulgaria,"Mediterranean Forests, Woodlands & Scrub",12.0,3230775.623222559
+BGR,Bulgaria,"Temperate Grasslands, Savannas & Shrublands",8.0,4.457410896358288E8
+CZE,Czech Republic,Temperate Broadleaf & Mixed Forests,4.0,2.6498065497442577E10
+CZE,Czech Republic,Temperate Conifer Forests,5.0,2.4931977223942548E7
+MDA,Moldova,Temperate Broadleaf & Mixed Forests,4.0,1.344271422617408E10
+MDA,Moldova,"Temperate Grasslands, Savannas & Shrublands",8.0,5.204984835881813E9
+POL,Poland,Temperate Broadleaf & Mixed Forests,4.0,1.1733257322968993E11
+POL,Poland,Temperate Conifer Forests,5.0,1.735985755787658E9
+ROU,Romania,Temperate Broadleaf & Mixed Forests,4.0,5.8459881619512436E10
+ROU,Romania,Temperate Conifer Forests,5.0,7.890282104155343E8
+ROU,Romania,"Temperate Grasslands, Savannas & Shrublands",8.0,1.599206976967127E10
+RUS,Russia,Temperate Broadleaf & Mixed Forests,4.0,2.919941761903249E11
+RUS,Russia,"Temperate Grasslands, Savannas & Shrublands",8.0,5.102471943129009E11
+RUS,Russia,Temperate Conifer Forests,5.0,1.1007339634128404E9
+RUS,Russia,Montane Grasslands & Shrublands,10.0,3089795.2634887695
+RUS,Russia,Deserts & Xeric Shrublands,13.0,5.392949226177998E8
+SVK,Slovakia,Temperate Broadleaf & Mixed Forests,4.0,1.2439274472194208E10
+SVK,Slovakia,Temperate Conifer Forests,5.0,9.1745053765384E8
+UKR,Ukraine,Temperate Broadleaf & Mixed Forests,4.0,1.489423658138528E11
+UKR,Ukraine,Temperate Conifer Forests,5.0,4.2006056723073983E9
+UKR,Ukraine,"Temperate Grasslands, Savannas & Shrublands",8.0,1.7316063123036252E11
+GGY,Guernsey,Temperate Broadleaf & Mixed Forests,4.0,1855379.5761922202
+IMN,Isle of Man,Temperate Broadleaf & Mixed Forests,4.0,6.432630182099059E7
+JEY,Jersey,Temperate Broadleaf & Mixed Forests,4.0,3.408865845429545E7
+BEL,Belgium,Temperate Broadleaf & Mixed Forests,4.0,9.02505490649349E9
+LUX,Luxembourg,Temperate Broadleaf & Mixed Forests,4.0,5.15180280895678E8
+NLD,Netherlands,Temperate Broadleaf & Mixed Forests,4.0,8.823855432860353E9
+MCO,Monaco,"Mediterranean Forests, Woodlands & Scrub",12.0,649.8040771484375
+AUT,Austria,Temperate Broadleaf & Mixed Forests,4.0,1.1932867326294958E10
+AUT,Austria,Temperate Conifer Forests,5.0,3.7711549136675996E8
+CHE,Switzerland,Temperate Broadleaf & Mixed Forests,4.0,2.6231295991924596E9
+CHE,Switzerland,Temperate Conifer Forests,5.0,8.052723949216571E7
+DEU,Germany,Temperate Broadleaf & Mixed Forests,4.0,1.2068229646764334E11
+DEU,Germany,Temperate Conifer Forests,5.0,2987544.7160816872
+FRA,France,Temperate Broadleaf & Mixed Forests,4.0,1.6745740889980414E11
+FRA,France,"Mediterranean Forests, Woodlands & Scrub",12.0,4.491763352824547E9
+FRA,France,Temperate Conifer Forests,5.0,9.176769985819954E7
+LIE,Liechtenstein,Temperate Broadleaf & Mixed Forests,4.0,5182258.249374811
+LIE,Liechtenstein,Temperate Conifer Forests,5.0,249115.90237893496
+IRL,Ireland,Temperate Broadleaf & Mixed Forests,4.0,4.1048995856357875E9
+FRO,Faroe Islands,"Temperate Grasslands, Savannas & Shrublands",8.0,0.0
+ALA,Åland,Temperate Broadleaf & Mixed Forests,4.0,5.921617838932053E7
+DNK,Denmark,Temperate Broadleaf & Mixed Forests,4.0,2.0586611994455753E10
+EST,Estonia,Temperate Broadleaf & Mixed Forests,4.0,6.472196004241571E9
+FIN,Finland,Temperate Broadleaf & Mixed Forests,4.0,7.820456580304433E8
+LVA,Latvia,Temperate Broadleaf & Mixed Forests,4.0,1.0006907689701939E10
+LTU,Lithuania,Temperate Broadleaf & Mixed Forests,4.0,1.959586687486178E10
+SWE,Sweden,Temperate Broadleaf & Mixed Forests,4.0,1.5551402718994036E10
+GBR,United Kingdom,Temperate Broadleaf & Mixed Forests,4.0,5.527951523306092E10
+GBR,United Kingdom,Temperate Conifer Forests,5.0,8.642922843399022E8
+GBR,United Kingdom,"Mediterranean Forests, Woodlands & Scrub",12.0,1.0331543108118033E8
+NOR,Norway,Temperate Broadleaf & Mixed Forests,4.0,6.171556398826003E8
+NOR,Norway,Temperate Conifer Forests,5.0,1.6238383971961534E8
+GIB,Gibraltar,"Mediterranean Forests, Woodlands & Scrub",12.0,7978.9344482421875
+MLT,Malta,"Mediterranean Forests, Woodlands & Scrub",12.0,2.0863197704699967E7
+VAT,Vatican City,"Mediterranean Forests, Woodlands & Scrub",12.0,0.0
+AND,Andorra,Temperate Broadleaf & Mixed Forests,4.0,537084.8881225586
+SMR,San Marino,"Mediterranean Forests, Woodlands & Scrub",12.0,1.1959841231753115E7
+ALB,Albania,Temperate Broadleaf & Mixed Forests,4.0,8992680.543202119
+ALB,Albania,"Mediterranean Forests, Woodlands & Scrub",12.0,2.259647116242837E9
+BIH,Bosnia and Herzegovina,Temperate Broadleaf & Mixed Forests,4.0,2.176090992211404E9
+BIH,Bosnia and Herzegovina,"Mediterranean Forests, Woodlands & Scrub",12.0,1.0285505335442254E8
+ESP,Spain,Temperate Broadleaf & Mixed Forests,4.0,3.529843071094102E9
+ESP,Spain,"Mediterranean Forests, Woodlands & Scrub",12.0,1.0931387874983018E11
+GRC,Greece,Temperate Broadleaf & Mixed Forests,4.0,2.3421135295406313E9
+GRC,Greece,"Mediterranean Forests, Woodlands & Scrub",12.0,1.6145179861607368E10
+HRV,Croatia,"Mediterranean Forests, Woodlands & Scrub",12.0,2.6476866924216807E8
+HRV,Croatia,Temperate Broadleaf & Mixed Forests,4.0,8.828605223689095E9
+ITA,Italy,Temperate Broadleaf & Mixed Forests,4.0,2.8345254047421333E10
+ITA,Italy,"Mediterranean Forests, Woodlands & Scrub",12.0,4.13836523233017E10
+ITA,Italy,Temperate Conifer Forests,5.0,1.0632782965565155E9
+MNE,Montenegro,Temperate Broadleaf & Mixed Forests,4.0,8502725.75261039
+MNE,Montenegro,"Mediterranean Forests, Woodlands & Scrub",12.0,1.097158259464377E8
+MKD,Macedonia,Temperate Broadleaf & Mixed Forests,4.0,2.547907165886127E9
+MKD,Macedonia,"Mediterranean Forests, Woodlands & Scrub",12.0,3.765394691848776E8
+PRT,Portugal,Temperate Broadleaf & Mixed Forests,4.0,4.888847625062306E8
+PRT,Portugal,"Mediterranean Forests, Woodlands & Scrub",12.0,5.600515392166494E9
+SRB,Serbia,Temperate Broadleaf & Mixed Forests,4.0,2.626126872115153E10
+SRB,Serbia,"Mediterranean Forests, Woodlands & Scrub",12.0,1.5537960453981405E7
+SVN,Slovenia,Temperate Broadleaf & Mixed Forests,4.0,1.279039961366877E9
+SVN,Slovenia,Temperate Conifer Forests,5.0,7.646699864292352E7
+SVN,Slovenia,"Mediterranean Forests, Woodlands & Scrub",12.0,1.2867941335570091E7
+VUT,Vanuatu,Tropical & Subtropical Moist Broadleaf Forests,1.0,75878.00653076172
+SLB,Solomon Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+FJI,Fiji,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+FJI,Fiji,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+NCL,New Caledonia,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+NCL,New Caledonia,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+PNG,Papua New Guinea,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.018879550241704E8
+PNG,Papua New Guinea,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,15031.47119140625
+PNG,Papua New Guinea,Montane Grasslands & Shrublands,10.0,109255.52387551701
+ASM,American Samoa,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+COK,Cook Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+PYF,French Polynesia,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+NIU,Niue,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+PCN,Pitcairn Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+WSM,Samoa,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+TON,Tonga,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+WLF,Wallis and Futuna,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+TUV,Tuvalu,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+KIR,Kiribati,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+MHL,Marshall Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+PLW,Palau,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+GUM,Guam,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+MNP,Northern Mariana Islands,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+FSM,Micronesia,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+FSM,Micronesia,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+UMI,United States Minor Outlying Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+UMI,United States Minor Outlying Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+UMI,United States Minor Outlying Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+UMI,United States Minor Outlying Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+UMI,United States Minor Outlying Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+UMI,United States Minor Outlying Islands,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
+UMI,United States Minor Outlying Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+NFK,Norfolk Island,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+AUS,Australia,Temperate Broadleaf & Mixed Forests,4.0,7.536241456075854E10
+AUS,Australia,"Temperate Grasslands, Savannas & Shrublands",8.0,7.579685668578662E10
+AUS,Australia,"Mediterranean Forests, Woodlands & Scrub",12.0,2.466687121560036E11
+AUS,Australia,Deserts & Xeric Shrublands,13.0,2.981565698751996E8
+AUS,Australia,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.58437079907158E9
+AUS,Australia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,4.1919528352960724E10
+AUS,Australia,Montane Grasslands & Shrublands,10.0,540118.0488719267
+NZL,New Zealand,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+NZL,New Zealand,Temperate Broadleaf & Mixed Forests,4.0,8.223842784378482E8
+NZL,New Zealand,"Temperate Grasslands, Savannas & Shrublands",8.0,4.101252798586183E9
+NZL,New Zealand,Montane Grasslands & Shrublands,10.0,5.522141923715628E7
+CYM,Cayman Islands,Tropical & Subtropical Dry Broadleaf Forests,2.0,78031.70628231272
+AIA,Anguilla,Deserts & Xeric Shrublands,13.0,5951.135314941406
+BRB,Barbados,Deserts & Xeric Shrublands,13.0,0.0
+MAF,Saint-Martin,Deserts & Xeric Shrublands,13.0,1701.6902465820312
+SXM,Sint Maarten,Deserts & Xeric Shrublands,13.0,5106.13037109375
+BHS,Bahamas,Tropical & Subtropical Coniferous Forests,3.0,859140.5372271369
+TCA,Turks and Caicos Islands,Tropical & Subtropical Coniferous Forests,3.0,0.0
+ATG,Antigua and Barbuda,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+ATG,Antigua and Barbuda,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+ATG,Antigua and Barbuda,Deserts & Xeric Shrublands,13.0,0.0
+CUB,Cuba,Tropical & Subtropical Moist Broadleaf Forests,1.0,7.763657106901829E8
+CUB,Cuba,Tropical & Subtropical Dry Broadleaf Forests,2.0,9.952910276633726E9
+CUB,Cuba,Tropical & Subtropical Coniferous Forests,3.0,3.7642025864191175E8
+CUB,Cuba,Deserts & Xeric Shrublands,13.0,1.4780678081036737E7
+DMA,Dominica,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+DMA,Dominica,Deserts & Xeric Shrublands,13.0,0.0
+DOM,Dominican Republic,Tropical & Subtropical Moist Broadleaf Forests,1.0,5.489237399323457E8
+DOM,Dominican Republic,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+DOM,Dominican Republic,Tropical & Subtropical Coniferous Forests,3.0,0.0
+GRD,Grenada,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+GRD,Grenada,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+GRD,Grenada,Deserts & Xeric Shrublands,13.0,0.0
+GLP,Guadeloupe,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+GLP,Guadeloupe,Deserts & Xeric Shrublands,13.0,0.0
+HTI,Haiti,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.033368409278301E7
+HTI,Haiti,Tropical & Subtropical Dry Broadleaf Forests,2.0,2249692.665164723
+HTI,Haiti,Tropical & Subtropical Coniferous Forests,3.0,0.0
+JAM,Jamaica,Tropical & Subtropical Moist Broadleaf Forests,1.0,8.602697240102635E7
+JAM,Jamaica,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.0981966891566661E8
+KNA,Saint Kitts and Nevis,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+KNA,Saint Kitts and Nevis,Deserts & Xeric Shrublands,13.0,0.0
+LCA,Saint Lucia,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+LCA,Saint Lucia,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+LCA,Saint Lucia,Deserts & Xeric Shrublands,13.0,0.0
+MTQ,Martinique,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+MTQ,Martinique,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+MTQ,Martinique,Deserts & Xeric Shrublands,13.0,0.0
+MSR,Montserrat,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+MSR,Montserrat,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+MSR,Montserrat,Deserts & Xeric Shrublands,13.0,0.0
+PRI,Puerto Rico,Tropical & Subtropical Moist Broadleaf Forests,1.0,7306572.987976074
+PRI,Puerto Rico,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.362993827958386E7
+VCT,Saint Vincent and the Grenadines,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+VCT,Saint Vincent and the Grenadines,Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+VCT,Saint Vincent and the Grenadines,Deserts & Xeric Shrublands,13.0,0.0
+VGB,British Virgin Islands,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+VGB,British Virgin Islands,Deserts & Xeric Shrublands,13.0,0.0
+VIR,"Virgin Islands, U.S.",Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+VIR,"Virgin Islands, U.S.",Deserts & Xeric Shrublands,13.0,101461.15130615234
+BLZ,Belize,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.0250639436838928E8
+BLZ,Belize,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,6480952.607919731
+CRI,Costa Rica,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.3303065443138334E8
+CRI,Costa Rica,Tropical & Subtropical Dry Broadleaf Forests,2.0,5.687767239544015E8
+GTM,Guatemala,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.5688064157473454E8
+GTM,Guatemala,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.0039160749995079E9
+GTM,Guatemala,Tropical & Subtropical Coniferous Forests,3.0,4.833702146864971E7
+GTM,Guatemala,Deserts & Xeric Shrublands,13.0,1.4550841834928147E7
+HND,Honduras,Tropical & Subtropical Moist Broadleaf Forests,1.0,4.6423999612258255E7
+HND,Honduras,Tropical & Subtropical Dry Broadleaf Forests,2.0,6.185144001026279E8
+HND,Honduras,Tropical & Subtropical Coniferous Forests,3.0,6.745647253277013E7
+HND,Honduras,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
+MEX,Mexico,Tropical & Subtropical Moist Broadleaf Forests,1.0,5.488866771589916E9
+MEX,Mexico,Tropical & Subtropical Dry Broadleaf Forests,2.0,3.689427647771222E10
+MEX,Mexico,Tropical & Subtropical Coniferous Forests,3.0,7.110602882857968E9
+MEX,Mexico,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,7.152364702295106E9
+MEX,Mexico,"Mediterranean Forests, Woodlands & Scrub",12.0,2.263013366812275E8
+MEX,Mexico,Deserts & Xeric Shrublands,13.0,3.497038256802732E10
+NIC,Nicaragua,Tropical & Subtropical Moist Broadleaf Forests,1.0,8.356341362719461E7
+NIC,Nicaragua,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.567549244421496E9
+NIC,Nicaragua,Tropical & Subtropical Coniferous Forests,3.0,2.3991957324725464E7
+NIC,Nicaragua,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
+PAN,Panama,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.4072671726557118E8
+PAN,Panama,Tropical & Subtropical Dry Broadleaf Forests,2.0,5.442997311541607E8
+SLV,El Salvador,Tropical & Subtropical Moist Broadleaf Forests,1.0,504897.33409040864
+SLV,El Salvador,Tropical & Subtropical Dry Broadleaf Forests,2.0,3.973097059509633E8
+SLV,El Salvador,Tropical & Subtropical Coniferous Forests,3.0,4.901768996238559E7
+BMU,Bermuda,Tropical & Subtropical Coniferous Forests,3.0,0.0
+CAN,Canada,Temperate Broadleaf & Mixed Forests,4.0,6.518343679669939E10
+CAN,Canada,Temperate Conifer Forests,5.0,3.8916508284104886E9
+CAN,Canada,"Temperate Grasslands, Savannas & Shrublands",8.0,2.4220965297346213E11
+CAN,Canada,Temperate Conifer Forests,5.0,0.0
+USA,United States,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.1661063827457927E7
+USA,United States,Tropical & Subtropical Dry Broadleaf Forests,2.0,8.261927629908185E7
+USA,United States,Tropical & Subtropical Coniferous Forests,3.0,106631.2739868164
+USA,United States,Temperate Broadleaf & Mixed Forests,4.0,3.4806395251766406E11
+USA,United States,Temperate Conifer Forests,5.0,1.6034499227458408E10
+USA,United States,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.5192152260328833E10
+USA,United States,"Temperate Grasslands, Savannas & Shrublands",8.0,1.0407346854037108E12
+USA,United States,"Mediterranean Forests, Woodlands & Scrub",12.0,2.5410925529192715E9
+USA,United States,Deserts & Xeric Shrublands,13.0,3.782236634317119E10
+ABW,Aruba,Deserts & Xeric Shrublands,13.0,0.0
+CUW,Curaçao,Deserts & Xeric Shrublands,13.0,0.0
+BES,"Bonaire, Saint Eustatius and Saba",Tropical & Subtropical Dry Broadleaf Forests,2.0,0.0
+BES,"Bonaire, Saint Eustatius and Saba",Deserts & Xeric Shrublands,13.0,0.0
+TTO,Trinidad and Tobago,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.0006870023805862E7
+TTO,Trinidad and Tobago,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.643872330652407E7
+FLK,Falkland Islands,"Temperate Grasslands, Savannas & Shrublands",8.0,0.0
+GUF,French Guiana,Tropical & Subtropical Moist Broadleaf Forests,1.0,4449.0126953125
+ARG,Argentina,Temperate Broadleaf & Mixed Forests,4.0,3.917723736862147E7
+ARG,Argentina,"Temperate Grasslands, Savannas & Shrublands",8.0,3.4718422321833795E11
+ARG,Argentina,Montane Grasslands & Shrublands,10.0,4.776108415532782E8
+ARG,Argentina,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,7.83189553988922E10
+ARG,Argentina,Tropical & Subtropical Moist Broadleaf Forests,1.0,3.2830686008530927E9
+BOL,Bolivia,Tropical & Subtropical Moist Broadleaf Forests,1.0,4.0405785376953483E9
+BOL,Bolivia,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.5251850820215765E10
+BOL,Bolivia,Montane Grasslands & Shrublands,10.0,9.958543712010231E8
+BOL,Bolivia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.9501950679872994E9
+BRA,Brazil,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.0171171893708142E11
+BRA,Brazil,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.0275883108133856E11
+BRA,Brazil,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.3372645993534134E10
+CHL,Chile,Temperate Broadleaf & Mixed Forests,4.0,1.9172451564071805E9
+CHL,Chile,"Temperate Grasslands, Savannas & Shrublands",8.0,8780914.269315355
+CHL,Chile,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+CHL,Chile,"Mediterranean Forests, Woodlands & Scrub",12.0,1.862906815334263E9
+CHL,Chile,Montane Grasslands & Shrublands,10.0,7749734.421471929
+CHL,Chile,Deserts & Xeric Shrublands,13.0,2.0503229902607277E7
+COL,Colombia,Tropical & Subtropical Moist Broadleaf Forests,1.0,7.50746270841772E8
+COL,Colombia,Tropical & Subtropical Dry Broadleaf Forests,2.0,3.649444197706919E9
+COL,Colombia,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.8454423358901463E9
+COL,Colombia,Montane Grasslands & Shrublands,10.0,2426354.1564493817
+COL,Colombia,Deserts & Xeric Shrublands,13.0,1.6849368086469106E7
+ECU,Ecuador,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.1235668418317919E9
+ECU,Ecuador,Tropical & Subtropical Dry Broadleaf Forests,2.0,6.314904750881478E8
+ECU,Ecuador,Montane Grasslands & Shrublands,10.0,1.6378647217137955E7
+ECU,Ecuador,Deserts & Xeric Shrublands,13.0,0.0
+GUY,Guyana,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.1285663744079607E9
+GUY,Guyana,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,1.4364673838905487E7
+PER,Peru,Tropical & Subtropical Moist Broadleaf Forests,1.0,1.66432984620642E9
+PER,Peru,Montane Grasslands & Shrublands,10.0,1.4982286820302749E9
+PER,Peru,Deserts & Xeric Shrublands,13.0,2.106360158892884E9
+PER,Peru,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.4295174783170505E9
+PRY,Paraguay,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.4079354650347954E10
+PRY,Paraguay,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.701137300828984E9
+SUR,Suriname,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.3413018363366324E8
+SUR,Suriname,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
+URY,Uruguay,Tropical & Subtropical Moist Broadleaf Forests,1.0,0.0
+URY,Uruguay,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,2.666499454602188E10
+URY,Uruguay,"Temperate Grasslands, Savannas & Shrublands",8.0,1520108.9602443324
+VEN,Venezuela,Tropical & Subtropical Moist Broadleaf Forests,1.0,2.8129532486739117E8
+VEN,Venezuela,Tropical & Subtropical Dry Broadleaf Forests,2.0,1.1362700479441671E9
+VEN,Venezuela,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,3.7735178888996077E9
+VEN,Venezuela,Montane Grasslands & Shrublands,10.0,152888.22953694663
+VEN,Venezuela,Deserts & Xeric Shrublands,13.0,2.0639058806619126E8
+C--,Clipperton Island,"Tropical & Subtropical Grasslands, Savannas & Shrublands",7.0,0.0
