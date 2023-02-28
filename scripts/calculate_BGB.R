@@ -13,7 +13,8 @@ get_metric <- function(pattern, sum_or_mean){
   comb <- dplyr::inner_join(tbs[[1]], tbs[[2]], by=c("ISO3","COUNTRY", "BIOME_NAME","BIOME_NUM"))
   colnames(comb) <- c("BIOME_NAME", "BIOME_NUM","ISO3","NAME", str_extract(gsub(".csv", "", basename(fls[[1]])), "tic|tip"), 
                       str_extract(gsub(".csv", "", basename(fls[[2]])), "tic|tip"))
- 
+  comb$full_name <- countrycode::countrycode(comb$ISO3, "iso3c","country.name")
+  comb <- comb[comb$ISO3!="C--" & comb$ISO3!="P--" & comb$ISO3!="S--",]
   
   #now lets get root:shoot ratios per biome and join with agc per biomeCountry
   #Mokany et al. 2006
@@ -28,34 +29,36 @@ get_metric <- function(pattern, sum_or_mean){
   #multiply aboveground value perBiomeCountry by root:shoot ratio for each biome
   join$crop_bgc_perBiomeCountry <- join$tic*join$`Median Root:Shoot Ratio`
   join$graze_bgc_perBiomeCountry <- join$tip*join$`Median Root:Shoot Ratio`
+  join$crop_total_perBiomeCountry <- rowSums(join[, c("tic","crop_bgc_perBiomeCountry")], na.rm=T)
+  join$graze_total_perBiomeCountry <- rowSums(join[, c("tip","graze_bgc_perBiomeCountry")], na.rm=T)
   
   #calculate your metric of interest per biomeCountry to country level
   country <- join %>%
     group_by(ISO3) %>%
-    summarize(crop_agc_perCountry= sum_or_mean(tic),
-              graze_agc_perCountry = sum_or_mean(tip),
+    summarize(#crop_agc_perCountry= sum_or_mean(tic),
+              #graze_agc_perCountry = sum_or_mean(tip),
               
-              crop_bgc_perCountry= sum_or_mean(crop_bgc_perBiomeCountry),
-              graze_bgc_perCountry = sum_or_mean(graze_bgc_perBiomeCountry),
+              #crop_bgc_perCountry= sum_or_mean(crop_bgc_perBiomeCountry),
+              #graze_bgc_perCountry = sum_or_mean(graze_bgc_perBiomeCountry),
               
-              crop_total_perCountry = sum(crop_bgc_perCountry, crop_agc_perCountry),
-              graze_total_perCountry = sum(graze_bgc_perCountry, graze_agc_perCountry))
-  
-  
-  country$full_name <- countrycode::countrycode(country$ISO3, "iso3c","country.name")
-  country <- country[country$ISO3!="C--" & country$ISO3!="P--" & country$ISO3!="S--",]
+              #crop_total_perCountry = sum(crop_bgc_perCountry, crop_agc_perCountry),
+              #graze_total_perCountry = sum(graze_bgc_perCountry, graze_agc_perCountry))
+              crop_C_perCountry = sum_or_mean(crop_total_perBiomeCountry),
+              graze_C_perCountry = sum_or_mean(graze_total_perBiomeCountry))
+              
   
   biome <- join %>%
     group_by(BIOME_NAME) %>%
-    summarize(crop_agc_perBiome= sum_or_mean(tic),
-              graze_agc_perBiome = sum_or_mean(tip),
+    summarize(#crop_agc_perBiome= sum_or_mean(tic),
+              #graze_agc_perBiome = sum_or_mean(tip),
               
-              crop_bgc_perBiome= sum_or_mean(crop_bgc_perBiomeCountry),
-              graze_bgc_perBiome = sum_or_mean(graze_bgc_perBiomeCountry),
+              #crop_bgc_perBiome= sum_or_mean(crop_bgc_perBiomeCountry),
+              #graze_bgc_perBiome = sum_or_mean(graze_bgc_perBiomeCountry),
               
-              crop_total_perBiome = sum(crop_bgc_perBiome, crop_agc_perBiome),
-              graze_total_perBiome = sum(graze_bgc_perBiome, graze_agc_perBiome))
-
+              #crop_total_perBiome = sum(crop_bgc_perBiome, crop_agc_perBiome),
+              #graze_total_perBiome = sum(graze_bgc_perBiome, graze_agc_perBiome))
+              crop_C_perBiome = sum_or_mean(crop_total_perBiomeCountry),
+              graze_C_perBiome = sum_or_mean(graze_total_perBiomeCountry))
   return(list(country,biome))
   
 }
@@ -66,18 +69,18 @@ get_metric <- function(pattern, sum_or_mean){
 
 sum_or_mean <- function(x){mean(x, na.rm=T)}
 flx <- get_metric(pattern="FluxDensityByBiomeCountry_mean", sum_or_mean = sum_or_mean)
-mean(flx[[1]]$crop_total_perCountry, na.rm=T)
-mean(flx[[1]]$graze_total_perCountry, na.rm=T)
-mean(flx[[2]]$crop_total_perBiome, na.rm=T)
-mean(flx[[2]]$graze_total_perBiome, na.rm=T)
+mean(flx[[1]]$crop_C_perCountry, na.rm=T)
+mean(flx[[1]]$graze_C_perCountry, na.rm=T)
+mean(flx[[2]]$crop_C_perBiome, na.rm=T)
+mean(flx[[2]]$graze_C_perBiome, na.rm=T)
 #why don't these all equal each other??
 
 sum_or_mean <- function(x){sum(x, na.rm=T)}
 cacc <- get_metric(pattern="CarbonAcc",sum_or_mean = sum_or_mean)
-sum(cacc[[1]]$crop_total_perCountry)/1000000000/30 #~15 
-sum(cacc[[1]]$graze_total_perCountry)/1000000000/30 #~14.2
-sum(cacc[[2]]$crop_total_perBiome)/1000000000/30 #~15 
-sum(cacc[[2]]$graze_total_perBiome)/1000000000/30 #~14.2
+sum(cacc[[1]]$crop_C_perCountry)/1000000000/30 #~15 
+sum(cacc[[1]]$graze_C_perCountry)/1000000000/30 #~14.2
+sum(cacc[[2]]$crop_C_perBiome)/1000000000/30 #~15 
+sum(cacc[[2]]$graze_C_perBiome)/1000000000/30 #~14.2
 #these match up with each other so that's good
 #but crop estimates don't match up with crop flux density
 #why?
