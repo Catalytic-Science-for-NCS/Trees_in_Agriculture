@@ -24,6 +24,7 @@ data11<-read_delim("C:/Users/vgriffey/OneDrive - Conservation International Foun
 data11<-data11 %>% 
   transmute(
     id=ID,
+    Name=`Name (First Last):`,
     anova=ANOVA,
     continent=`CONTINENT: Please select the continent you will address in this questionnaire.  Please select only one.  We welcome responses for multiple continents; however; as responses will likely vary by bio...`,
     avgHeight=`TreeAvgMatureHeight(M)R2`,
@@ -38,7 +39,7 @@ data11<-data11 %>%
     cover_allCrops=`AA_3FinalOptimalAcrossAllCrops%cover_GivenR2`  
   )
 #drop unecessary columns
-data11 <- subset(data11, select=c(id,anova, continent, biome, climate, vegetation, cover_byCrop, tph, cover_allCrops, crop))
+data11 <- subset(data11, select=c(id,Name, anova, continent, biome, climate, vegetation, cover_byCrop, tph, cover_allCrops, crop))
 
 #remove % sign
 data11$cover_allCrops <- gsub("%","", data11$cover_allCrops)
@@ -71,7 +72,7 @@ data11 <- data11[!is.na(data11$id),]
 data11_sub <- data11[data11$anova!=2,]
 
 
-#setwd("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Documents/")
+setwd("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Documents/")
 cow <- read.csv("TIA/TIA2_reccs2.csv", check.names = F)
 colnames(cow) <- c("id","anova","Name","continent", "biome_fullName","Ungulate_Code","cover_bySys","cover_all")
 
@@ -124,8 +125,8 @@ data11_sub$C_G <- "Crop"
 cow$C_G <- "Grazing"
 data11_long <- pivot_longer(data11_sub, c("cover_allCrops"))
 cow_long <- pivot_longer(cow, "cover_all")
-tet <- rbind(cow_long[,c("biome_fullName","C_G","name","value")], 
-      data11_long[, c("biome_fullName","C_G", "name", "value")])
+tet <- rbind(cow_long[,c("biome_fullName","C_G","name","value", "Name")], 
+      data11_long[, c("biome_fullName","C_G", "name", "value", "Name")])
 desert_crop <- c("Deserts & Xeric Shrublands", "Crop", "cover_allCrops", 4)
 montane_crop <- c("Montane Grasslands & Shrublands","Crop","cover_allCrops", 27.66667)
 tempgrass_graze <- c("Temperate Grasslands, Savannas, and Shrublands",
@@ -153,7 +154,7 @@ tet <- tet %>% mutate(biome_abbrev = case_when(
   biome_fullName ==  "Tropical & Subtropical Coniferous Forest" ~ "TrSCF",
   biome_fullName ==  "Tropical & Subtropical Grasslands, Savannas, and Shrublands" ~ "TrSGSS"
 ))
-tet$missing <- "no"
+#tet$missing <- "no"
 
 tet_missing <- tet_missing %>% mutate(biome_abbrev = case_when(
   biome_fullName == "Mediterranean Forests, Woodland, & Scrub" ~"MF" ,
@@ -169,7 +170,7 @@ tet_missing <- tet_missing %>% mutate(biome_abbrev = case_when(
   biome_fullName ==  "Tropical & Subtropical Grasslands, Savannas, and Shrublands" ~ "TrSGSS"
 ))
 
-tet_missing$missing <- "yes"
+tet_missing$Name <- "filled_in"
 
 
 
