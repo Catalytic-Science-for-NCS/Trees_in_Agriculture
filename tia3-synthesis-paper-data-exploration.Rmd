@@ -25,13 +25,117 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+#include = TRUE (also this is the default) means in the knitted document, this code chunk will be printed
+#warning=FALSE mutes warnings, which once confirmed not to be problems are just eyesores
+#message=FALSE mutes messages, which once confirmed not to be problems are just eyesores
+
 knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse) #This is a package - code that has lovely functions i want to use in this file
+require(knitr) #This package has a table function that I like; makes nice tables in final doc
+require(RColorBrewer) #This package has great color vectors that are fab for discrete or continous datasets when making graphs
 ```
 
 #Import Datasets
+```{r import data,warning=FALSE, message=FALSE}
+
+synth<-read_delim("tia3-maximum-decadal-calculations.csv",delim=",",col_names=T)%>%
+  transmute(
+    crop=crop,
+    country=country,
+    growth.rate=`mean natural regen growth rate in moist broadleaf forest regions (MgC/ha/yr)`,
+    shade.cover=`% shade tree canopy cover recommendation`,
+    max.extent.ha=`estimated ha in starting point in 2020`,
+    max.extent.mill.ha=`millions of ha in full sun in 2020 (max extent of implementation)`,
+    start=`starting point`,
+    end=`ending point`,
+    flux=`max additional flux density (MgC/ha/yr)`,
+    saturation.point=`saturation point (yr)`,
+    carbon.seq.start=`min MgC/ha`,
+    carbon.seq.end=`max MgC/ha`,
+    carbon.seq.difference=`difference MgC/ha`,
+    years.to.saturation=`years to saturation`
+  )%>%
+  reshape(c(carbon.seq.start,carbon.seq.end))
+  
+#glimpse gives a cute lil look at your variable
+glimpse(synth)
+```
 
 #Make Figures
 ##Map
 
 ##Line Chart
+
+```{r line chart function}
+
+line_chart<-function(crop,data,start="unshaded monoculture",end="traditional polyculture"){
+  #filter data to just crop requested 
+   if(crop!="All"){
+      if(crop=="coffee"){
+        data<-data%>%filter(crop=="coffee")
+        }
+      if(crop=="cacao"){
+        data<-data%>%filter(crop=="cacao")
+        }
+    }
+
+#filter data for correct start and end point
+data<-data%>%filter(start==start&end==end)  
+
+#display graph
+  data%>%
+    ggplot(mapping=aes(x=reason)) +
+      geom_bar(position="fill",aes(fill=reasonImportance))+
+      coord_flip()+
+      labs(y="Proportion of Reponses",x=what2plot,title="Expert Responses",subtitle=paste("Crop:",crop),caption=paste("Mean Natural Regeneration Growth Rate in Moist Broadleaf Forest Across All Plotted Countries",as.character(mean(growth.rate))))+
+   # geom_text(aes(y=1,label=b_or_f,hjust="right"),
+   #           check_overlap = T,
+    #        nudge_y = 0.2) +
+  #guides(color = guide_legend(reverse=TRUE))+
+      theme_minimal()+
+      scale_fill_brewer(type="div",palette="RdYlBu",direction=1,aesthetics=c("fill"))
+}
+
+```
+
+
+{r factor reordering}
+#reorder country based on growth rate
+  #assign a value to reasonImportance
+  data<-data%>%
+    mutate(reasonValue=recode(reasonImportance,"Not Meaningful"=0,"Last"=1,"Eighth"=2,"Seventh"=3,"Sixth"=4,"Fifth"=5,"Fourth"=6,"Third"=7,"Second"=8,"Top"=9))
+
+  #initialize order data frame
+order<-array(data=NA,dim=c(length(unique(data$reason)),4), dimnames=list(NULL,c("reason","sum.b","sum.f","rank")))
+n=1
+  #for each reason, sum the reasonValues separately
+for(r in unique(data$reason)){
+  data.rb<-data%>%
+    filter(reason==r&b_or_f=="boundary")
+  data.rf<-data%>%
+    filter(reason==r&b_or_f=="field")
+  order[n,]<-c(r,
+              sum(data.rb$reasonValue),
+              sum(data.rf$reasonValue),
+              ifelse(min(c(sum(data.rb$reasonValue),sum(data.rf$reasonValue)))==0,
+                sum(sum(data.rb$reasonValue),sum(data.rf$reasonValue)),
+                mean(c(sum(data.rb$reasonValue),sum(data.rf$reasonValue)))
+              )
+  )
+  n=n+1
+}
+
+order<-order%>%
+  as.data.frame()%>%
+  mutate(rank=as.numeric(rank))%>%
+  arrange(rank)
+
+print(order)
+
+reasonOrder<-order$reason
+
+data<-data%>%
+  mutate_at(vars(reason),factor,levels=reasonOrder)%>%
+    filter(reason!="Other"&reason!="None"&!is.na(reason))
+
