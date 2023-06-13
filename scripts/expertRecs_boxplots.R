@@ -15,6 +15,9 @@
 # load libraries
 library(tidyverse)
 library(patchwork)
+library(grid)
+library(pBrackets)
+
 
 # ------------------------------------------------------------------------
 # ------------------------------------------------------------------------
@@ -39,7 +42,7 @@ data11<-data11 %>%
     cover_allCrops=`AA_3FinalOptimalAcrossAllCrops%cover_GivenR2`  
   )
 #drop unecessary columns
-data11 <- subset(data11, select=c(id,Name, anova, continent, biome, climate, vegetation, cover_byCrop, tph, cover_allCrops, crop))
+data11 <- subset(data11, select=c(id, anova, continent, biome, climate, vegetation, cover_byCrop, tph, cover_allCrops, crop))
 
 #remove % sign
 data11$cover_allCrops <- gsub("%","", data11$cover_allCrops)
@@ -125,8 +128,8 @@ data11_sub$C_G <- "Crop"
 cow$C_G <- "Grazing"
 data11_long <- pivot_longer(data11_sub, c("cover_allCrops"))
 cow_long <- pivot_longer(cow, "cover_all")
-tet <- rbind(cow_long[,c("biome_fullName","C_G","name","value", "Name")], 
-      data11_long[, c("biome_fullName","C_G", "name", "value", "Name")])
+tet <- rbind(cow_long[,c("biome_fullName","C_G","name","value")], 
+      data11_long[, c("biome_fullName","C_G", "name", "value")])
 desert_crop <- c("Deserts & Xeric Shrublands", "Crop", "cover_allCrops", 4)
 montane_crop <- c("Montane Grasslands & Shrublands","Crop","cover_allCrops", 27.66667)
 tempgrass_graze <- c("Temperate Grasslands, Savannas, and Shrublands",
@@ -154,7 +157,7 @@ tet <- tet %>% mutate(biome_abbrev = case_when(
   biome_fullName ==  "Tropical & Subtropical Coniferous Forest" ~ "TrSCF",
   biome_fullName ==  "Tropical & Subtropical Grasslands, Savannas, and Shrublands" ~ "TrSGSS"
 ))
-#tet$missing <- "no"
+tet$missing <- "no"
 
 tet_missing <- tet_missing %>% mutate(biome_abbrev = case_when(
   biome_fullName == "Mediterranean Forests, Woodland, & Scrub" ~"MF" ,
@@ -170,7 +173,7 @@ tet_missing <- tet_missing %>% mutate(biome_abbrev = case_when(
   biome_fullName ==  "Tropical & Subtropical Grasslands, Savannas, and Shrublands" ~ "TrSGSS"
 ))
 
-tet_missing$Name <- "filled_in"
+tet_missing$missing <- "yes"
 
 
 
@@ -180,30 +183,48 @@ both$biome_abbrev <- factor(both$biome_abbrev, levels=c("DXS","MF","MGSS","TeGSS
 
 #remove 2 100% recommended cover
 both <- subset(both, both$value!=100)
+#remove coniferous forests (temperate and tropical)
+both <- subset(both, biome_fullName!="Temperate Conifer Forests" & biome_fullName!="Tropical & Subtropical Coniferous Forest")
+#add biome groupings 
+both <- both %>% mutate(climate=case_when(biome_abbrev=="DXS" ~ "Desert",
+                                          biome_abbrev=="MF" ~ "Mediterranean",
+                                          biome_abbrev=="MGSS" ~ "Montane",
+                                          biome_abbrev=="TeBMF"~"Temperate",
+                                          biome_abbrev=="TeGSS"~"Temperate",
+                                          biome_abbrev=="TrSDBF" ~ "Tropical/Subtropical",
+                                          biome_abbrev=="TrSGSS" ~ "Tropical/Subtropical",
+                                          biome_abbrev=="TrSMBF" ~ "Tropical/Subtropical"))
 
 
 n_both <-both %>%
   group_by(C_G, biome_abbrev, missing) %>% 
   tally()
+both <- right_join(n_both, both, by=c("C_G","biome_abbrev", "missing"))
 
 theme = theme_set(theme_minimal())
 theme = theme_update(legend.position="right", legend.title=element_blank(), panel.grid.major.x=element_blank())
-theme = theme_update(axis.line.y = element_blank(), axis.title.y=element_blank(), axis.text.y = element_text(colour="grey"), axis.ticks.y= element_line(colour="grey"))
+theme = theme_update(axis.line.y = element_blank(), axis.title.y=element_blank(), axis.text.y = element_text(colour="grey20"), axis.ticks.y= element_line(colour="grey20"))
 cols= c("#CEAB07", "#798E87")
 
+
+
 bplot <- ggplot(both, aes(x=biome_abbrev, y=value, color=C_G))+ 
-  geom_boxplot(outlier.colour = NULL, aes_string(colour="C_G", fill="C_G"), width = 0.5, position = "dodge")+
-  #stat_summary(fun=mean, geom="line", size=1.5, position=position_dodge(width=0.5))+   #dot for the mean
-  labs(x="Biome", y="Expert Recommended Tree Cover (%)")+
-  #geom_text(data = n_both, aes(biome_abbrev, Inf, label = n, color=C_G), vjust = 1, position=position_dodge(width=0.755))+
-  theme(legend.title = element_blank())+
-  #geom_point(data=tet_missing, aes(x=biome_abbrev, y=value, color=C_G))+
-  geom_text(data=n_both, aes(x=biome_abbrev, y=104, label=n, color=C_G), 
-            size=3.5, vjust = 1, position=position_dodge(width = 0.5))
-bplot <- bplot +   scale_fill_manual(values = cols)+
+  geom_boxplot(outlier.colour = NULL, aes(color=C_G), width = 0.5, position = "dodge")+
+  stat_summary(fun=mean, geom="line", linewidth=1.5, position=position_dodge(width=0.5))+   #line for the mean
+  geom_text(aes(y=104, label=n), 
+           size=3.5, vjust = 1, position=position_dodge(width = 0.5))+
+  facet_wrap(~climate, strip.position = "bottom", scales = "free_x", nrow=1) +
+  theme(legend.title = element_blank(),
+        axis.title.y = element_text( angle = 90),
+        strip.placement = "outside",
+        strip.background=element_rect(color="grey20"))+
+  labs(x="Biome", y="Expert Recommended Tree Cover (%)")
+
+bplot <- bplot +  scale_fill_manual(values = cols)+
   scale_color_manual(values = cols)
+
 
  
 
 ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/expertRecs_boxplots.png",
-       bplot, width=8, height=5, dpi=300, bg="white")
+       bplot, width=10, height=6, dpi=300, bg="white")
