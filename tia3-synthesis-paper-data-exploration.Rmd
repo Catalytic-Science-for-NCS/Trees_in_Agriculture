@@ -25,13 +25,306 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+#include = TRUE (also this is the default) means in the knitted document, this code chunk will be printed
+#warning=FALSE mutes warnings, which once confirmed not to be problems are just eyesores
+#message=FALSE mutes messages, which once confirmed not to be problems are just eyesores
+
 knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse) #This is a package - code that has lovely functions i want to use in this file
+require(knitr) #This package has a table function that I like; makes nice tables in final doc
+require(RColorBrewer) #This package has great color vectors that are fab for discrete or continous datasets when making graphs
+require(rworldmap) #This package will help make world maps
 ```
 
 #Import Datasets
+```{r import data,warning=FALSE, message=FALSE}
+
+synth<-read_delim("tia3-maximum-decadal-predictions.csv",delim=",",col_names=T)%>%
+  transmute(
+    crop=crop,
+    country=recode(country, # fix incorrect country name spellings
+                   "Vietnam"="Viet Nam",
+                   "Cote d'Ivoire"="Côte d'Ivoire",
+                   "Tanzania"="United Republic of Tanzania"),
+    growth.rate=`mean natural regen growth rate in moist broadleaf forest regions (MgC/ha/yr)`, #simplify column name
+    shade.cover=`% shade tree canopy cover recommendation`,#simplify column name
+    max.extent.ha=`estimated ha in starting point in 2020`,#simplify column name
+    max.extent.mill.ha=`millions of ha in full sun in 2020 (max extent of implementation)`,#simplify column name
+    start=`starting point`,#simplify column name
+    end=`ending point`,#simplify column name
+    flux=`max additional flux density (MgC/ha/yr)`,#simplify column name
+    saturation.point=`saturation point (yr)`,#simplify column name
+    carbon.seq.start=`min MgC/ha`,#simplify column name
+    carbon.seq.end=`max MgC/ha`,#simplify column name
+    carbon.seq.difference=`difference MgC/ha`,#simplify column name
+    years.to.saturation=`years to saturation`#simplify column name
+  )
+
+#trim off "world" values and assign ids to rows
+synth<-synth[1:50,]%>%
+  mutate(id=seq(1,50,1))
+  
+#glimpse gives a cute lil look at your variable
+glimpse(synth)
+```
+
+```{r playing around with ways to simplify data}
+
+#key variables I want in final data frame:
+### carbon.seq.rate
+### year
+### country
+### crop
+### start.condition
+### end.condition
+
+#In this chunk I play with two ways to simplify data; ultimately in next chunks i take the best approach: a function to recalculate for each year. the calculator function is best because it gives the user most control and requires minimum input data
+
+#reshaping method - not ideal because doesn't preserve value of saturation year
+test<-synth%>%
+  transmute(
+    crop=crop,
+    country=country,
+    growth.rate=growth.rate,
+    shade.cover,
+    start.condition=start,
+    end.condition=end,
+    carbon.seq.start=carbon.seq.start,
+    carbon.seq.end=carbon.seq.end,
+    id=id
+  )%>%
+  reshape(
+                     direction="long",
+                     varying=c("carbon.seq.start","carbon.seq.end"),
+                     v.name="carbon.seq.rate",
+                     timevar="year",
+                     idvar="id",
+                     times=c("2023","Saturation"),
+                     new.row.names=1:1000
+                     )
+
+
+#joining method - works but uses a lot of computing power for something you'll just recalculate later
+
+synth.2023<-synth%>%
+  transmute(
+    id=id,
+    crop=crop,
+    country=country,
+    growth.rate=growth.rate,
+    shade.cover,
+    start.condition=start,
+    end.condition=end,
+    year=2023,
+    carbon.seq.rate=carbon.seq.start
+  )
+
+synth.saturation<-synth%>%
+  transmute(
+    id=id,
+    crop=crop,
+    country=country,
+    growth.rate=growth.rate,
+    shade.cover,
+    start.condition=start,
+    end.condition=end,
+    year=saturation.point,
+    carbon.seq.rate=carbon.seq.end
+  )
+
+test<-full_join(synth.2023,synth.saturation)
+
+#clear environment of experimental variables
+rm(synth.2023,synth.saturation,test)
+```
+
+```{r simplify data}
+# Simplify the imported data frame to contain only necessary variables. In fact, this code would all work if the imported csv contained only these variables.
+
+simple<-synth%>%
+  transmute(
+    crop=crop,#final variable
+    country=country,#final variable
+    growth.rate=growth.rate, #intermediate variable used for calculations and final variable
+    shade.cover,#intermediate variable used for calculations
+    start.condition=start,#final variable
+    end.condition=end,#final variable
+    carbon.seq.start=carbon.seq.start,#intermediate variable used for calculations
+    carbon.seq.end=carbon.seq.end,#intermediate variable used for calculations
+    id=id #final variable
+  )
+```
+
+
+```{r function for year calcs}
+
+calculate.carbon.seq.rate<-function(data=simple,start.year=2023,end.year){
+  return(
+    data%>%
+      
+    mutate(
+      year=end.year, #create year variable
+      carbon.seq.rate=((end.year-start.year)*growth.rate*shade.cover+carbon.seq.start), #calculate carbon seq rate
+      oversaturated=(carbon.seq.rate>=carbon.seq.end))%>% # oversaturated = TRUE if calculated carbon seq rate is greater than or equal to the maximum possible carbon sequestration rate
+      
+    mutate(
+      carbon.seq.rate=recode(as.character(oversaturated),
+                              "TRUE"=carbon.seq.end, # replaces "oversaturated" values with the maximum carbon sequestration rate
+                              "FALSE"=carbon.seq.rate))%>%
+      
+    transmute( #keep only desired variables
+      id=id,
+      crop=crop,
+      country=country,
+      year=year,
+      carbon.seq.rate=carbon.seq.rate,
+      start.condition=start.condition,
+      end.condition=end.condition,
+      growth.rate=growth.rate
+      )
+      
+    )
+
+}
+    
+```
+
+
+```{r build out data table}
+first.year=2023
+last.year=2050
+
+annual.calculations<-calculate.carbon.seq.rate(data=simple, start.year=first.year,end.year=first.year)
+  
+for(year in seq(first.year+1,last.year,1)){
+  df<-calculate.carbon.seq.rate(data=simple,start.year=first.year,end.year=year)
+  annual.calculations<-rbind(annual.calculations,df)
+}
+
+rm(year,df)
+```
 
 #Make Figures
 ##Map
 
 ##Line Chart
+
+```{r line chart function}
+
+line_chart<-function(crop,data=annual.calculations,start="unshaded monoculture",end="traditional polyculture"){
+  #filter data to just crop requested 
+   if(crop!="All"){
+      if(crop=="coffee"){
+        data<-data%>%filter(crop=="coffee")
+        }
+      if(crop=="cacao"){
+        data<-data%>%filter(crop=="cacao")
+        }
+    }
+
+#filter data for correct start and end point
+data<-data%>%filter(start.condition==start&end.condition==end)  
+
+growth.rate.caption<-paste("We used a linear application of a country and biome-specific natural regeneration growth rate. \nThe mean annual growth rate across countries is",as.character(mean(data$growth.rate)),"Mg/ha/yr.")
+
+#display graph
+  data%>%
+    
+    ggplot(mapping=aes(x=year,y=carbon.seq.rate)) +
+    
+      geom_line(
+        aes(color=country)) +
+            
+      labs(
+        y="Carbon Sequestration Rate",
+        x="Year",
+        title="Technical Potential for Change in Carbon Sequestration Rate",
+        subtitle=paste("Provided a Transition from Sun- to Shade-Grown",crop),
+        caption=growth.rate.caption) +
+   # geom_text(aes(y=1,label=b_or_f,hjust="right"),
+   #           check_overlap = T,
+    #        nudge_y = 0.2) +
+  #guides(color = guide_legend(reverse=TRUE))+
+      theme_classic()+
+      scale_color_hue(h=c(0,180)+15,c=100,l=80)
+      #scale_color_brewer(type="div",palette="Dark2",direction=1,aesthetics=c("color"))
+}
+
+```
+
+```{r plot graphs}
+line_chart(crop="coffee")
+line_chart(crop="cacao")
+
+```
+
+```{r make dataframes for maps}
+
+#import iso3names
+iso3<-read_delim("iso3.csv",delim=",",col_names=T)%>%
+  transmute(country=name,
+            iso3=iso3)
+
+map.data.coffee<-synth%>%
+  filter(start=="unshaded monoculture"&end=="traditional polyculture")%>%
+  transmute(country,crop,saturation.point,growth.rate)%>%
+  filter(crop=="coffee")%>%
+  left_join(iso3,by="country")
+  
+
+map.data.cacao<-synth%>%
+  filter(start=="unshaded monoculture"&end=="traditional polyculture")%>%
+  transmute(country,crop,saturation.point,growth.rate)%>%
+  filter(crop=="cacao")%>%
+  left_join(iso3,by="country")%>%
+  
+
+duplicate<-synth%>%
+  filter(start=="unshaded monoculture"&end=="traditional polyculture")%>%
+  transmute(country=country)%>%
+  duplicated()
+
+country.both.crops<-
+  cbind(synth%>%
+                           filter(start=="unshaded monoculture"&end=="traditional polyculture")%>%
+                           transmute(country=country,crop=crop),
+                         duplicate)%>%
+  transmute(country,
+            crop=recode(as.character(duplicate),
+                "FALSE"=crop,
+                "TRUE"="both"))%>%
+  filter(crop=="both")
+  
+  
+country.one.crop<-synth%>%
+  filter(start=="unshaded monoculture"&end=="traditional polyculture")%>%
+  filter(!(country %in% country.both.crops$country))%>%
+  transmute(country=country,crop=crop)
+  
+map.data.crops<-rbind(country.both.crops,country.one.crop)%>%
+  left_join(iso3,by="country")
+
+rm(duplicate,country.both.crops,country.one.crop)
+```
+
+```{r make maps}
+
+sPDF <- joinCountryData2Map( map.data.coffee, 
+                             joinCode = "ISO3", 
+                             nameJoinColumn = "iso3")
+mapCountryData(sPDF,nameColumnToPlot="crop",
+               catMethod = "categorical",
+               missingCountryCol = gray(.8))
+
+```
+
+reshape(
+                     direction="long",
+                     varying=c("carbon.seq.start","carbon.seq.end"),
+                     v.name="carbon.seq.rate",
+                     timevar="country",
+                     idvar="id",
+                     times=synth$country,
+                     new.row.names=1:1000
+                     )
