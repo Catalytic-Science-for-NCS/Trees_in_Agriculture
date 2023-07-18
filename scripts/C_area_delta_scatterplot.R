@@ -6,11 +6,11 @@ library(terra)
 library(patchwork)
 library(sf)
 
-cts <- read.csv("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Documents/GitHub/Trees_in_Agriculture/data/02_17_2023/country_results_03172023.csv")
+cts <- read.csv("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/country_results_partial_06212023.csv")
 
 cts <- cts[,c("ISO3","NAME","Crop_TotalC_sum_MgC","Graze_TotalC_sum_MgC",
-              "Crop_FluxDensity_mean_MgC.ha_CORRECT", "Graze_FluxDensity_mean_MgC.ha_CORRECT",
-              "CropArea_sum_ha","GrazeArea_sum_ha",
+              "Crop_FluxDensity_mean_MgC.ha.yr", "Graze_FluxDensity_mean_MgC.ha.yr",
+              "CropArea_sum_ha_positiveDelta","GrazeArea_sum_ha_positiveDelta",
              "Crop_Delta_mean_percent","Graze_Delta_mean_percent")]
 #cts$All_TotalC_sum_MgC <- rowSums(cts[,c("Crop_TotalC_sum_MgC","Graze_TotalC_sum_MgC")], na.rm = T)
 #cts$AllArea_sum_ha <- rowSums(cts[,c("CropArea_sum_ha","GrazeArea_sum_ha")], na.rm=T)
@@ -143,15 +143,41 @@ long_updated$int <- paste(long_updated$Rank, long_updated$Rank_group_label, sep=
 long_updated$int <- factor(long_updated$int, levels=c("Global Top 5.flux","Global Bottom 5.flux",
                                                       "Global Top 5.total_mgC","Global Bottom 5.total_mgC",
                                                       "Other Countries.greyedout"))
+#flxunits <- c(expression(paste("Top 5 ",MgCO[2]," ", Ha^-1," ", Yr^-1)))
+
+long_updated$lat_new <- ifelse(long_updated$lat=="Tropical Only", "Tropical Only", "Not Tropical Only")
+long_updated$lat_new <- factor(long_updated$lat_new, levels=c("Tropical Only","Not Tropical Only"))
+
+long_updated$int_new <- ifelse(long_updated$int=="Global Bottom 5.flux" | long_updated$int=="Global Bottom 5.total_mgC",
+                               "Other Countries.greyedout", long_updated$int)
+long_updated$int_new <- ifelse(long_updated$int_new==5, "Other Countries.greyedout", long_updated$int_new)
+#long_updated$int_new <- factor(long_updated$int, levels=c("1","3",
+#                                                      "Other Countries.greyedout"))
+long_updated$Rank_group_label_new <- ifelse(long_updated$int_new=="Other Countries.greyedout","greyedout",long_updated$Rank_group_label)
+long_updated$Rank_group_label_new <- factor(long_updated$Rank_group_label_new, levels=c("flux","total_mgC","greyedout"))
+
+long_updated <- long_updated[order(long_updated$Rank_group_label_new),]
 
 
+
+labss <- c("Top 5 Flux Density", "Bottom 5 Flux Density","Top 5 Total MgC","Bottom 5 Total MgC", "Other Countries")
+#labss <- c("Top 5 Flux Density","Top 5 Total MgC","Other Countries")
 c_ha <- ggplot(data=long_updated[!is.na(long_updated$AgArea_ha),],
-               aes(x=AgArea_ha, y=Delta, color=int))+
+               aes(x=AgArea_ha, y=Delta, fill=int, shape=int, color=int, alpha=int))+
   geom_point(size=2)+
-  facet_grid(lat~Ag.Type)+
-  scale_color_manual(values=c("#a6611a", "#dfc27d","#018571","#80cdc1", "grey"), name="Global Rank",
-                     labels=c("Top 5 Flux Density", "Bottom 5 Flux Density","Top 5 Total MgC","Bottom 5 Total MgC", "Other Countries"))+
-  #scale_shape_manual(values=c(17,1,15, 17,1,15), "Global Rank")+
+  facet_grid(lat_new~Ag.Type)+ 
+  scale_alpha_manual(values=c(1, 0.3, 1, 0.5, 1),
+                     name="Global Rank",
+                     labels=labss)+
+  scale_color_manual(values = c("black","grey","black","grey", "grey"), 
+                     name="Global Rank",
+                     labels=labss) +
+  scale_shape_manual(values=c(24,24,22, 22, 21),
+                     name="Global Rank",
+                     labels=labss) +
+  scale_fill_manual(values=c("#a6611a", "#a6611a","#80cdc1","#80cdc1", "grey"), 
+                    name="Global Rank",
+                    labels=labss)+
   ggrepel::geom_label_repel(data=long_updated[!is.na(long_updated$AgArea_ha) & long_updated$Rank_group_label!="greyedout" ,], 
                            inherit.aes = F, 
                            aes(x=AgArea_ha, y=Delta, label=NAME),
@@ -161,16 +187,15 @@ c_ha <- ggplot(data=long_updated[!is.na(long_updated$AgArea_ha),],
                            min.segment.length = 0,
                            box.padding = 0.15,
                            label.padding = 0.15)+
-  # scale_fill_manual(labels=c("Flux Density (MgC/ha/yr)", "Total MgC/30 years"),
-  #                    values=c("#fc8d59","#91bfdb"),
-  #                   name="Measure")+
-  labs(x="Log10 Area (ha)", y="Mean Delta Tree Cover (%)")+
-  scale_x_log10()+
-  theme(strip.placement = "outside");c_ha
+  labs(x="Area (ha)", y="Mean Additional Tree Cover Potential (%)")+
+  scale_x_continuous(trans = "log10", 
+                     labels = trans_format("log10", math_format(10^.x)))+
+  theme(strip.placement = "outside",
+        panel.spacing = unit(1, "lines"));c_ha
 
 
-ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/draft_main_figure.png",
-       c_ha, width=8, height=8)                 
+ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/Draft Figures/draft_main_figure.png",
+       c_ha, width=8, height=8, bg='white')                 
   
 countries_shp <- vect("../../../../Downloads/countries_shp/countries.shp") %>%
   aggregate("ISO3")

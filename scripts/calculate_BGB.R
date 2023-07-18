@@ -304,21 +304,23 @@ ctry_df <- #inner_join(cover, delta, by="ADM0_CODE")# %>%
 ctry_df$crop_flux <- ctry_df$crop_C_perCountry/(ctry_df$CropArea_ha_positive/1000000)/30/1000000
 ctry_df$graze_flux <- ctry_df$graze_C_perCountry/(ctry_df$GrazeArea_ha_positive/1000000)/30/1000000
 ctry_df$full_name <- countrycode::countrycode(ctry_df$ISO3, "iso3c","country.name")
+ctry_df <- ctry_df %>% select(-c(full_name.x, full_name.y, ADM0_CODE.x, ADM0_CODE.y))
+
 
 colnames(ctry_df) <- c("ISO3",
                        #"Crop_ForestCover_mean_percent_allDelta","Crop_ForestCover_mean_percent_positiveDelta", "Graze_ForestCover_mean_percent_allDelta","Graze_ForestCover_mean_percent_positiveDelta",
                        
                        #"Crop_ExpertRecs_mean_percent", "Graze_ExpertRecs_mean_percent",
                        "CropArea_sum_ha_positiveDelta","GrazeArea_sum_ha_positiveDelta",
-                       "Crop_TotalC_sum_MgC","Graze_TotalC_sum_MgC", "ADM0_CODE",
-                       "Crop_Delta_mean_percent", "Graze_Delta_mean_percent", "NAME",
-                       "Crop_FluxDensity_mean_MgC/ha/yr","Graze_FluxDensity_mean_MgC/ha/yr")
+                       "Crop_TotalC_sum_MgC","Graze_TotalC_sum_MgC",
+                       "Crop_Delta_mean_percent", "Graze_Delta_mean_percent", 
+                       "Crop_FluxDensity_mean_MgC/ha/yr","Graze_FluxDensity_mean_MgC/ha/yr","NAME")
 
 col_order <- c("ISO3","NAME", "Crop_TotalC_sum_MgC","Graze_TotalC_sum_MgC",
                "Crop_FluxDensity_mean_MgC/ha/yr","Graze_FluxDensity_mean_MgC/ha/yr",
-               "CropArea_sum_ha_positiveDelta","GrazeArea_sum_ha_positiveDelta")
+               "CropArea_sum_ha_positiveDelta","GrazeArea_sum_ha_positiveDelta",
                #"Crop_ForestCover_mean_percent_allDelta","Crop_ForestCover_mean_percent_positiveDelta", "Graze_ForestCover_mean_percent_allDelta","Graze_ForestCover_mean_percent_positiveDelta",
-               #"Crop_Delta_mean_percent", "Graze_Delta_mean_percent",
+               "Crop_Delta_mean_percent", "Graze_Delta_mean_percent")
                #"Crop_ExpertRecs_mean_percent", "Graze_ExpertRecs_mean_percent")
 ctry_df <- ctry_df[, col_order]
 

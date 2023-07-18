@@ -200,6 +200,7 @@ n_both <-both %>%
   group_by(C_G, biome_abbrev, missing) %>% 
   tally()
 both <- right_join(n_both, both, by=c("C_G","biome_abbrev", "missing"))
+both$n <- 
 
 theme = theme_set(theme_minimal())
 theme = theme_update(legend.position="right", legend.title=element_blank(), panel.grid.major.x=element_blank())
@@ -209,22 +210,53 @@ cols= c("#CEAB07", "#798E87")
 
 
 bplot <- ggplot(both, aes(x=biome_abbrev, y=value, color=C_G))+ 
-  geom_boxplot(outlier.colour = NULL, aes(color=C_G), width = 0.5, position = "dodge")+
-  stat_summary(fun=mean, geom="line", linewidth=1.5, position=position_dodge(width=0.5))+   #line for the mean
+  geom_boxplot(outlier.colour = NULL, aes(color=C_G), width = 0.5, position = "dodge", show.legend = F)+
+  stat_summary(fun=mean, geom="line", linewidth=1.5, position=position_dodge(width=0.5), show.legend=T)+   #line for the mean
   geom_text(aes(y=104, label=n), 
-           size=3.5, vjust = 1, position=position_dodge(width = 0.5))+
+           size=3.5, vjust = 1, position=position_dodge(width = 0.5), show.legend = F)+
   facet_wrap(~climate, strip.position = "bottom", scales = "free_x", nrow=1) +
   theme(legend.title = element_blank(),
         axis.title.y = element_text( angle = 90),
         strip.placement = "outside",
         strip.background=element_rect(color="grey20"))+
-  labs(x="Biome", y="Expert Recommended Tree Cover (%)")
-
-bplot <- bplot +  scale_fill_manual(values = cols)+
-  scale_color_manual(values = cols)
-
-
+  labs(x="Biome", y="Expert Estimated Tree Cover (%)") +  
+  scale_color_manual(values = cols);bplot
  
 
 ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/expertRecs_boxplots.png",
        bplot, width=10, height=6, dpi=300, bg="white")
+
+
+#### area-weighted mean by climate group for ABACUS label
+crop <- read.csv("GitHub/Trees_in_Agriculture/data/06_21_2023/potapov_area_ha_sum_30m.csv") %>% select(-BIOME_NAME)
+graze <- read.csv("GitHub/Trees_in_Agriculture/data/06_21_2023/ramankutty_area_ha_sum_30m.csv")%>% select(-BIOME_NAME)
+has <- rbind(crop, graze)
+has$C_G <- c(rep("Crop",10), rep("Grazing",10))
+colnames(has) <- c("BIOME_NUM","hectares","C_G")
+
+df <- both %>% mutate(BIOME_NUM = case_when(biome_abbrev=="DXS"~13,
+                                              biome_abbrev=="MF"~12,
+                                              biome_abbrev=="MGSS"~10,
+                                              biome_abbrev=="TeGSS"~8,
+                                              biome_abbrev=="TeBMF"~4,
+                                              biome_abbrev=="TrSGSS"~7,
+                                              biome_abbrev=="TrSDBF"~2,
+                                              biome_abbrev=="TrSMBF"~1)) %>%
+  select(-c(missing, name))
+df <- left_join(df, has, by=c("BIOME_NUM","C_G"))
+
+mns <- df %>%
+  dplyr::group_by(C_G, climate) %>%
+  dplyr::summarize(mn = mean(value, na.rm=T),
+                   wt.mn = weighted.mean(x=value, w=hectares, na.rm=T),
+                   quant25 = quantile(value, probs=c(0.25)),
+                   wt.quant25 = Hmisc::wtd.quantile(value, weights=hectares, probs=c(0.25), type=c('quantile')))
+
+ns <- as.data.frame(matrix(data=NA, nrow=nrow(mns), ncol=3))
+names(ns) <- c("C_G","climate", "n")
+ns$C_G <- mns$C_G
+ns$climate <- mns$climate
+ns$n <- c(1, 4, 1, 16, 22, 4, 4, 2, 7, 21)
+mns <- left_join(mns, ns, by=c("C_G","climate"))
+
+write.csv(mns, "GitHub/Trees_in_Agriculture/data/summary_expertRecs_abacus.csv")

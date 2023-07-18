@@ -1,0 +1,293 @@
+ADM0_CODE,ADM0_NAME,mean
+2647,Montenegro,21.574338054187194
+2648,Serbia,18.678095613363563
+74,South Sudan,16.461089498860428
+6,Sudan,23.439730742221563
+147296,Taiwan,16.600567574593455
+56,Cocos (Keeling) Islands,
+54,Christmas Island,
+16,Ashmore and Cartier Islands,
+82,Faroe Islands,
+88,French Southern and Antarctic Territories,
+161,Mayotte,
+206,R�union,
+247,Tromelin Island,
+131,Juan de Nova Island,
+96,Glorioso Island,
+80,Europa Island,
+25,Bassas da India,
+210,Saint Pierre et Miquelon,
+37,Brazil,17.00036260892128
+250,Turkmenistan,9.825207500695944
+261,Uzbekistan,14.815777147614186
+239,Tajikistan,17.345448963104403
+138,Kyrgyzstan,17.006026039562368
+132,Kazakhstan,9.587618469931309
+167,Mongolia,16.934091090383266
+202,Republic of Korea,
+67,Dem People's Rep of Korea,
+147295,China,17.519115507209353
+171,Myanmar,
+44,Cambodia,6.9626368676187225
+264,Viet Nam,21.949983650335167
+139,Lao People's Democratic Republic,16.289730854307372
+153,Malaysia,14.392857142857142
+240,Thailand,
+40,Brunei Darussalam,
+196,Philippines,
+116,Indonesia,11.706359414292217
+222,Singapore,
+242,Timor-Leste,6.051443016730336
+154,Maldives,
+175,Nepal,15.976998559214383
+188,Pakistan,7.954355115132833
+115,India,17.136724284115054
+117,Iran  (Islamic Republic of),24.39466524234252
+231,Sri Lanka,0.16280718336483932
+31,Bhutan,12.918018556910791
+23,Bangladesh,
+1,Afghanistan,11.334985193431903
+187,Oman,6.257448117845015
+137,Kuwait,
+141,Lebanon,
+201,Qatar,
+215,Saudi Arabia,
+249,Turkey,25.72104479496959
+269,Yemen,9.964437317102002
+118,Iraq,33.087688794410404
+130,Jordan,21.223881274394117
+238,Syrian Arab Republic,20.230425407138576
+121,Israel,
+92,Georgia,24.39980802972793
+64,Cyprus,
+21,Bahrain,
+19,Azerbaijan,15.28945405436765
+13,Armenia,22.749277319828526
+255,United Arab Emirates,
+165,"Moldova, Republic of",
+113,Hungary,28.217019188835586
+198,Poland,14.254491878410349
+203,Romania,16.217397950614313
+254,Ukraine,16.431173823819282
+26,Belarus,22.73179571961689
+65,Czech Republic,
+223,Slovakia,18.515366457884916
+41,Bulgaria,22.45542437845052
+186,Norway,8.429943395302137
+236,Sweden,18.259142319265948
+147,Lithuania,
+140,Latvia,
+119,Ireland,19.140218016273334
+114,Iceland,
+256,U.K. of Great Britain and Northern Ireland,17.815904605047596
+84,Finland,
+78,Estonia,
+69,Denmark,
+241,The former Yugoslav Republic of Macedonia,24.247546930578622
+62,Croatia,18.55327422886528
+156,Malta,
+213,San Marino,
+224,Slovenia,22.403593552563294
+97,Greece,15.359764724687661
+122,Italy,15.830531332881144
+199,Portugal,10.72596531330435
+229,Spain,21.15379795918729
+34,Bosnia and Herzegovina,16.485745620181284
+7,Andorra,26.728754415501278
+3,Albania,16.27142420804608
+166,Monaco,
+177,Netherlands,18.881447218401277
+148,Luxembourg,
+146,Liechtenstein,
+85,France,19.060648868020127
+93,Germany,19.956401498506615
+237,Switzerland,18.185790125096684
+27,Belgium,21.074406167564053
+18,Austria,15.883967796080483
+17,Australia,11.1398983909733
+189,Palau,
+46,Canada,
+46,Canada,
+46,Canada,
+170,Mozambique,16.266296989097338
+160,Mauritius,
+152,Malawi,12.859743573658552
+205,Rwanda,19.548509896798265
+226,Somalia,24.709391115461404
+270,Zambia,12.598564981000601
+133,Kenya,24.09083063675777
+150,Madagascar,17.084973207259377
+220,Seychelles,
+257,United Republic of Tanzania,18.118646135091158
+253,Uganda,15.374099592715721
+271,Zimbabwe,20.19553141381662
+79,Ethiopia,22.954670529933843
+77,Eritrea,22.090147758553883
+70,Djibouti,3.776067196755375
+58,Comoros,
+43,Burundi,18.062615864238232
+89,Gabon,23.485691683890472
+76,Equatorial Guinea,
+50,Chad,23.529014807329393
+214,Sao Tome and Principe,
+59,Congo,21.398481164562096
+68,Democratic Republic of the Congo,15.541771101783253
+45,Cameroon,21.485524906507692
+49,Central African Republic,18.72309379252608
+8,Angola,16.56755803458961
+169,Morocco,20.448592385734713
+145,Libya,20.79735942936065
+248,Tunisia,20.119508050003862
+40765,Egypt,3.6470588235294117
+4,Algeria,19.74887755357262
+172,Namibia,11.865976239674167
+235,Swaziland,17.66094677578874
+142,Lesotho,19.375134108008723
+227,South Africa,11.277000574917821
+35,Botswana,16.185458212380475
+243,Togo,19.990730639588406
+221,Sierra Leone,14.274195774172936
+217,Senegal,21.09924298760615
+182,Nigeria,23.732726243027695
+181,Niger,25.844077012436017
+159,Mauritania,25.918978089831366
+155,Mali,24.616664122476482
+144,Liberia,
+105,Guinea-Bissau,10.045735727826361
+90,Gambia,21.547077727521604
+106,Guinea,13.946896024234237
+94,Ghana,20.66521904669667
+47,Cape Verde,
+66,C�te d'Ivoire,17.78928009079874
+42,Burkina Faso,23.511618163660106
+29,Benin,24.121060978181827
+234,Svalbard and Jan Mayen Islands,
+151,Madeira Islands,
+74578,Azores Islands,
+104,Guernsey,
+128,Jersey,
+38,British Indian Ocean Territory,
+120,Isle of Man,
+110,Holy See,
+98,Greenland,
+268,Western Sahara,
+91,Gaza Strip,
+267,West Bank,
+267,West Bank,
+95,Gibraltar,
+207,Saint Helena,
+149,Macau,
+33364,Hong Kong,
+102,Abyei,20.713604688203034
+193,Paracel Islands,
+218,Senkaku Islands,
+216,Scarborough Reef,
+52,China/India,
+2,Aksai Chin,18.05011661236625
+230,Spratly Islands,
+40781,Jammu and Kashmir,15.918831764759595
+15,Arunachal Pradesh,
+61013,Ilemi triangle,21.9813541725553
+40760,Hala'ib triangle,
+40762,Ma'tan al-Sarra,
+184,Norfolk Island,
+266,Wallis and Futuna,
+87,French Polynesia,
+126,Japan,
+204,Russian Federation,12.063425786818863
+179,New Zealand,12.433462138860234
+17,Australia,22.84517231290469
+17,Australia,19.17110641312138
+192,Papua New Guinea,
+262,Vanuatu,
+225,Solomon Islands,
+83,Fiji,
+157,Marshall Islands,
+173,Nauru,
+163,Micronesia (Federated States of),
+135,Kiribati,
+212,Samoa,
+245,Tonga,
+252,Tuvalu,
+46,Canada,16.852491774720484
+46,Canada,15.623775604513595
+46,Canada,11.52212381216161
+46,Canada,17.44024899942475
+46,Canada,9.593224085893356
+46,Canada,
+46,Canada,
+259,United States of America,12.842008043022512
+259,United States of America,16.09379367976145
+259,United States of America,
+60,Cook Islands,
+183,Niue,
+185,Northern Mariana Islands,
+265,Wake Island,
+127,Jarvis Island,
+178,New Caledonia,
+244,Tokelau,
+101,Guam,
+5,American Samoa,
+136,Kuril islands,
+158,Martinique,
+100,Guadeloupe,
+55,Clipperton Island,
+195,Peru,16.06839948650994
+51,Chile,17.037015302680878
+33,Bolivia,16.111102310695994
+71,Dominica,
+72,Dominican Republic,17.796249870657682
+11,Antigua and Barbuda,
+63,Cuba,7.2556178818090125
+99,Grenada,
+123,Jamaica,
+208,Saint Kitts and Nevis,
+246,Trinidad and Tobago,
+20,Bahamas,
+209,Saint Lucia,
+211,Saint Vincent and the Grenadines,
+24,Barbados,
+108,Haiti,
+191,Panama,13.704688842301055
+75,El Salvador,9.648791758065029
+180,Nicaragua,10.328016346249342
+162,Mexico,5.860900388413966
+111,Honduras,6.860570118564014
+103,Guatemala,13.976259328988824
+61,Costa Rica,12.089320487331152
+28,Belize,
+259,United States of America,20.478520119246483
+259,United States of America,5.728987825299253
+57,Colombia,11.642367658072338
+107,Guyana,21.141742560090883
+73,Ecuador,12.062276897037023
+86,French Guiana,
+194,Paraguay,11.359185286424418
+233,Suriname,
+260,Uruguay,17.932914492468946
+263,Venezuela,11.19876353184455
+176,Netherlands Antilles,
+174,Navassa Island,
+200,Puerto Rico,
+190,Palmyra Atoll,
+164,Midway Island,
+134,Kingman Reef,
+129,Johnston Atoll,
+112,Howland Island,
+22,Baker Island,
+32,Bird Island,
+14,Aruba,
+197,Pitcairn,
+48,Cayman Islands,
+168,Montserrat,
+251,Turks and Caicos islands,
+39,British Virgin Islands,
+9,Anguilla,
+30,Bermuda,
+258,United States Virgin Islands,
+81,Falkland Islands (Malvinas),
+228,South Georgia and the South Sandwich Islands,
+12,Argentina,15.862329775867183
+109,Heard Island and McDonald Islands,
+36,Bouvet Island,
+10,Antarctica,
