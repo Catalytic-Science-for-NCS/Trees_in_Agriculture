@@ -23,7 +23,7 @@ setwd("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Docume
 # ------------------------------------------------------------------------
 
 #read in data and clean up
-data11<-read_delim("anovaData11.csv",delim=",",col_names=T)
+data11<-read_delim("data/anovaData11.csv",delim=",",col_names=T)
 data11<-data11 %>% 
   transmute(
     id=ID,

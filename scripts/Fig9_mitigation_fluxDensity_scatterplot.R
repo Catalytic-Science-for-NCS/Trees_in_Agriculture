@@ -26,7 +26,7 @@ library(scales)
 
 
 #read in results by country
-cts <- read.csv("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Documents/GitHub/Trees_in_Agriculture/data/06_16_2023/country_results_partial_06212023.csv")
+cts <- read.csv("C:/Users/vgriffey/OneDrive - Conservation International Foundation/Documents/GitHub/Trees_in_Agriculture/data/06_21_2023/country_results_06212023.csv")
 
 cts <- cts[,c("ISO3","NAME","Crop_TotalC_sum_MgC","Graze_TotalC_sum_MgC",
               "Crop_FluxDensity_mean_MgC.ha.yr", "Graze_FluxDensity_mean_MgC.ha.yr",
@@ -191,7 +191,7 @@ long_updated$fluxdens_90 <- ifelse(long_updated$Ag.Type=="Cropland", fluxdens_cr
 long_updated$country_label <- ifelse(long_updated$Flux_density<long_updated$fluxdens_90 & long_updated$Total_MgC<long_updated$total_mitigation_90, "label", "nolabel")
 long_updated$country_label[long_updated$NAME=="Cambodia"] <- "label"
 
-
+#write.csv(long_updated, "C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/figure9_outputData.csv")
 
 ## FIGURE 9 time to plot
 labss <- c("Top 5 Flux Density", "Bottom 5 Flux Density","Top 5 Mean Annual Removal","Bottom 5 Mean Annual Removal", "Other Countries")

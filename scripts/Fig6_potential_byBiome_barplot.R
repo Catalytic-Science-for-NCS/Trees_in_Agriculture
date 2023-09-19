@@ -59,6 +59,7 @@ df_long <- subset(df_long, biome_abbrev!="TeCF")
 #conversiont to Pg of CO2
 df_long$value <- df_long$value/1000000000*(44/12)
 
+#write.csv(df_long, "C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/figure6_outputData.csv")
 
 theme = theme_set(theme_minimal())
 ggplot(df_long, aes(x=biome_abbrev, y=value, fill=variable))+
