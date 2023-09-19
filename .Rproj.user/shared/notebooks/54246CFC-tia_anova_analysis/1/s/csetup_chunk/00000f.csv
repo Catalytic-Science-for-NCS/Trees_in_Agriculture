@@ -1,0 +1,7 @@
+"0","#include = TRUE (also this is the default) means in the knitted document, this code chunk will be printed"
+"0","#warning=FALSE mutes warnings, which once confirmed not to be problems are just eyesores"
+"0","#message=FALSE mutes messages, which once confirmed not to be problems are just eyesores"
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0","require(tidyverse) #This is a package - code that has lovely functions i want to use in this file"
+"0","require(knitr) #This package has a table function that I like; makes nice tables in final doc"
+"0","require(RColorBrewer) #This package has great color vectors that are fab for discrete or continous datasets when making graphs"

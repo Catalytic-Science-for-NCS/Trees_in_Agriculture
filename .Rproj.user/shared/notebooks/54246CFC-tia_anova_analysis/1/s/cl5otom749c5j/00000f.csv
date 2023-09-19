@@ -1,0 +1,48 @@
+"0","# %>% is a ""pipe operator"", from the tidyverse package. it says ""pass the result of the function to the left of the operator on, and use it as the input for the function to the right of the pipe operator"
+"0","data11<-data11 %>% "
+"0","  transmute("
+"0","    id=ID,"
+"0","    anova=ANOVA,"
+"0","    continent=`CONTINENT: Please select the continent you will address in this questionnaire.  Please select only one.  We welcome responses for multiple continents; however; as responses will likely vary by bio...`,"
+"0","    avgHeight=`TreeAvgMatureHeight(M)R2`,"
+"0","    avgWidth=`TreeAvgMatureWidth(M)R2`,"
+"0","    treeArea=`Tree Area (m2)RecalculatedR2`,"
+"0","    crop=Crop,"
+"0","    biome=Biome,"
+"0","    climate=Clim,"
+"0","    vegetation=Veg,"
+"0","    percentCover_optimalWithMech=`CS_Final1OptimalCropSpecificTotal TreeCover/ha (%) w/ Mechanization scaled across all cropland by level of mech(CY)GivenR2`,"
+"0","    treesPerHec_optimalOverall=`Tha_2FinalOptimalAcrossAll CropsTrees/ha_GivenR2`,"
+"0","    percentCover_optimalOverall=`AA_3FinalOptimalAcrossAllCrops%cover_GivenR2`  "
+"0","  )"
+"0",""
+"0","#to make it cute, i used camel case (with a bit of snake case) and shortened the names"
+"0","#transmute() tidyverse function  will only keep the columns I list, whereas mutate() tidyverse function would keep all of them. by using transmute i automatically delete the empty columns at the end"
+"0","#i could also use transmute and mutate to modify the data type and do other funky things to the data, but in this case I'm just using it to rename the columns"
+"0",""
+"0","glimpse(data11)"
+"1","Rows: 56"
+"1",""
+"1","
+"
+"1","Columns: 13"
+"1",""
+"1","
+"
+"1","$ id                           [3m[38;5;246m<chr>[39m[23m ""14"", ""8"", ""23"", ""x1"", ""22"", ""21"", ""19"", ""4"", …
+$ anova                        [3m[38;5;246m<dbl>[39m[23m 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1…
+$ continent                    [3m[38;5;246m<chr>[39m[23m ""Asia"", ""Asia"", ""Europe"", ""Europe"", ""North/Cen…
+$ avgHeight                    [3m[38;5;246m<chr>[39m[23m ""18"", ""20"", ""23"", ""20"", ""no data"", ""no data"", …
+$ avgWidth                     [3m[38;5;246m<chr>[39m[23m ""2.25"", ""7.6"", ""6.9"", ""5"", ""11.5"", ""15"", ""6.9""…
+$ treeArea                     [3m[38;5;246m<chr>[39m[23m ""4.2"", ""45.36459792"", ""37.39280656"", ""19.63495…
+$ crop                         [3m[38;5;246m<chr>[39m[23m ""Corn"", ""Corn"", ""Corn"", ""Corn"", ""Corn"", ""Corn""…
+$ biome                        [3m[38;5;246m<chr>[39m[23m ""TBMF"", ""TBMF"", ""TBMF"", ""TBMF"", ""TBMF"", ""TBMF""…
+$ climate                      [3m[38;5;246m<chr>[39m[23m ""Tem"", ""Tem"", ""Tem"", ""Tem"", ""Tem"", ""Tem"", ""Tem…
+$ vegetation                   [3m[38;5;246m<chr>[39m[23m ""F"", ""F"", ""F"", ""F"", ""F"", ""F"", ""F"", ""F"", ""F"", ""…
+$ percentCover_optimalWithMech [3m[38;5;246m<chr>[39m[23m ""25%"", ""40%"", ""13%"", ""10%"", ""26%"", ""75%"", ""62%…
+$ treesPerHec_optimalOverall   [3m[38;5;246m<chr>[39m[23m ""772"", ""88"", ""no data"", ""60"", ""37"", ""42"", ""166…
+$ percentCover_optimalOverall  [3m[38;5;246m<chr>[39m[23m ""32%"", ""40%"", ""4%"", ""12%"", ""38%"", ""75%"", ""62%""…"
+"1",""
+"1","
+"
+"0","View(data11) #View() - note capital V - opens variable in a new tab. nice for scrolling."
