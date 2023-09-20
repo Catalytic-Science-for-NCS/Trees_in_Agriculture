@@ -76,7 +76,8 @@ ggplot(df_long, aes(x=biome_abbrev, y=value, fill=variable))+
         strip.placement = "outside",
         strip.background=element_rect(color="grey20"))+
   scale_y_continuous(expand = c(0, 0), limits=c(0,40))+
-  labs(x="Biome", y=expression(Pg~CO[2]~30~Yr^{-1}))+#parse(text=paste0("Pg", " ~CO[2]", " ~30Yr^-1")))+
+  labs(x="Biome", y=expression(atop(Total~Additional~Mitigation~Potential,
+                                    (Pg~CO[2]~30~Yr^{-1}))))+#parse(text=paste0("Pg", " ~CO[2]", " ~30Yr^-1")))+
   scale_fill_manual(values=c("#CEAB07", "#798E87"), labels=c("Crop","Graze"))
   
 
