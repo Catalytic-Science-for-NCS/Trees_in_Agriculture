@@ -1,6 +1,6 @@
 # Global Carbon Dioxide Removal Potential of Trees in Agriculture
 ## Sprenkle-Hyppolite, S., Griscom, B., Griffey, V., Munshi, E., and Chapman, M.
-## In submission to Global Change Biology 09/19/2023
+## In review, Global Change Biology 09/19/2023
 
 #### data: 
 output files predominantly from Google Earth Engine used for analysis and creating figures
