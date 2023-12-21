@@ -4,13 +4,13 @@
 # ===============
 # PROJECT NAME: TIA
 # ===============
-# Description: Create figure 2-- boxplot of expert elicitations of tree cover
+# Description: Create figure 2-- dotplot of expert elicitations of tree cover
 #
 #
 # ===============
 # AUTHOR: Vivian Griffey
 # Date created: 
-# Date updated:09/18/2023
+# Date updated:12/15/2023
 # ===============
 # load libraries
 library(tidyverse)
@@ -178,24 +178,30 @@ n_both <-both %>%
   tally()
 both <- right_join(n_both, both, by=c("C_G","biome_abbrev", "missing"))
 
+#if sample size 1 or 2, note in column
+#small sample size given hollow dots
+both$n_morethan_2_fill <- ifelse(both$n<3, "No", ifelse(both$C_G=="Crop", "Yes_Crop","Yes_Graze"))
 
 
 theme = theme_set(theme_minimal())
 theme = theme_update(legend.position="right", legend.title=element_blank(), panel.grid.major.x=element_blank())
 theme = theme_update(axis.line.y = element_blank(), axis.title.y=element_blank(), axis.text.y = element_text(colour="grey20"), axis.ticks.y= element_line(colour="grey20"))
 cols= c("#CEAB07", "#798E87")
-#forcommas <- both[both$C_G=="Crop" & both$n==10 | both$n== 9 | both$n==13 |both$n==3,]
+fills= c("#FFFFFF","#CEAB07", "#798E87")
 
 
 bplot <- ggplot(both, aes(x=biome_abbrev, y=value, color=C_G))+ 
-  geom_boxplot(outlier.colour = NULL, aes(color=C_G), width = 0.5, position = "dodge", show.legend = F)+
-  stat_summary(fun=mean, geom="line", linewidth=1.5, position=position_dodge(width=0.5), show.legend=T)+   #line for the mean
+  geom_dotplot(aes(color=C_G, fill=n_morethan_2_fill), binaxis = 'y', stackdir = 'center',
+               dotsize = 0.5, position = position_dodge(width = 0.5), alpha=0.8,
+               show.legend = F) +
+  #stat_summary(aes(color=C_G, fill=n_morethan_2_fill), fun = mean, width=0.3, geom = "crossbar",
+   #            position = position_dodge(width = 0.5), show.legend = F)+
   geom_text(aes(y=104, label=n), 
            size=3.5, vjust = 1, position=position_dodge(width = 0.5), show.legend = F)+
-  geom_text(aes(x=biome_abbrev, y=103), label=",", size=3.5,hjust=0.25, show.legend = F)+
+  geom_text(aes(x=biome_abbrev, y=103), label=",", size=3.5, hjust=0.25, show.legend = F)+
   facet_grid(~climate,  scales = "free_x", space="free", switch = "x") +
   theme(legend.title = element_blank(),
-        axis.title.y = element_text( angle = 90),
+        axis.title.y = element_text(angle = 90),
         strip.placement = "outside",
         strip.background=element_rect(color="grey20"),
         legend.position=c(0.95,0.8),
@@ -203,8 +209,12 @@ bplot <- ggplot(both, aes(x=biome_abbrev, y=value, color=C_G))+
                                          size=0.5, linetype="solid", 
                                          colour ="grey80"))+
   labs(x="Biome", y="Expert Estimated Tree Cover (%)") +  
-  scale_color_manual(values = cols);bplot
- 
+  scale_color_manual(values = cols, name="Legend", labels=c("Crop","Graze"))+
+  scale_fill_manual(values = fills, name="Legend", labels=c("Crop","Graze"))
 
-ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/Draft Figures/expertRecs_boxplots.png",
-       bplot, width=10, height=6, dpi=600, bg="white")
+ p <- bplot + stat_summary(data=subset(both, n>2), aes(color=C_G), fun = mean, width=0.4,
+                                  geom = "crossbar", position = position_dodge(width = 0.5),
+                                  show.legend = F)
+
+ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/Figures_Dec2023_Revision/expertRecs_dotplot.png",
+       p, width=10, height=6, dpi=600, bg="white")
