@@ -131,9 +131,8 @@ tet <- tet %>% mutate(biome_abbrev = case_when(
   biome_fullName ==  "Deserts & Xeric Shrublands" ~ "DXS",
   biome_fullName ==  "Montane Grasslands & Shrublands" ~ "MGSS",
   biome_fullName ==  "Temperate Conifer Forests" ~ "TeCF",
-  biome_fullName ==  "Tropical & Subtropical Coniferous Forest" ~ "TrSCF",
-  biome_fullName ==  "Tropical & Subtropical Grasslands, Savannas, and Shrublands" ~ "TrSGSS"
-))
+  biome_fullName ==  "Tropical & Subtropical Coniferous Forest" ~ "TrSCF"
+  ))
 tet$missing <- "no"
 
 tet_missing <- tet_missing %>% mutate(biome_abbrev = case_when(
@@ -182,6 +181,13 @@ both <- right_join(n_both, both, by=c("C_G","biome_abbrev", "missing"))
 #small sample size given hollow dots
 both$n_morethan_2_fill <- ifelse(both$n<3, "No", ifelse(both$C_G=="Crop", "Yes_Crop","Yes_Graze"))
 
+# biome_results <- read.csv("data/06_21_2023/biome_results_06212023.csv")
+# biome_results_long <- pivot_longer(biome_results, c("Crop_TreeCover_mean_percent_positiveDelta",
+#                                                     "Graze_TreeCover_mean_percent_positiveDelta")) %>%
+#   subset(select= c("BIOME_NAME", "name", "value"))
+# biome_results_long$C_G <- rep(c("Crop","Grazing"), 9)
+# both <- left_join(both, biome_results_long[,c("BIOME_NAME","value","C_G")],
+#                   by=c("biome_fullName"="BIOME_NAME", "C_G"))
 
 theme = theme_set(theme_minimal())
 theme = theme_update(legend.position="right", legend.title=element_blank(), panel.grid.major.x=element_blank())
@@ -208,13 +214,14 @@ bplot <- ggplot(both, aes(x=biome_abbrev, y=value, color=C_G))+
         legend.background = element_rect(fill="white",
                                          size=0.5, linetype="solid", 
                                          colour ="grey80"))+
-  labs(x="Biome", y="Expert Estimated Tree Cover (%)") +  
+  labs(x="Biome", y="Expert Estimated Maximum Optimal Tree Cover (%)") +  
   scale_color_manual(values = cols, name="Legend", labels=c("Crop","Graze"))+
   scale_fill_manual(values = fills, name="Legend", labels=c("Crop","Graze"))
 
  p <- bplot + stat_summary(data=subset(both, n>2), aes(color=C_G), fun = mean, width=0.4,
                                   geom = "crossbar", position = position_dodge(width = 0.5),
                                   show.legend = F)
+  # geom_point(data=both, aes(x=biome_abbrev, y=value.y, color=C_G), show.legend = F);p
 
-ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/Figures_Dec2023_Revision/expertRecs_dotplot.png",
+ggsave("C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/May2024_CBM_Revision/Figures_May2024_Revision/Figure2_expertRecs_dotplot.png",
        p, width=10, height=6, dpi=600, bg="white")

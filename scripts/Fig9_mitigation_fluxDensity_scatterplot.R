@@ -109,24 +109,24 @@ long_updated$tropical_majority <- NULL
 long_updated_crop <- long_updated[long_updated$Ag.Type=="Crop",]
 long_updated_crop <- long_updated_crop[complete.cases(long_updated_crop),]
 
-#create rank of crop flux density
-order.scores<-order(long_updated_crop$Flux_density, long_updated_crop$ISO3, decreasing = T)
-long_updated_crop$flux_rank <- NA
-long_updated_crop$flux_rank[order.scores] <- 1:nrow(long_updated_crop)
-long_updated_crop$flux_rank <- ifelse(is.na(long_updated_crop$Flux_density), NA, long_updated_crop$flux_rank)
-max(long_updated_crop$flux_rank, na.rm = T)
-long_updated_crop$flux_rank <- ifelse(long_updated_crop$flux_rank <=5, "Global Top 5",ifelse(
-  long_updated_crop$flux_rank >= 172, "Global Bottom 5", "Other Countries")
-)
-
-#create rank of crop total mitigation in 30 years
-order.scores<-order(long_updated_crop$Total_MgC, long_updated_crop$ISO3 , decreasing = T)
-long_updated_crop$total_MgC_rank <- NA
-long_updated_crop$total_MgC_rank[order.scores] <- 1:nrow(long_updated_crop)
-max(long_updated_crop$total_MgC_rank, na.rm = T)
-long_updated_crop$total_MgC_rank <- ifelse(long_updated_crop$total_MgC_rank <=5, "Global Top 5",ifelse(
-  long_updated_crop$total_MgC_rank >= 172 , "Global Bottom 5", "Other Countries")
-)
+# #create rank of crop flux density
+# order.scores<-order(long_updated_crop$Flux_density, long_updated_crop$ISO3, decreasing = T)
+# long_updated_crop$flux_rank <- NA
+# long_updated_crop$flux_rank[order.scores] <- 1:nrow(long_updated_crop)
+# long_updated_crop$flux_rank <- ifelse(is.na(long_updated_crop$Flux_density), NA, long_updated_crop$flux_rank)
+# max(long_updated_crop$flux_rank, na.rm = T)
+# long_updated_crop$flux_rank <- ifelse(long_updated_crop$flux_rank <=5, "Global Top 5",ifelse(
+#   long_updated_crop$flux_rank >= 172, "Global Bottom 5", "Other Countries")
+# )
+# 
+# #create rank of crop total mitigation in 30 years
+# order.scores<-order(long_updated_crop$Total_MgC, long_updated_crop$ISO3 , decreasing = T)
+# long_updated_crop$total_MgC_rank <- NA
+# long_updated_crop$total_MgC_rank[order.scores] <- 1:nrow(long_updated_crop)
+# max(long_updated_crop$total_MgC_rank, na.rm = T)
+# long_updated_crop$total_MgC_rank <- ifelse(long_updated_crop$total_MgC_rank <=5, "Global Top 5",ifelse(
+#   long_updated_crop$total_MgC_rank >= 172 , "Global Bottom 5", "Other Countries")
+# )
 
 
 
@@ -136,24 +136,24 @@ long_updated_crop$total_MgC_rank <- ifelse(long_updated_crop$total_MgC_rank <=5,
 long_updated_graz <- long_updated[long_updated$Ag.Type=="Graz",]
 long_updated_graz <- long_updated_graz[complete.cases(long_updated_graz),]
 
-#create rank of grazing flux density
-order.scores <- order(long_updated_graz$Flux_density, long_updated_graz$ISO3, decreasing = T)
-long_updated_graz$flux_rank <- NA
-long_updated_graz$flux_rank[order.scores] <- 1:nrow(long_updated_graz)
-long_updated_graz$flux_rank <- ifelse(is.na(long_updated_graz$Flux_density), NA, long_updated_graz$flux_rank)
-max(long_updated_graz$flux_rank, na.rm = T)
-long_updated_graz$flux_rank <- ifelse(long_updated_graz$flux_rank <=5, "Global Top 5",ifelse(
-  long_updated_graz$flux_rank >= 78, "Global Bottom 5", "Other Countries")
-)
-
-#create rank of grazing total mitigation in 30 years
-order.scores<-order(long_updated_graz$Total_MgC, long_updated_graz$ISO3 , decreasing = T)
-long_updated_graz$total_MgC_rank <- NA
-long_updated_graz$total_MgC_rank[order.scores] <- 1:nrow(long_updated_graz)
-max(long_updated_graz$total_MgC_rank, na.rm = T)
-long_updated_graz$total_MgC_rank <- ifelse(long_updated_graz$total_MgC_rank <=5, "Global Top 5",ifelse(
-   long_updated_graz$total_MgC_rank >= 78, "Global Bottom 5", "Other Countries")
-)
+# #create rank of grazing flux density
+# order.scores <- order(long_updated_graz$Flux_density, long_updated_graz$ISO3, decreasing = T)
+# long_updated_graz$flux_rank <- NA
+# long_updated_graz$flux_rank[order.scores] <- 1:nrow(long_updated_graz)
+# long_updated_graz$flux_rank <- ifelse(is.na(long_updated_graz$Flux_density), NA, long_updated_graz$flux_rank)
+# max(long_updated_graz$flux_rank, na.rm = T)
+# long_updated_graz$flux_rank <- ifelse(long_updated_graz$flux_rank <=5, "Global Top 5",ifelse(
+#   long_updated_graz$flux_rank >= 78, "Global Bottom 5", "Other Countries")
+# )
+# 
+# #create rank of grazing total mitigation in 30 years
+# order.scores<-order(long_updated_graz$Total_MgC, long_updated_graz$ISO3 , decreasing = T)
+# long_updated_graz$total_MgC_rank <- NA
+# long_updated_graz$total_MgC_rank[order.scores] <- 1:nrow(long_updated_graz)
+# max(long_updated_graz$total_MgC_rank, na.rm = T)
+# long_updated_graz$total_MgC_rank <- ifelse(long_updated_graz$total_MgC_rank <=5, "Global Top 5",ifelse(
+#    long_updated_graz$total_MgC_rank >= 78, "Global Bottom 5", "Other Countries")
+# )
 
 
 
@@ -162,18 +162,18 @@ long_updated_graz$total_MgC_rank <- ifelse(long_updated_graz$total_MgC_rank <=5,
 long_updated <- rbind(long_updated_crop, long_updated_graz)
 
 
-#update labels and factors for various columns
-long_updated$flux_rank <- factor(long_updated$flux_rank, levels=c("Global Top 5","Other Countries","Global Bottom 5"))
-long_updated$total_MgC_rank <- factor(long_updated$total_MgC_rank, levels=c("Global Top 5","Other Countries","Global Bottom 5"))
-
-
-long_updated$Rank <- ifelse(long_updated$total_MgC_rank=="Global Top 5" | long_updated$flux_rank=="Global Top 5", "Global Top 5",
-                            ifelse(long_updated$total_MgC_rank=="Global Bottom 5" | long_updated$flux_rank=="Global Bottom 5", "Global Bottom 5", "Other Countries"))
-long_updated$Rank <- factor(long_updated$Rank, levels=c("Global Top 5","Global Bottom 5","Other Countries"))
-
-
-long_updated$Rank_group_label <- ifelse(long_updated$flux_rank=="Global Top 5" | long_updated$flux_rank=="Global Bottom 5" ,"flux",
-                                        ifelse(long_updated$total_MgC_rank=="Global Top 5" | long_updated$total_MgC_rank=="Global Bottom 5", "total_mgC", "greyedout"))
+# #update labels and factors for various columns
+# long_updated$flux_rank <- factor(long_updated$flux_rank, levels=c("Global Top 5","Other Countries","Global Bottom 5"))
+# long_updated$total_MgC_rank <- factor(long_updated$total_MgC_rank, levels=c("Global Top 5","Other Countries","Global Bottom 5"))
+# 
+# 
+# long_updated$Rank <- ifelse(long_updated$total_MgC_rank=="Global Top 5" | long_updated$flux_rank=="Global Top 5", "Global Top 5",
+#                             ifelse(long_updated$total_MgC_rank=="Global Bottom 5" | long_updated$flux_rank=="Global Bottom 5", "Global Bottom 5", "Other Countries"))
+# long_updated$Rank <- factor(long_updated$Rank, levels=c("Global Top 5","Global Bottom 5","Other Countries"))
+# 
+# 
+# long_updated$Rank_group_label <- ifelse(long_updated$flux_rank=="Global Top 5" | long_updated$flux_rank=="Global Bottom 5" ,"flux",
+#                                         ifelse(long_updated$total_MgC_rank=="Global Top 5" | long_updated$total_MgC_rank=="Global Bottom 5", "total_mgC", "greyedout"))
 
 long_updated$Ag.Type <- ifelse(long_updated$Ag.Type=="Graz","Grazing Land","Cropland")
 
@@ -190,6 +190,7 @@ long_updated$total_mitigation_90 <- ifelse(long_updated$Ag.Type=="Cropland", tot
 long_updated$fluxdens_90 <- ifelse(long_updated$Ag.Type=="Cropland", fluxdens_crop_90, fluxdens_graze_90)
 long_updated$country_label <- ifelse(long_updated$Flux_density<long_updated$fluxdens_90 & long_updated$Total_MgC<long_updated$total_mitigation_90, "label", "nolabel")
 long_updated$country_label[long_updated$NAME=="Cambodia"] <- "label"
+
 
 #write.csv(long_updated, "C:/Users/vgriffey/OneDrive - Conservation International Foundation/VivianAnalyses/figure9_outputData.csv")
 
@@ -228,7 +229,8 @@ fig9 <- ggplot(data=long_updated[!is.na(long_updated$AgArea_ha),],
                             label.padding = 0.10,
                             max.overlaps = 5,
                             color="grey40")+
-  labs(x=expression(Total~Annual~Mitigation~Potential~(Pg~CO[2]~Yr^{-1})), y=expression(Mean~Flux~Density~(Mg~CO[2]~Ha^{-1}~Yr^{-1})))+
+  labs(x=expression(Estimated~Total~Annual~Carbon~Dioxide~Removal~Potential~(Pg~CO[2]~Yr^{-1})), y=expression(atop(Estimated~Annual~Carbon~Dioxide~Removal~Potential~Per~Hectare,
+                                                                                        (Mg~CO[2]~Ha^{-1}~Yr^{-1}))))+
   theme(strip.placement = "outside",
         panel.spacing = unit(1, "lines"),
         legend.spacing.y = unit(0.75, 'cm'))+
