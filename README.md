@@ -1,4 +1,4 @@
-# Global Carbon Dioxide Removal Potential of Trees in Agriculture
+# Climate Optimal Tree Cover in Agriculture 
 ## Sprenkle-Hyppolite, S., Griscom, B., Griffey, V., Munshi, E., and Chapman, M.
 ## Submitted, Carbon Balance and Management 12/22/2023
 
