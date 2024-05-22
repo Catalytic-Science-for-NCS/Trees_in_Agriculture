@@ -1,6 +1,6 @@
 # Climate Optimal Tree Cover in Agriculture 
 ## Sprenkle-Hyppolite, S., Griscom, B., Griffey, V., Munshi, E., and Chapman, M.
-## Submitted, Carbon Balance and Management 12/22/2023
+## Resubmitted after incorporating peer review comments, Carbon Balance and Management 5/22/2024
 
 #### data: 
 output files predominantly from Google Earth Engine used for analysis and creating figures
