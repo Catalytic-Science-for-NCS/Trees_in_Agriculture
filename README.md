@@ -1,6 +1,5 @@
-# Climate Optimal Tree Cover in Agriculture 
-## Sprenkle-Hyppolite, S., Griscom, B., Griffey, V., Munshi, E., and Chapman, M.
-## Resubmitted after incorporating peer review comments, Carbon Balance and Management 5/22/2024
+# Maximizing tree carbon in croplands and grazing lands while sustaining yields
+## Sprenkle-Hyppolite, S., Griscom, B., Griffey, V. et al. Maximizing tree carbon in croplands and grazing lands while sustaining yields. Carbon Balance Manage 19, 23 (2024). https://doi.org/10.1186/s13021-024-00268-y
 
 #### data: 
 output files predominantly from Google Earth Engine used for analysis and creating figures
