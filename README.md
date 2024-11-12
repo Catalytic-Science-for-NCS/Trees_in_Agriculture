@@ -11,7 +11,7 @@ other figures without scripts in this folder were created in ArcGIS or internall
 
 
 #### Google Earth Engine Scripts
-Trees in Croplands: https://code.earthengine.google.com/0f610a6ac5b6d088194209a4eb0a21b1
+Trees in Croplands:[ https://code.earthengine.google.com/0f610a6ac5b6d088194209a4eb0a21b1](https://code.earthengine.google.com/a2d57d594e96b6a55f5ea0741b7f843a)
 
 Trees in Grazing Lands: https://code.earthengine.google.com/3c27e1a6360bdcf0133ad04c625c0669
 
